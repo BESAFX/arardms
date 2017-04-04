@@ -90,16 +90,6 @@ public class Initializer implements CommandLineRunner {
         screen.setName("المستخدمون");
         screenService.save(screen);
 
-        screen = new Screen();
-        screen.setCode("TASK");
-        screen.setName("المهام");
-        screenService.save(screen);
-
-        screen = new Screen();
-        screen.setCode("TASK_OPERATION");
-        screen.setName("حركات المهام");
-        screenService.save(screen);
-
         Iterator<Screen> iterator = screenService.findAll().iterator();
 
         while (iterator.hasNext()) {

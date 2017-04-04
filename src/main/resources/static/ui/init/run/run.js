@@ -1,5 +1,5 @@
-app.run(['$http', '$location', '$state', '$window', 'notifyCode', 'PersonService', '$rootScope', '$log', '$stomp', 'defaultErrorMessageResolver', 'ModalProvider',
-    function ($http, $location, $state, $window, notifyCode, PersonService, $rootScope, $log, $stomp, defaultErrorMessageResolver, ModalProvider) {
+app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope', '$log', '$stomp', 'defaultErrorMessageResolver', 'ModalProvider',
+    function ($http, $location, $state, $window, PersonService, $rootScope, $log, $stomp, defaultErrorMessageResolver, ModalProvider) {
 
         defaultErrorMessageResolver.getErrorMessages().then(function (errorMessages) {
             errorMessages['fieldRequired'] = 'هذا الحقل مطلوب';
@@ -11,81 +11,56 @@ app.run(['$http', '$location', '$state', '$window', 'notifyCode', 'PersonService
             switch (toState.name) {
                 case 'home': {
                     $rootScope.pageTitle = 'لوحة التحكم';
-                    $rootScope.pageTitleIcon = 'fa fa-desktop';
                     $rootScope.MDLIcon = 'widgets';
-                    $rootScope.helpUrl = '/ui/partials/help/realTimeData.html';
                     break;
                 }
                 case 'menu': {
                     $rootScope.pageTitle = 'البرامج';
-                    $rootScope.pageTitleIcon = 'fa fa-laptop';
                     $rootScope.MDLIcon = 'dashboard';
                     break;
                 }
                 case 'company': {
                     $rootScope.pageTitle = 'الشركات';
-                    $rootScope.pageTitleIcon = 'fa fa-fort-awesome';
                     $rootScope.MDLIcon = 'account_balance';
                     break;
                 }
                 case 'region': {
                     $rootScope.pageTitle = 'المناطق';
-                    $rootScope.pageTitleIcon = 'fa fa-map-marker';
                     $rootScope.MDLIcon = 'place';
                     break;
                 }
                 case 'branch': {
                     $rootScope.pageTitle = 'الفروع';
-                    $rootScope.pageTitleIcon = 'fa fa-cubes';
                     $rootScope.MDLIcon = 'layers';
                     break;
                 }
                 case 'department': {
                     $rootScope.pageTitle = 'الأقسام';
-                    $rootScope.pageTitleIcon = 'fa fa-sitemap';
                     $rootScope.MDLIcon = 'store';
                     break;
                 }
                 case 'employee': {
                     $rootScope.pageTitle = 'الموظفون';
-                    $rootScope.pageTitleIcon = 'fa fa-user-circle';
                     $rootScope.MDLIcon = 'people_online';
                     break;
                 }
                 case 'team': {
                     $rootScope.pageTitle = 'مجموعة الصلاحيات';
-                    $rootScope.pageTitleIcon = 'fa fa-shield';
                     $rootScope.MDLIcon = 'settings_input_composite';
                     break;
                 }
                 case 'person': {
                     $rootScope.pageTitle = 'المستخدمون';
-                    $rootScope.pageTitleIcon = 'fa fa-user';
                     $rootScope.MDLIcon = 'lock';
                     break;
                 }
                 case 'profile': {
                     $rootScope.pageTitle = 'الملف الشخصي';
-                    $rootScope.pageTitleIcon = 'fa fa-info-circle';
-                    $rootScope.helpUrl = '/ui/partials/help/profile.html';
                     $rootScope.MDLIcon = 'info';
-                    break;
-                }
-                case 'task': {
-                    $rootScope.pageTitle = 'إدارة المهام';
-                    $rootScope.pageTitleIcon = 'fa fa-tasks';
-                    $rootScope.MDLIcon = 'assignment';
-                    break;
-                }
-                case 'reportModel': {
-                    $rootScope.pageTitle = 'نماذج الطباعة';
-                    $rootScope.pageTitleIcon = 'fa fa-print';
-                    $rootScope.MDLIcon = 'description';
                     break;
                 }
                 case 'help': {
                     $rootScope.pageTitle = 'المساعدة';
-                    $rootScope.pageTitleIcon = 'fa fa-info-circle';
                     $rootScope.MDLIcon = 'help';
                     break;
                 }
@@ -256,15 +231,7 @@ app.run(['$http', '$location', '$state', '$window', 'notifyCode', 'PersonService
         $rootScope.chats = [];
         $stomp.connect('/ws').then(function () {
             $stomp.subscribe('/user/queue/notify', function (payload, headers, res) {
-                if (payload.code === notifyCode.CHAT) {
-                    $rootScope.chats.push(payload);
-                    if (!$rootScope.$$phase) {
-                        $rootScope.$apply();
-                    }
-                    $rootScope.showNotify(payload.title, payload.message, payload.type, payload.icon);
-                } else {
-                    $rootScope.showNotify(payload.title, payload.message, payload.type, payload.icon);
-                }
+                $rootScope.showNotify(payload.title, payload.message, payload.type, payload.icon);
             }, {'headers': 'notify'});
         });
         $rootScope.today = new Date();
@@ -294,12 +261,6 @@ app.run(['$http', '$location', '$state', '$window', 'notifyCode', 'PersonService
         };
         $rootScope.goToPerson = function () {
             $state.go('person');
-        };
-        $rootScope.goToReportModel = function () {
-            $state.go('reportModel');
-        };
-        $rootScope.goToTask = function () {
-            $state.go('task');
         };
         $rootScope.goToHome = function () {
             $state.go('home');

@@ -10,7 +10,7 @@ app.controller("companyCtrl", ['CompanyService', 'ModalProvider', 'FileService',
                 $scope.setSelected(data[0]);
                 $rootScope.showNotify("الشركات", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-bank");
                 angular.forEach(data, function (company) {
-                    if(company.logo){
+                    if (company.logo) {
                         FileService.getSharedLink(company.logo).then(function (data) {
                             return company.companyLogo = data;
                         });

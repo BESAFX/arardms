@@ -146,7 +146,8 @@
                                 <td st-select-row-custom="employee">{{employee.department.name}}</td>
                                 <td st-select-row-custom="employee">{{employee.department.branch.name}}</td>
                                 <td st-select-row-custom="employee">{{employee.department.branch.region.name}}</td>
-                                <td st-select-row-custom="employee">{{employee.department.branch.region.company.name}}</td>
+                                <td st-select-row-custom="employee">{{employee.department.branch.region.company.name}}
+                                </td>
                             </tr>
                             <tr class="blank_row"
                                 style="height: 10px !important; background-color: #FFFFFF;"
@@ -172,10 +173,14 @@
                                 <strong>القسم / {{employee.department.name}}</strong>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <button ng-click="openUpdateModel(employee)" ng-if="contains(authorities, ['ROLE_EMPLOYEE_UPDATE'])" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                <button ng-click="openUpdateModel(employee)"
+                                        ng-if="contains(authorities, ['ROLE_EMPLOYEE_UPDATE'])"
+                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                     <span>تعديل</span>
                                 </button>
-                                <button ng-click="delete(employee)" ng-if="contains(authorities, ['ROLE_EMPLOYEE_DELETE'])" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                <button ng-click="delete(employee)"
+                                        ng-if="contains(authorities, ['ROLE_EMPLOYEE_DELETE'])"
+                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                     <span>حذف</span>
                                 </button>
                             </div>

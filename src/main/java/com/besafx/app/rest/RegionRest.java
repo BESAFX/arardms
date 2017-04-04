@@ -75,7 +75,7 @@ public class RegionRest {
             notificationService.notifyAllExceptMe(Notification
                     .builder()
                     .title("العمليات على المناطق")
-                    .message("تم تعديل بيانات المنطقة رقم " + region.getCode() +  " بواسطة " + personService.findByEmail(principal.getName()).getName())
+                    .message("تم تعديل بيانات المنطقة رقم " + region.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
                     .type("warning")
                     .icon("fa-map-marker")
                     .build());

@@ -23,7 +23,7 @@ app.controller('branchCreateUpdateCtrl', ['BranchService', 'PersonService', 'Reg
 
         if (branch) {
             $scope.branch = branch;
-            if(branch.logo){
+            if (branch.logo) {
                 FileService.getSharedLink(branch.logo).then(function (data) {
                     $scope.logoLink = data;
                 });

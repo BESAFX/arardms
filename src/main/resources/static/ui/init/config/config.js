@@ -26,35 +26,6 @@ var app = angular.module('Application',
         'timer'
     ]);
 
-app.constant('notifyCode', {
-
-    CHAT: 'CHAT',
-
-    CREATE_COMPANY: 'CREATE_COMPANY',
-    UPDATE_COMPANY: 'UPDATE_COMPANY',
-    DELETE_COMPANY: 'DELETE_COMPANY',
-
-    CREATE_BRANCH: 'CREATE_BRANCH',
-    UPDATE_BRANCH: 'UPDATE_BRANCH',
-    DELETE_BRANCH: 'DELETE_BRANCH',
-
-    CREATE_DEPARTMENT: 'CREATE_DEPARTMENT',
-    UPDATE_DEPARTMENT: 'UPDATE_DEPARTMENT',
-    DELETE_DEPARTMENT: 'DELETE_DEPARTMENT',
-
-    CREATE_EMPLOYEE: 'CREATE_EMPLOYEE',
-    UPDATE_EMPLOYEE: 'UPDATE_EMPLOYEE',
-    DELETE_EMPLOYEE: 'DELETE_EMPLOYEE',
-
-    CREATE_PERSON: 'CREATE_PERSON',
-    UPDATE_PERSON: 'UPDATE_PERSON',
-    DELETE_PERSON: 'DELETE_PERSON',
-
-    CREATE_TEAM: 'CREATE_TEAM',
-    UPDATE_TEAM: 'UPDATE_TEAM',
-    DELETE_TEAM: 'DELETE_TEAM',
-});
-
 app.factory('errorInterceptor', ['$q', '$rootScope', '$location', '$log',
     function ($q, $rootScope, $location, $log) {
         return {
@@ -105,35 +76,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
             views: {
                 '': {
                     templateUrl: "/ui/partials/home/home.html",
-                    controller: "homeCtrl",
-                },
-                'incomingOperations@home': {
-                    templateUrl: "/ui/partials/home/incomingOperations.html",
-                    controller: "incomingOperationsCtrl"
-                },
-                'outgoingOperations@home': {
-                    templateUrl: "/ui/partials/home/outgoingOperations.html",
-                    controller: "outgoingOperationsCtrl"
-                },
-                'incomingTasks@home': {
-                    templateUrl: "/ui/partials/home/incomingTasks.html",
-                    controller: "incomingTasksCtrl"
-                },
-                'outgoingTasks@home': {
-                    templateUrl: "/ui/partials/home/outgoingTasks.html",
-                    controller: "outgoingTasksCtrl"
-                },
-                'closeRequests@home': {
-                    templateUrl: "/ui/partials/home/closeRequests.html",
-                    controller: "closeRequestsCtrl"
-                },
-                'closedSoonIncoming@home': {
-                    templateUrl: "/ui/partials/home/closedSoonIncoming.html",
-                    controller: "closedSoonIncomingCtrl"
-                },
-                'closedSoonOutgoing@home': {
-                    templateUrl: "/ui/partials/home/closedSoonOutgoing.html",
-                    controller: "closedSoonOutgoingCtrl"
+                    controller: "homeCtrl"
                 }
             }
         });
@@ -246,28 +189,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
             url: "/profile",
             templateUrl: "/ui/partials/profile/profile.html",
             controller: "profileCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
-         * Task State                                                 *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("task", {
-            url: "/task",
-            templateUrl: "/ui/partials/task/task.html",
-            controller: "taskCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
-         * ReportModel State                                          *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("reportModel", {
-            url: "/reportModel",
-            templateUrl: "/ui/partials/reportModel/reportModel.html",
-            controller: "reportModelCtrl"
         });
     }
 ]);

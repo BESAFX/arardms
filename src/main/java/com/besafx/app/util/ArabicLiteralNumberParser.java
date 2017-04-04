@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- *
  * @author MazenB
  */
 public class ArabicLiteralNumberParser {

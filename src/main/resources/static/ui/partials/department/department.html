@@ -155,10 +155,14 @@
                                 <strong>المدير / {{department.manager.name}}</strong>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <button ng-click="openUpdateModel(department)" ng-if="contains(authorities, ['ROLE_DEPARTMENT_UPDATE'])" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                <button ng-click="openUpdateModel(department)"
+                                        ng-if="contains(authorities, ['ROLE_DEPARTMENT_UPDATE'])"
+                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                     <span>تعديل</span>
                                 </button>
-                                <button ng-click="delete(department)" ng-if="contains(authorities, ['ROLE_DEPARTMENT_DELETE'])" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                <button ng-click="delete(department)"
+                                        ng-if="contains(authorities, ['ROLE_DEPARTMENT_DELETE'])"
+                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                     <span>حذف</span>
                                 </button>
                             </div>

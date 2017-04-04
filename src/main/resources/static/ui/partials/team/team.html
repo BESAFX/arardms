@@ -28,23 +28,30 @@
         <div class="mdl-layout__header-row" style="height: auto!important;padding: 0px !important;">
             <div class="panel panel-body" style="width: 100%; margin-bottom: 0px !important;">
                 <div class="col-md-2 full-width-menu pull-right">
-                    <button id="team-menu-lower-right" style="width: 100%;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                    <button id="team-menu-lower-right" style="width: 100%;"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
                         <span>العمليات</span>
                     </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="team-menu-lower-right">
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                        for="team-menu-lower-right">
                         <li class="mdl-menu__item" ng-click="reload()">
                             <span>تحديث</span>
                         </li>
                         <li class="mdl-menu__item" ng-click="fetchTableData()">
                             <span>عرض</span>
                         </li>
-                        <li class="mdl-menu__item" ng-click="openCreateModel()" ng-if="contains(authorities, ['ROLE_TEAM_CREATE'])">
+                        <li class="mdl-menu__item" ng-click="openCreateModel()"
+                            ng-if="contains(authorities, ['ROLE_TEAM_CREATE'])">
                             <span>اضافة</span>
                         </li>
-                        <li class="mdl-menu__item" ng-click="openUpdateModel()" ng-if="contains(authorities, ['ROLE_TEAM_UPDATE']) && toggleList===1" ng-hide="!teams || teams.length==0">
+                        <li class="mdl-menu__item" ng-click="openUpdateModel()"
+                            ng-if="contains(authorities, ['ROLE_TEAM_UPDATE']) && toggleList===1"
+                            ng-hide="!teams || teams.length==0">
                             <span>تعديل</span>
                         </li>
-                        <li class="mdl-menu__item" ng-click="remove()" ng-if="contains(authorities, ['ROLE_TEAM_DELETE']) && toggleList===1" ng-hide="!teams || teams.length==0">
+                        <li class="mdl-menu__item" ng-click="remove()"
+                            ng-if="contains(authorities, ['ROLE_TEAM_DELETE']) && toggleList===1"
+                            ng-hide="!teams || teams.length==0">
                             <span>حذف</span>
                         </li>
                     </ul>
@@ -79,7 +86,8 @@
             <div class="col-md-12" ng-show="toggleList===1">
                 <div class="panel panel-body">
                     <div class="table-responsive">
-                        <table st-table="collection" st-safe-src="teams" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                        <table st-table="collection" st-safe-src="teams"
+                               class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 
                             <thead>
                             <tr>
@@ -130,10 +138,13 @@
                                 <strong>عدد المستخدمين / {{team.persons.length}}</strong>
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <button ng-click="openUpdateModel(team)" ng-if="contains(authorities, ['ROLE_TEAM_UPDATE'])" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                <button ng-click="openUpdateModel(team)"
+                                        ng-if="contains(authorities, ['ROLE_TEAM_UPDATE'])"
+                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                     <span>تعديل</span>
                                 </button>
-                                <button ng-click="delete(team)" ng-if="contains(authorities, ['ROLE_TEAM_DELETE'])" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                <button ng-click="delete(team)" ng-if="contains(authorities, ['ROLE_TEAM_DELETE'])"
+                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                                     <span>حذف</span>
                                 </button>
                             </div>
