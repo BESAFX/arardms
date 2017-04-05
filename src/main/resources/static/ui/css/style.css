@@ -272,3 +272,9 @@ input[type=checkbox] {
 .activity {
     direction: rtl !important;
 }
+
+.card-square {
+    margin: 10px;
+    min-height: 150px;
+    background-color: #e91e63;
+}
