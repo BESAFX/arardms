@@ -54,6 +54,16 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                     $rootScope.MDLIcon = 'lock';
                     break;
                 }
+                case 'contact': {
+                    $rootScope.pageTitle = 'جهات الاتصال الخارجية';
+                    $rootScope.MDLIcon = 'contact_mail';
+                    break;
+                }
+                case 'operation': {
+                    $rootScope.pageTitle = 'المعاملات';
+                    $rootScope.MDLIcon = 'swap_horiz';
+                    break;
+                }
                 case 'profile': {
                     $rootScope.pageTitle = 'الملف الشخصي';
                     $rootScope.MDLIcon = 'info';
@@ -102,7 +112,7 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
 
         $rootScope.showNotify = function (title, message, type, icon) {
             noty({
-                layout: 'bottomLeft',
+                layout: 'topLeft',
                 theme: 'metroui', // or relax
                 type: type, // success, error, warning, information, notification
                 text: '<div class="activity-item text-right"><span>' + title + '</span> <i class="fa ' + icon + '"></i><div class="activity">' + message + '</div></div>',
@@ -110,11 +120,11 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                 force: false, // [boolean] adds notification to the beginning of queue when set to true
                 maxVisible: 3, // [integer] you can set max visible notification count for dismissQueue true option,
                 template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-                timeout: 5000, // [integer|boolean] delay for closing event in milliseconds. Set false for sticky notifications
+                timeout: 1500, // [integer|boolean] delay for closing event in milliseconds. Set false for sticky notifications
                 progressBar: true, // [boolean] - displays a progress bar
                 animation: {
-                    open: 'animated bounce',
-                    close: 'animated bounceOutLeft',
+                    open: 'animated fadeIn',
+                    close: 'animated fadeOut',
                     easing: 'swing',
                     speed: 500 // opening & closing animation speed
                 },
@@ -234,6 +244,7 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                 $rootScope.showNotify(payload.title, payload.message, payload.type, payload.icon);
             }, {'headers': 'notify'});
         });
+
         $rootScope.today = new Date();
 
         /**************************************************************
@@ -261,6 +272,12 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
         };
         $rootScope.goToPerson = function () {
             $state.go('person');
+        };
+        $rootScope.goToContact = function () {
+            $state.go('contact');
+        };
+        $rootScope.goToOperation = function () {
+            $state.go('operation');
         };
         $rootScope.goToHome = function () {
             $state.go('home');

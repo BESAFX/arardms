@@ -9,7 +9,7 @@ app.controller('employeeCreateUpdateCtrl', ['EmployeeService', 'DepartmentServic
         };
 
         $scope.fetchPersonData = function () {
-            PersonService.findAll().then(function (data) {
+            PersonService.findPersons().then(function (data) {
                 $scope.persons = data;
                 $rootScope.showNotify("الموظفين", "تم تحميل بيانات المستخدمين بنجاح", "success", "fa-user-circle");
             });

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -34,6 +35,8 @@ public class Person implements Serializable {
 
     private String identityNumber;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String photo;
 
     private String qualification;
@@ -49,6 +52,10 @@ public class Person implements Serializable {
     private String optionThemeName;
 
     private Boolean active;
+
+    //True  -> Person
+    //False -> Consignee
+    private Boolean type;
 
     @ManyToOne
     @JoinColumn(name = "Team")

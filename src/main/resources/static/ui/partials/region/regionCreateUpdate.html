@@ -55,6 +55,7 @@
                                     ng-model="region.company"
                                     focus-index="1"
                                     required="required"
+                                    ng-disabled="action=='update'"
                                     disable-validation-message=""
                                     ng-options="company.name for company in companies track by company.id">
                             </select>

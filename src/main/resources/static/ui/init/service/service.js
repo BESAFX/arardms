@@ -313,6 +313,112 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
 
     /**************************************************************
      *                                                            *
+     * Contact Model                                               *
+     *                                                            *
+     *************************************************************/
+    this.openContactCreateModel = function () {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/contact/contactCreateUpdate.html',
+            controller: 'contactCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'xlg',
+            resolve: {
+                title: function () {
+                    return 'اضافة جهة اتصال جديدة';
+                },
+                action: function () {
+                    return 'create';
+                },
+                contact: function () {
+                    return undefined;
+                }
+            }
+        });
+    };
+
+    this.openContactUpdateModel = function (contact) {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/contact/contactCreateUpdate.html',
+            controller: 'contactCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'xlg',
+            resolve: {
+                title: function () {
+                    return 'تعديل بيانات جهة اتصال';
+                },
+                action: function () {
+                    return 'update';
+                },
+                contact: function () {
+                    return contact;
+                }
+            }
+        });
+    };
+
+    /**************************************************************
+     *                                                            *
+     * Operation Model                                            *
+     *                                                            *
+     *************************************************************/
+    this.openOperationCreateModel = function () {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/operation/operationCreateUpdate.html',
+            controller: 'operationCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'xlg',
+            resolve: {
+                title: function () {
+                    return 'اضافة عملية جديدة';
+                },
+                action: function () {
+                    return 'create';
+                },
+                operation: function () {
+                    return undefined;
+                }
+            }
+        });
+    };
+
+    this.openOperationUpdateModel = function (operation) {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/operation/operationCreateUpdate.html',
+            controller: 'operationCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            windowClass: 'xlg',
+            resolve: {
+                title: function () {
+                    return 'تعديل بيانات عملية';
+                },
+                action: function () {
+                    return 'update';
+                },
+                operation: function () {
+                    return operation;
+                }
+            }
+        });
+    };
+
+    /**************************************************************
+     *                                                            *
      * Team Model                                                 *
      *                                                            *
      *************************************************************/

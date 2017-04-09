@@ -2,7 +2,7 @@ app.controller('branchCreateUpdateCtrl', ['BranchService', 'PersonService', 'Reg
     function (BranchService, PersonService, RegionService, FileUploader, FileService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, branch) {
 
         $scope.fetchPersonData = function () {
-            PersonService.findAll().then(function (data) {
+            PersonService.findPersons().then(function (data) {
                 $scope.persons = data;
                 $rootScope.showNotify("الفروع", "تم تحميل بيانات المستخدمين بنجاح", "success", "fa-cubes");
             });

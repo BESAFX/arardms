@@ -7,10 +7,9 @@
 (function () {
     'use strict';
 
-    angular.module('kdate')
-
-        .directive('kdatepicker', function ($filter, $log) {
-            return {
+    angular
+        .module('kdate')
+        .directive('kdatepicker', ['$filter', '$log', function ($filter, $log) {return {
                 restrict: 'A',
                 scope: '=ngModel',
                 require: 'ngModel',
@@ -102,6 +101,5 @@
                         }
                     });
                 }
-            }
-        });
+            }}]);
 })();

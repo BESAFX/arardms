@@ -56,6 +56,8 @@ public class PartialController {
             "/employee",
             "/team",
             "/person",
+            "/contact",
+            "/operation",
             "/help",
             "/profile"
     })

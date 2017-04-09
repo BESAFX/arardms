@@ -160,6 +160,28 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
 
         /**************************************************************
          *                                                            *
+         * Contact State                                              *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("contact", {
+            url: "/contact",
+            templateUrl: "/ui/partials/contact/contact.html",
+            controller: "contactCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
+         * Operation State                                            *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("operation", {
+            url: "/operation",
+            templateUrl: "/ui/partials/operation/operation.html",
+            controller: "operationCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
          * Team State                                                 *
          *                                                            *
          *************************************************************/

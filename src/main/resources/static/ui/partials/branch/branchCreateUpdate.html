@@ -17,16 +17,6 @@
 
             <div class="col-sm-6">
                 <div class="panel panel-info">
-                    <div class="panel-heading">الشعار الرسمي</div>
-                    <div class="panel-body">
-                        <input type="file" nv-file-select="" uploader="uploader"/>
-                        <img ng-src="{{logoLink}}" style="width: 100%; height: 400px"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="panel panel-info">
                     <div class="panel-heading">البيانات الاساسية</div>
                     <div class="panel-body">
 
@@ -137,6 +127,7 @@
                                     ng-model="branch.region"
                                     focus-index="1"
                                     required="required"
+                                    ng-disabled="action=='update'"
                                     disable-validation-message=""
                                     ng-options="region.name for region in regions track by region.id">
                             </select>
@@ -156,6 +147,16 @@
                             </select>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">الشعار الرسمي</div>
+                    <div class="panel-body">
+                        <input type="file" nv-file-select="" uploader="uploader"/>
+                        <img ng-src="{{logoLink}}" style="width: 100%; height: 400px"/>
                     </div>
                 </div>
             </div>

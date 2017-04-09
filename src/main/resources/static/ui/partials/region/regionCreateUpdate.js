@@ -2,7 +2,7 @@ app.controller('regionCreateUpdateCtrl', ['RegionService', 'PersonService', 'Com
     function (RegionService, PersonService, CompanyService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, region) {
 
         $scope.fetchPersonData = function () {
-            PersonService.findAll().then(function (data) {
+            PersonService.findPersons().then(function (data) {
                 $scope.persons = data;
                 $rootScope.showNotify("المناطق", "تم تحميل بيانات المستخدمين بنجاح", "success", "fa-map-marker");
             });

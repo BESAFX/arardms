@@ -7,13 +7,11 @@
 (function () {
     'use strict';
 
-    angular.module('kdate')
-        .filter('kdate', kdate);
+    angular.module('kdate').filter('kdate', kdate);
 
     kdate.$inject = ['$filter'];
 
-    function kdate($filter) {
-        return function (input, dateformat, language, calendarType) {
+    function kdate($filter) {return function (input, dateformat, language, calendarType) {
             if (!input)
                 return;
 
@@ -55,6 +53,5 @@
             } else {
                 return $filter('date')(input, dateformat);
             }
-        }
-    }
+        }}
 })();

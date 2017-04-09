@@ -1,0 +1,439 @@
+<form dir="rtl" name="form" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-stack=""
+      focus-group-head="loop" focus-group-tail="loop">
+
+    <div class="modal-header">
+        <h3 class="modal-title text-center" id="modal-title">{{title}}</h3>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+
+        <div class="row">
+
+            <div class="form-group text-right col-md-12" ng-show="form.$invalid && form.$submitted">
+                <div class="alert alert-danger" role="alert">
+                    <strong>فضلاً اكمل الحقول المطلوبة</strong>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">البيانات الاساسية</div>
+                    <div class="panel-body">
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="fromType" class="control-label">
+                                <span>نوع جهة التصدير</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير نوع نوع جهة التصدير"></span>
+                            </label>
+                            <select id="fromType"
+                                    placeholder="اختر نوع جهة التصدير"
+                                    class="form-control text-right"
+                                    ng-model="operation.fromType"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="1">
+                                <option value="Company">الشركات</option>
+                                <option value="Region">المناطق</option>
+                                <option value="Branch">الفروع</option>
+                                <option value="Department">الاقسام</option>
+                                <option value="Person">الافراد</option>
+                                <option value="Client">الجهات الخارجية</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Company'">
+                            <label for="fromCompanyId" class="control-label">
+                                <span>صادر من شركة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الشركة"></span>
+                            </label>
+                            <select id="fromCompanyId"
+                                    data-placeholder="ابحث عن اسم الشركة"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الشركة'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.fromId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Region'">
+                            <label for="fromRegionId" class="control-label">
+                                <span>صادر من منطقة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير المنطقة"></span>
+                            </label>
+                            <select id="fromRegionId"
+                                    data-placeholder="ابحث عن اسم المنطقة"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر المنطقة'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.fromId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Branch'">
+                            <label for="fromBranchId" class="control-label">
+                                <span>صادر من فرع</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الفرع"></span>
+                            </label>
+                            <select id="fromBranchId"
+                                    data-placeholder="ابحث عن اسم الفرع"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرع'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.fromId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Department'">
+                            <label for="fromDepartmentId" class="control-label">
+                                <span>صادر من قسم</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير القسم"></span>
+                            </label>
+                            <select id="fromDepartmentId"
+                                    data-placeholder="ابحث عن اسم القسم"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر القسم'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.fromId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Person'">
+                            <label for="fromPersonId" class="control-label">
+                                <span>صادر من فرد</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الفرد"></span>
+                            </label>
+                            <select id="fromPersonId"
+                                    data-placeholder="ابحث عن اسم الفرد"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرد'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.fromId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Client'">
+                            <label for="fromClientId" class="control-label">
+                                <span>صادر من جهة خارجية</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الجهة خارجية"></span>
+                            </label>
+                            <select id="fromClientId"
+                                    data-placeholder="ابحث عن اسم الجهة خارجية"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الجهة خارجية'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.fromId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="toType" class="control-label">
+                                <span>نوع جهة الاستيراد</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير نوع نوع جهة الاستيراد"></span>
+                            </label>
+                            <select id="toType"
+                                    placeholder="اختر نوع جهة الاستيراد"
+                                    class="form-control text-right"
+                                    ng-model="operation.toType"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="3">
+                                <option value="Company">الشركات</option>
+                                <option value="Region">المناطق</option>
+                                <option value="Branch">الفروع</option>
+                                <option value="Department">الاقسام</option>
+                                <option value="Person">الافراد</option>
+                                <option value="Client">الجهات الخارجية</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.toType==='Company'">
+                            <label for="toCompanyId" class="control-label">
+                                <span>وارد إلى شركة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الشركة"></span>
+                            </label>
+                            <select id="toCompanyId"
+                                    data-placeholder="ابحث عن اسم الشركة"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الشركة'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.toId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.toType==='Region'">
+                            <label for="toRegionId" class="control-label">
+                                <span>وارد إلى منطقة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير المنطقة"></span>
+                            </label>
+                            <select id="toRegionId"
+                                    data-placeholder="ابحث عن اسم المنطقة"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر المنطقة'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.toId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.toType==='Branch'">
+                            <label for="toBranchId" class="control-label">
+                                <span>وارد إلى فرع</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الفرع"></span>
+                            </label>
+                            <select id="toBranchId"
+                                    data-placeholder="ابحث عن اسم الفرع"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرع'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.toId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.toType==='Department'">
+                            <label for="toDepartmentId" class="control-label">
+                                <span>وارد إلى قسم</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير القسم"></span>
+                            </label>
+                            <select id="toDepartmentId"
+                                    data-placeholder="ابحث عن اسم القسم"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر القسم'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.toId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.toType==='Person'">
+                            <label for="toPersonId" class="control-label">
+                                <span>وارد إلى فرد</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الفرد"></span>
+                            </label>
+                            <select id="toPersonId"
+                                    data-placeholder="ابحث عن اسم الفرد"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرد'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.toId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12" ng-if="operation.toType==='Client'">
+                            <label for="toClientId" class="control-label">
+                                <span>وارد إلى جهة خارجية</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الجهة خارجية"></span>
+                            </label>
+                            <select id="toClientId"
+                                    data-placeholder="ابحث عن اسم الجهة خارجية"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الجهة خارجية'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="operation.toId"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="2"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-sm-12">
+                            <label for="startDate" class="control-label">تاريخ بداية العملية</label>
+                            <div dir="ltr" class="input-group">
+                                <input dir="rtl"
+                                       id="startDate"
+                                       type="text"
+                                       focus-index="5"
+                                       class="form-control text-right is-calendarPicker"
+                                       ng-model="operation.startDate"
+                                       required="required"
+                                       calendarType="ummalqura"
+                                       language="en"
+                                       dateFormat="yyyy/mm/dd"
+                                       showOnFocus="false"
+                                       readonly="readonly"
+                                       kdatepicker
+                                       disable-validation-message="">
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="title" class="control-label">العنوان</label>
+                            <input id="title"
+                                   type="text"
+                                   focus-index="6"
+                                   required="required"
+                                   disable-validation-message=""
+                                   class="form-control text-right"
+                                   placeholder="عنوان العملية"
+                                   ng-model="operation.title">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="content" class="control-label">الوصف</label>
+                            <textarea id="content"
+                                      type="text"
+                                      focus-index="7"
+                                      msd-elastic="\n"
+                                      required="required"
+                                      class="form-control text-right"
+                                      disable-validation-message=""
+                                      placeholder="اذكر باختصار وصفاً عن ماهية العملية"
+                                      ng-model="operation.content">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="note" class="control-label">ملاحظات</label>
+                            <textarea id="note"
+                                      type="text"
+                                      focus-index="8"
+                                      msd-elastic="\n"
+                                      required="required"
+                                      class="form-control text-right"
+                                      disable-validation-message=""
+                                      placeholder="ملاحظات"
+                                      ng-model="operation.note">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="operationTos" class="control-label">
+                                <span>تحويل إلى الأفراد</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تحويل العلمية لعدد غير محدود من الأفراد"></span>
+                            </label>
+                            <select id="operationTos"
+                                    data-placeholder="ابحث عن اسم الفرد"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-multiple="'اختر الفرد'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    multiple
+                                    ng-model="operationTos"
+                                    focus-index="9"
+                                    ng-options="person.name for person in persons track by person.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="locked" class="control-label">
+                                <span>الحالة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="سرية الوثائق"></span>
+                            </label>
+                            <select id="locked"
+                                    placeholder="اختر حالة الوثائق"
+                                    class="form-control text-right"
+                                    ng-model="operation.locked"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-index="10">
+                                <option value="true">سرية</option>
+                                <option value="false">غير سرية</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">الوثائق والمستندات</div>
+                    <div class="panel-body">
+                        <input type="file" nv-file-select="" uploader="uploader"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <div class="form-group col-md-12" role="group">
+            <button type="button"
+                    focus-index="5"
+                    ng-click="cancel()"
+                    class="btn btn-danger pull-left">
+                <span>خروج</span>
+                <i class="fa fa-power-off  fa-lg"></i>
+            </button>
+            <button type="reset"
+                    focus-index="4"
+                    class="btn btn-info pull-left">
+                <span>مسح الحقول</span>
+                <i class="fa fa-recycle  fa-lg"></i>
+            </button>
+            <button ng-show="action=='update'"
+                    type="submit"
+                    focus-index="3"
+                    class="btn btn-warning pull-right">
+                <span>تعديل</span>
+                <i class="fa fa-edit fa-lg"></i>
+            </button>
+            <button ng-show="action=='create'"
+                    type="submit"
+                    focus-index="2"
+                    class="btn btn-success pull-right">
+                <span>اضافة</span>
+                <i class="fa fa-plus-square fa-lg"></i>
+            </button>
+        </div>
+
+    </div>
+
+</form>

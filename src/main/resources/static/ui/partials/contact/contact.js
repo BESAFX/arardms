@@ -1,18 +1,18 @@
-app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
+app.controller("contactCtrl", ['PersonService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
     function (PersonService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("حسابات المستخدمين", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل حسابات المستخدمين", "warning", "fa-user");
-            PersonService.findPersons().then(function (data) {
-                $scope.persons = data;
+            $rootScope.showNotify("جهات الاتصال", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل جهات الاتصال", "warning", "fa-user");
+            PersonService.findContacts().then(function (data) {
+                $scope.contacts = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("حسابات المستخدمين", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
-                angular.forEach(data, function (person) {
-                    if (person.photo) {
-                        FileService.getSharedLink(person.photo).then(function (data) {
-                            return person.pic = data;
+                $rootScope.showNotify("جهات الاتصال", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
+                angular.forEach(data, function (contact) {
+                    if (contact.photo) {
+                        FileService.getSharedLink(contact.photo).then(function (data) {
+                            return contact.pic = data;
                         });
                     }
                 })
@@ -21,12 +21,12 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
 
         $scope.setSelected = function (object) {
             if (object) {
-                angular.forEach($scope.persons, function (person) {
-                    if (object.id == person.id) {
-                        $scope.selected = person;
-                        return person.isSelected = true;
+                angular.forEach($scope.contacts, function (contact) {
+                    if (object.id == contact.id) {
+                        $scope.selected = contact;
+                        return contact.isSelected = true;
                     } else {
-                        return person.isSelected = false;
+                        return contact.isSelected = false;
                     }
                 });
             }
@@ -37,24 +37,24 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
         };
 
         $scope.openCreateModel = function () {
-            ModalProvider.openPersonCreateModel();
+            ModalProvider.openContactCreateModel();
         };
 
-        $scope.openUpdateModel = function (person) {
-            if (person) {
-                ModalProvider.openPersonUpdateModel(person);
+        $scope.openUpdateModel = function (contact) {
+            if (contact) {
+                ModalProvider.openContactUpdateModel(contact);
                 return;
             }
-            ModalProvider.openPersonUpdateModel($scope.selected);
+            ModalProvider.openContactUpdateModel($scope.selected);
         };
 
-        $scope.openReportPersonsModel = function () {
-            ModalProvider.openPersonsReportModel($scope.persons);
+        $scope.openReportContactsModel = function () {
+            ModalProvider.openContactsReportModel($scope.contacts);
         };
 
-        $scope.delete = function (person) {
-            if (person) {
-                PersonService.remove(person);
+        $scope.delete = function (contact) {
+            if (contact) {
+                PersonService.remove(contact);
                 return;
             }
             PersonService.remove($scope.selected);
@@ -76,7 +76,7 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.openUpdateModel($itemScope.person);
+                    $scope.openUpdateModel($itemScope.contact);
                 }
             },
             {
@@ -85,7 +85,7 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.delete($itemScope.person);
+                    $scope.delete($itemScope.contact);
                 }
             },
             {
@@ -94,7 +94,7 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.openReportPersonsModel();
+                    $scope.openReportContactsModel();
                 }
             }
         ];

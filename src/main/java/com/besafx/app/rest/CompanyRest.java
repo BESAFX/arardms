@@ -48,13 +48,13 @@ public class CompanyRest {
                 .type("success")
                 .icon("fa-fort-awesome")
                 .build(), principal.getName());
-        notificationService.notifyAllExceptMe(Notification
-                .builder()
-                .title("العمليات على الشركات")
-                .message("تم اضافة شركة جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
-                .type("warning")
-                .icon("fa-fort-awesome")
-                .build());
+//        notificationService.notifyAllExceptMe(Notification
+//                .builder()
+//                .title("العمليات على الشركات")
+//                .message("تم اضافة شركة جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
+//                .type("warning")
+//                .icon("fa-fort-awesome")
+//                .build());
         return company;
     }
 
@@ -72,13 +72,13 @@ public class CompanyRest {
                     .type("success")
                     .icon("fa-fort-awesome")
                     .build(), principal.getName());
-            notificationService.notifyAllExceptMe(Notification
-                    .builder()
-                    .title("العمليات على الشركات")
-                    .message("تم تعديل بيانات الشركة رقم " + company.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-                    .type("warning")
-                    .icon("fa-fort-awesome")
-                    .build());
+//            notificationService.notifyAllExceptMe(Notification
+//                    .builder()
+//                    .title("العمليات على الشركات")
+//                    .message("تم تعديل بيانات الشركة رقم " + company.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
+//                    .type("warning")
+//                    .icon("fa-fort-awesome")
+//                    .build());
             return company;
         } else {
             return null;

@@ -1,110 +1,66 @@
 package com.besafx.app.controller;
 
-import com.dropbox.core.DbxException;
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.v2.DbxClientV2;
-import com.dropbox.core.v2.sharing.SharedLinkMetadata;
-import net.sf.jasperreports.engine.JRException;
+import com.besafx.app.config.DropboxManager;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.annotation.PostConstruct;
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.concurrent.Future;
 
 @RestController
 public class FileUploadController {
 
-    private static final String ACCESS_TOKEN = "lwXbn73MQTAAAAAAAAAACtvJCtgSD7Rp5hwd7V8jM2V4O9I8c9javetzqM49b1-Y";
+    @Autowired
+    private DropboxManager dropboxManager;
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseBody
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws JRException, IOException {
+    private SecureRandom random;
 
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").withUserLocale("en_US").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
-        try {
-            client.files().uploadBuilder("/".concat(file.getOriginalFilename())).uploadAndFinish(file.getInputStream());
-        } catch (DbxException e) {
-            e.printStackTrace();
-        }
-
-        return getPathLower("/".concat(file.getOriginalFilename()));
+    @PostConstruct
+    public void init() {
+        random = new SecureRandom();
     }
 
-    @RequestMapping(value = "/uploadFileAndGetShared", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/uploadOperationAttach/{operationId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String uploadFileAndGetShared(@RequestParam("file") MultipartFile file) throws JRException, IOException {
-
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").withUserLocale("en_US").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
-        try {
-            client.files().uploadBuilder("/".concat(file.getOriginalFilename())).uploadAndFinish(file.getInputStream());
-        } catch (DbxException e) {
-            e.printStackTrace();
+    public String uploadOperationAttach(@PathVariable(value = "operationId") Long operationId, @RequestParam("file") MultipartFile file) throws Exception {
+        String fileName = new BigInteger(130, random).toString(32) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+        Future<Boolean> task = dropboxManager.uploadFile(file, "/arardms/operations/" + operationId + "/" + fileName);
+        if (task.get()) {
+            Future<String> task11 = dropboxManager.shareFile("/arardms/operations/" + operationId + "/" + fileName);
+            return task11.get();
+        } else {
+            return null;
         }
-
-        return getSharedLink(getPathLower("/".concat(file.getOriginalFilename())));
     }
 
-    @RequestMapping(value = "/getSharedLink", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/uploadOperationCommentAttach/{operationCommentId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String getSharedLink(@RequestParam(value = "path") String path) {
-
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").withUserLocale("en_US").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
-        SharedLinkMetadata metadata = null;
-        String link = null;
-        try {
-            metadata = client.sharing().createSharedLinkWithSettings(path);
-            link = metadata.getUrl().replaceAll("dl=0", "raw=1");
-        } catch (DbxException e) {
-            System.out.println(e.getMessage());
-            try {
-                link = client
-                        .sharing()
-                        .listSharedLinksBuilder()
-                        .withPath(path)
-                        .withDirectOnly(true).start().getLinks().get(0).getUrl().replaceAll("dl=0", "raw=1");
-            } catch (DbxException e1) {
-                System.out.println(e.getMessage());
-            }
+    public String uploadFileAndGetShared(@PathVariable(value = "operationCommentId") Long operationCommentId, @RequestParam("file") MultipartFile file) throws Exception {
+        String fileName = new BigInteger(130, random).toString(32) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+        Future<Boolean> task = dropboxManager.uploadFile(file, "/arardms/operationComments/" + operationCommentId + "/" + fileName);
+        if (task.get()) {
+            Future<String> task11 = dropboxManager.shareFile("/arardms/operationComments/" + operationCommentId + "/" + fileName);
+            return task11.get();
+        } else {
+            return null;
         }
-
-        return link;
     }
 
-    @RequestMapping(value = "/getPathLower", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+    @RequestMapping(value = "/uploadContactLogo", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     @ResponseBody
-    public String getPathLower(String url) {
-
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").withUserLocale("en_US").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
-        SharedLinkMetadata metadata = null;
-        String link = null;
-        try {
-            metadata = client.sharing().createSharedLinkWithSettings(url);
-            link = metadata.getPathLower();
-        } catch (DbxException e) {
-            System.out.println(e.getMessage());
-            try {
-                link = client
-                        .sharing()
-                        .listSharedLinksBuilder()
-                        .withPath(url)
-                        .withDirectOnly(true).start().getLinks().get(0).getPathLower();
-            } catch (DbxException e1) {
-                System.out.println(e.getMessage());
-            }
+    public String uploadContactLogo(@RequestParam("file") MultipartFile file) throws Exception {
+        String fileName = new BigInteger(130, random).toString(32) + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+        Future<Boolean> task = dropboxManager.uploadFile(file, "/arardms/contacts/" + fileName);
+        if (task.get()) {
+            Future<String> task11 = dropboxManager.shareFile("/arardms/contacts/" + fileName);
+            return task11.get();
+        } else {
+            return null;
         }
-
-        return link;
     }
 }

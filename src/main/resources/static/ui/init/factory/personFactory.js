@@ -6,6 +6,16 @@ app.factory("PersonService",
                     return response.data;
                 });
             },
+            findPersons: function () {
+                return $http.get("/api/person/findPersons").then(function (response) {
+                    return response.data;
+                });
+            },
+            findContacts: function () {
+                return $http.get("/api/person/findContacts").then(function (response) {
+                    return response.data;
+                });
+            },
             findOne: function (id) {
                 return $http.get("/api/person/findOne/" + id).then(function (response) {
                     return response.data;
@@ -16,11 +26,21 @@ app.factory("PersonService",
                     return response.data;
                 });
             },
+            createContact: function (contact) {
+                return $http.post("/api/person/createContact", contact).then(function (response) {
+                    return response.data;
+                });
+            },
             remove: function (id) {
                 return $http.delete("/api/person/delete/" + id);
             },
             update: function (person) {
                 return $http.put("/api/person/update", person).then(function (response) {
+                    return response.data;
+                });
+            },
+            updateContact: function (person) {
+                return $http.put("/api/person/updateContact", person).then(function (response) {
                     return response.data;
                 });
             },

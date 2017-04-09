@@ -43,13 +43,13 @@ public class TeamRest {
                 .type("success")
                 .icon("fa-shield")
                 .build(), principal.getName());
-        notificationService.notifyAllExceptMe(Notification
-                .builder()
-                .title("العمليات على المجموعات")
-                .message("تم اضافة مجموعة صلاحيات جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
-                .type("warning")
-                .icon("fa-shield")
-                .build());
+//        notificationService.notifyAllExceptMe(Notification
+//                .builder()
+//                .title("العمليات على المجموعات")
+//                .message("تم اضافة مجموعة صلاحيات جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
+//                .type("warning")
+//                .icon("fa-shield")
+//                .build());
         return team;
     }
 
@@ -67,13 +67,13 @@ public class TeamRest {
                     .type("success")
                     .icon("fa-shield")
                     .build(), principal.getName());
-            notificationService.notifyAllExceptMe(Notification
-                    .builder()
-                    .title("العمليات على مجموعات المستخدمين")
-                    .message("تم تعديل بيانات المجموعة " + team.getName() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-                    .type("warning")
-                    .icon("fa-shield")
-                    .build());
+//            notificationService.notifyAllExceptMe(Notification
+//                    .builder()
+//                    .title("العمليات على مجموعات المستخدمين")
+//                    .message("تم تعديل بيانات المجموعة " + team.getName() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
+//                    .type("warning")
+//                    .icon("fa-shield")
+//                    .build());
             return team;
         } else {
             return null;

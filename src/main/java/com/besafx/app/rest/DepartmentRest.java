@@ -48,13 +48,13 @@ public class DepartmentRest {
                 .type("success")
                 .icon("fa-sitemap")
                 .build(), principal.getName());
-        notificationService.notifyAllExceptMe(Notification
-                .builder()
-                .title("العمليات على الأقسام")
-                .message("تم اضافة قسم جديد بواسطة " + personService.findByEmail(principal.getName()).getName())
-                .type("warning")
-                .icon("fa-sitemap")
-                .build());
+//        notificationService.notifyAllExceptMe(Notification
+//                .builder()
+//                .title("العمليات على الأقسام")
+//                .message("تم اضافة قسم جديد بواسطة " + personService.findByEmail(principal.getName()).getName())
+//                .type("warning")
+//                .icon("fa-sitemap")
+//                .build());
         return department;
     }
 
@@ -72,13 +72,13 @@ public class DepartmentRest {
                     .type("success")
                     .icon("fa-sitemap")
                     .build(), principal.getName());
-            notificationService.notifyAllExceptMe(Notification
-                    .builder()
-                    .title("العمليات على الأقسام")
-                    .message("تم تعديل بيانات القسم رقم " + department.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-                    .type("warning")
-                    .icon("fa-sitemap")
-                    .build());
+//            notificationService.notifyAllExceptMe(Notification
+//                    .builder()
+//                    .title("العمليات على الأقسام")
+//                    .message("تم تعديل بيانات القسم رقم " + department.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
+//                    .type("warning")
+//                    .icon("fa-sitemap")
+//                    .build());
             return department;
         } else {
             return null;

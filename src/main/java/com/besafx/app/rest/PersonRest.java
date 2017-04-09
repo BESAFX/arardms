@@ -37,11 +37,12 @@ public class PersonRest {
 
     @RequestMapping(value = "create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_PERSON_CREATE')")
+    @PreAuthorize("hasRole('ROLE_PERSON_CREATE') or hasRole('ROLE_CONTACT_CREATE')")
     public Person create(@RequestBody Person person, Principal principal) {
         if (personService.findByEmail(person.getEmail()) != null) {
             throw new CustomException("هذا البريد الإلكتروني غير متاح ، فضلاً ادخل بريد آخر غير مستخدم");
         }
+        person.setType(true);
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setEnabled(true);
         person.setTokenExpired(false);
@@ -54,19 +55,31 @@ public class PersonRest {
                 .type("success")
                 .icon("fa-user")
                 .build(), principal.getName());
-        notificationService.notifyAllExceptMe(Notification
+        return person;
+    }
+
+    @RequestMapping(value = "createContact", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_CONTACT_CREATE')")
+    public Person createContact(@RequestBody Person person, Principal principal) {
+        if (personService.findByEmail(person.getEmail()) != null) {
+            throw new CustomException("هذا البريد الإلكتروني غير متاح ، فضلاً ادخل بريد آخر غير مستخدم");
+        }
+        person.setType(false);
+        person = personService.save(person);
+        notificationService.notifyOne(Notification
                 .builder()
-                .title("العمليات على حسابات المستخدمين")
-                .message("تم اضافة مستخدم جديد بواسطة " + personService.findByEmail(principal.getName()).getName())
-                .type("warning")
+                .title("العمليات على جهات الاتصال")
+                .message("تم اضافة جهة اتصال جديدة بنجاح")
+                .type("success")
                 .icon("fa-user")
-                .build());
+                .build(), principal.getName());
         return person;
     }
 
     @RequestMapping(value = "update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_PERSON_UPDATE') or hasRole('ROLE_PROFILE_UPDATE')")
+    @PreAuthorize("hasRole('ROLE_PERSON_UPDATE') or hasRole('ROLE_PROFILE_UPDATE') or hasRole('ROLE_CONTACT_UPDATE')")
     public Person update(@RequestBody Person person, Principal principal) {
         Person object = personService.findOne(person.getId());
         if (object != null) {
@@ -81,13 +94,26 @@ public class PersonRest {
                     .type("success")
                     .icon("fa-user")
                     .build(), principal.getName());
-            notificationService.notifyAllExceptMe(Notification
+            return person;
+        } else {
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "updateContact", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_CONTACT_UPDATE')")
+    public Person updateContact(@RequestBody Person person, Principal principal) {
+        Person object = personService.findOne(person.getId());
+        if (object != null) {
+            person = personService.save(person);
+            notificationService.notifyOne(Notification
                     .builder()
-                    .title("العمليات على حسابات المستخدمين")
-                    .message("تم تعديل بيانات الحساب الشخصي للموظف " + person.getName() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-                    .type("warning")
+                    .title("العمليات على جهات الاتصال")
+                    .message("تم تعديل بيانات جهة الاتصال بنجاح")
+                    .type("success")
                     .icon("fa-user")
-                    .build());
+                    .build(), principal.getName());
             return person;
         } else {
             return null;
@@ -138,6 +164,18 @@ public class PersonRest {
     @ResponseBody
     public Integer countPersonsByTeam(@PathVariable(value = "id") Long id) {
         return personService.countByTeam(teamService.findOne(id));
+    }
+
+    @RequestMapping(value = "findPersons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Person> findPersons() {
+        return personService.findByType(true);
+    }
+
+    @RequestMapping(value = "findContacts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<Person> findContacts() {
+        return personService.findByType(false);
     }
 
     @RequestMapping(value = "findPersonUnderMe", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
