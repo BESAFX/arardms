@@ -34,12 +34,6 @@ public class DepartmentRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_DEPARTMENT_CREATE')")
     public Department create(@RequestBody Department department, Principal principal) {
-        Integer maxCode = departmentService.findMaxCode();
-        if (maxCode == null) {
-            department.setCode(1);
-        } else {
-            department.setCode(maxCode + 1);
-        }
         department = departmentService.save(department);
         notificationService.notifyOne(Notification
                 .builder()
@@ -48,13 +42,6 @@ public class DepartmentRest {
                 .type("success")
                 .icon("fa-sitemap")
                 .build(), principal.getName());
-//        notificationService.notifyAllExceptMe(Notification
-//                .builder()
-//                .title("العمليات على الأقسام")
-//                .message("تم اضافة قسم جديد بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                .type("warning")
-//                .icon("fa-sitemap")
-//                .build());
         return department;
     }
 
@@ -72,13 +59,6 @@ public class DepartmentRest {
                     .type("success")
                     .icon("fa-sitemap")
                     .build(), principal.getName());
-//            notificationService.notifyAllExceptMe(Notification
-//                    .builder()
-//                    .title("العمليات على الأقسام")
-//                    .message("تم تعديل بيانات القسم رقم " + department.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                    .type("warning")
-//                    .icon("fa-sitemap")
-//                    .build());
             return department;
         } else {
             return null;

@@ -100,6 +100,11 @@ public class Initializer implements CommandLineRunner {
         screen.setName("المعاملات");
         screenService.save(screen);
 
+        screen = new Screen();
+        screen.setCode("OPERATION_TYPE");
+        screen.setName("أنواع المعاملات");
+        screenService.save(screen);
+
         Iterator<Screen> iterator = screenService.findAll().iterator();
 
         while (iterator.hasNext()) {

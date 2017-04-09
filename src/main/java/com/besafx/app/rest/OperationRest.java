@@ -2,6 +2,7 @@ package com.besafx.app.rest;
 
 import com.besafx.app.entity.Operation;
 import com.besafx.app.service.OperationService;
+import com.besafx.app.service.PersonService;
 import com.besafx.app.ws.Notification;
 import com.besafx.app.ws.NotificationService;
 import com.google.common.collect.Lists;
@@ -16,6 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/operation/")
 public class OperationRest {
+
+    @Autowired
+    private PersonService personService;
 
     @Autowired
     private OperationService operationService;
@@ -33,6 +37,7 @@ public class OperationRest {
         } else {
             operation.setCode(maxCode + 1);
         }
+        operation.setPerson(personService.findByEmail(principal.getName()));
         operation = operationService.save(operation);
         notificationService.notifyOne(Notification
                 .builder()

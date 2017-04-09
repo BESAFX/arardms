@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/person").access("hasRole('ROLE_PERSON_CREATE') or hasRole('ROLE_PERSON_UPDATE') or hasRole('ROLE_PERSON_DELETE') or hasRole('ROLE_PERSON_REPORT')")
                 .antMatchers("/contact").access("hasRole('ROLE_CONTACT_CREATE') or hasRole('ROLE_CONTACT_UPDATE') or hasRole('ROLE_CONTACT_DELETE') or hasRole('ROLE_CONTACT_REPORT')")
                 .antMatchers("/operation").access("hasRole('ROLE_OPERATION_CREATE') or hasRole('ROLE_OPERATION_UPDATE') or hasRole('ROLE_OPERATION_DELETE') or hasRole('ROLE_OPERATION_REPORT')")
+                .antMatchers("/operationType").access("hasRole('ROLE_OPERATION_TYPE_CREATE') or hasRole('ROLE_OPERATION_TYPE_UPDATE') or hasRole('ROLE_OPERATION_TYPE_DELETE') or hasRole('ROLE_OPERATION_TYPE_REPORT')")
                 .anyRequest().authenticated();
 
         http.formLogin()

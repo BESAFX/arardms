@@ -23,6 +23,8 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    private String code;
+
     private String name;
 
     private String nickname;

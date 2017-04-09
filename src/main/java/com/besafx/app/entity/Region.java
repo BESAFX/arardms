@@ -21,7 +21,7 @@ public class Region implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private Integer code;
+    private String code;
 
     private String name;
 

@@ -171,13 +171,35 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
 
         /**************************************************************
          *                                                            *
-         * Operation State                                            *
+         * IncomingOperation State                                    *
          *                                                            *
          *************************************************************/
-        $stateProvider.state("operation", {
-            url: "/operation",
-            templateUrl: "/ui/partials/operation/operation.html",
-            controller: "operationCtrl"
+        $stateProvider.state("incomingOperation", {
+            url: "/incomingOperation",
+            templateUrl: "/ui/partials/operation/incomingOperation.html",
+            controller: "incomingOperationCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
+         * OutgoingOperation State                                    *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("outgoingOperation", {
+            url: "/outgoingOperation",
+            templateUrl: "/ui/partials/operation/outgoingOperation.html",
+            controller: "outgoingOperationCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
+         * OperationType State                                        *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("operationType", {
+            url: "/operationType",
+            templateUrl: "/ui/partials/operationType/operationType.html",
+            controller: "operationTypeCtrl"
         });
 
         /**************************************************************

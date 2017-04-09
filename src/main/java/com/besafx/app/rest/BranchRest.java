@@ -34,12 +34,6 @@ public class BranchRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_BRANCH_CREATE')")
     public Branch create(@RequestBody Branch branch, Principal principal) {
-        Integer maxCode = branchService.findMaxCode();
-        if (maxCode == null) {
-            branch.setCode(1);
-        } else {
-            branch.setCode(maxCode + 1);
-        }
         branch = branchService.save(branch);
         notificationService.notifyOne(Notification
                 .builder()
@@ -48,13 +42,6 @@ public class BranchRest {
                 .type("success")
                 .icon("fa-cubes")
                 .build(), principal.getName());
-//        notificationService.notifyAllExceptMe(Notification
-//                .builder()
-//                .title("العمليات على الفروع")
-//                .message("تم اضافة فرع جديد بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                .type("warning")
-//                .icon("fa-cubes")
-//                .build());
         return branch;
     }
 
@@ -72,13 +59,6 @@ public class BranchRest {
                     .type("success")
                     .icon("fa-cubes")
                     .build(), principal.getName());
-//            notificationService.notifyAllExceptMe(Notification
-//                    .builder()
-//                    .title("العمليات على الفروع")
-//                    .message("تم تعديل بيانات الفرع رقم " + branch.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                    .type("warning")
-//                    .icon("fa-cubes")
-//                    .build());
             return branch;
         } else {
             return null;

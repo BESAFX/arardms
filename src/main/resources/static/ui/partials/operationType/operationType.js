@@ -1,25 +1,25 @@
-app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
-    function (PersonService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
+app.controller("operationTypeCtrl", ['OperationTypeService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
+    function (OperationTypeService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("حسابات المستخدمين", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل حسابات المستخدمين", "warning", "fa-user");
-            PersonService.findPersons().then(function (data) {
-                $scope.persons = data;
+            $rootScope.showNotify("أنواع المعاملات", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل أنواع المعاملات", "warning", "fa-user");
+            OperationTypeService.findAll().then(function (data) {
+                $scope.operationTypes = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("حسابات المستخدمين", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
+                $rootScope.showNotify("أنواع المعاملات", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
             });
         };
 
         $scope.setSelected = function (object) {
             if (object) {
-                angular.forEach($scope.persons, function (person) {
-                    if (object.id == person.id) {
-                        $scope.selected = person;
-                        return person.isSelected = true;
+                angular.forEach($scope.operationTypes, function (operationType) {
+                    if (object.id == operationType.id) {
+                        $scope.selected = operationType;
+                        return operationType.isSelected = true;
                     } else {
-                        return person.isSelected = false;
+                        return operationType.isSelected = false;
                     }
                 });
             }
@@ -30,27 +30,23 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
         };
 
         $scope.openCreateModel = function () {
-            ModalProvider.openPersonCreateModel();
+            ModalProvider.openOperationTypeCreateModel();
         };
 
-        $scope.openUpdateModel = function (person) {
-            if (person) {
-                ModalProvider.openPersonUpdateModel(person);
+        $scope.openUpdateModel = function (operationType) {
+            if (operationType) {
+                ModalProvider.openOperationTypeUpdateModel(operationType);
                 return;
             }
-            ModalProvider.openPersonUpdateModel($scope.selected);
+            ModalProvider.openOperationTypeUpdateModel($scope.selected);
         };
 
-        $scope.openReportPersonsModel = function () {
-            ModalProvider.openPersonsReportModel($scope.persons);
-        };
-
-        $scope.delete = function (person) {
-            if (person) {
-                PersonService.remove(person);
+        $scope.delete = function (operationType) {
+            if (operationType) {
+                OperationTypeService.remove(operationType);
                 return;
             }
-            PersonService.remove($scope.selected);
+            OperationTypeService.remove($scope.selected);
         };
 
         $scope.rowMenu = [
@@ -69,7 +65,7 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.openUpdateModel($itemScope.person);
+                    $scope.openUpdateModel($itemScope.operationType);
                 }
             },
             {
@@ -78,7 +74,7 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.delete($itemScope.person);
+                    $scope.delete($itemScope.operationType);
                 }
             },
             {
@@ -87,7 +83,7 @@ app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.openReportPersonsModel();
+                    $scope.openReportOperationTypesModel();
                 }
             }
         ];

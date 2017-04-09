@@ -1,6 +1,6 @@
-app.controller('operationCreateUpdateCtrl',
-    ['CompanyService', 'RegionService', 'BranchService', 'DepartmentService', 'PersonService', 'OperationService', 'FileUploader', 'FileService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'operation',
-        function (CompanyService, RegionService, BranchService, DepartmentService, PersonService, OperationService, FileUploader, FileService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, operation) {
+app.controller('outgoingOperationCreateUpdateCtrl',
+    ['OperationTypeService', 'CompanyService', 'RegionService', 'BranchService', 'DepartmentService', 'PersonService', 'OperationService', 'FileUploader', 'FileService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'idType',  'operation',
+        function (OperationTypeService ,CompanyService, RegionService, BranchService, DepartmentService, PersonService, OperationService, FileUploader, FileService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, idType, operation) {
 
             $timeout(function () {
                 CompanyService.findAll().then(function (data) {
@@ -21,6 +21,11 @@ app.controller('operationCreateUpdateCtrl',
                         })
                     });
                 });
+
+                OperationTypeService.findAll().then(function (data) {
+                    $scope.operationTypes = data;
+                });
+
             }, 1500);
 
             if (operation) {
@@ -32,6 +37,16 @@ app.controller('operationCreateUpdateCtrl',
             $scope.title = title;
 
             $scope.action = action;
+
+            $scope.idType = idType;
+
+            switch (idType){
+                case 'Branch':
+                    BranchService.fetchTableData().then(function (data) {
+                       $scope.myBranches = data;
+                    });
+                    break;
+            }
 
             $scope.submit = function () {
                 $rootScope.showNotify("المعاملات", "جاري القيام بالعملية، فضلاً انتظر قليلاً", "warning", "fa-exchange");

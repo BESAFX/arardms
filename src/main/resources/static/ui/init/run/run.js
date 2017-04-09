@@ -59,9 +59,19 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                     $rootScope.MDLIcon = 'contact_mail';
                     break;
                 }
-                case 'operation': {
-                    $rootScope.pageTitle = 'المعاملات';
-                    $rootScope.MDLIcon = 'swap_horiz';
+                case 'incomingOperation': {
+                    $rootScope.pageTitle = 'البريد الوارد';
+                    $rootScope.MDLIcon = 'inbox';
+                    break;
+                }
+                case 'outgoingOperation': {
+                    $rootScope.pageTitle = 'البريد الصادر';
+                    $rootScope.MDLIcon = 'send';
+                    break;
+                }
+                case 'operationType': {
+                    $rootScope.pageTitle = 'أنواع المعاملات';
+                    $rootScope.MDLIcon = 'forum';
                     break;
                 }
                 case 'profile': {
@@ -276,8 +286,14 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
         $rootScope.goToContact = function () {
             $state.go('contact');
         };
-        $rootScope.goToOperation = function () {
-            $state.go('operation');
+        $rootScope.goToIncomingOperation = function () {
+            $state.go('incomingOperation');
+        };
+        $rootScope.goToOutgoingOperation = function () {
+            $state.go('outgoingOperation');
+        };
+        $rootScope.goToOperationType = function () {
+            $state.go('operationType');
         };
         $rootScope.goToHome = function () {
             $state.go('home');

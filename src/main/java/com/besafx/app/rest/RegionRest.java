@@ -34,12 +34,6 @@ public class RegionRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_REGION_CREATE')")
     public Region create(@RequestBody Region region, Principal principal) {
-        Integer maxCode = regionService.findMaxCode();
-        if (maxCode == null) {
-            region.setCode(1);
-        } else {
-            region.setCode(maxCode + 1);
-        }
         region = regionService.save(region);
         notificationService.notifyOne(Notification
                 .builder()
@@ -48,13 +42,6 @@ public class RegionRest {
                 .type("success")
                 .icon("fa-map-marker")
                 .build(), principal.getName());
-//        notificationService.notifyAllExceptMe(Notification
-//                .builder()
-//                .title("العمليات على المناطق")
-//                .message("تم اضافة منطقة جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                .type("warning")
-//                .icon("fa-map-marker")
-//                .build());
         return region;
     }
 
@@ -72,13 +59,6 @@ public class RegionRest {
                     .type("success")
                     .icon("fa-map-marker")
                     .build(), principal.getName());
-//            notificationService.notifyAllExceptMe(Notification
-//                    .builder()
-//                    .title("العمليات على المناطق")
-//                    .message("تم تعديل بيانات المنطقة رقم " + region.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                    .type("warning")
-//                    .icon("fa-map-marker")
-//                    .build());
             return region;
         } else {
             return null;

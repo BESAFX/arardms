@@ -1,4 +1,4 @@
-app.controller("operationCtrl", ['OperationService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
+app.controller("incomingOperationCtrl", ['OperationService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
     function (OperationService, ModalProvider, FileService, $scope, $rootScope, $log, $http, $state, $timeout) {
 
         $scope.selected = {};
@@ -20,16 +20,16 @@ app.controller("operationCtrl", ['OperationService', 'ModalProvider', 'FileServi
             $state.reload();
         };
 
-        $scope.openCreateModel = function () {
-            ModalProvider.openOperationCreateModel();
+        $scope.openCreateToBranchModel = function () {
+            ModalProvider.openIncomingOperationToBranchCreateModel();
         };
 
         $scope.openUpdateModel = function (operation) {
             if (operation) {
-                ModalProvider.openOperationUpdateModel(operation);
+                ModalProvider.openIncomingOperationUpdateModel(operation);
                 return;
             }
-            ModalProvider.openOperationUpdateModel($scope.selected);
+            ModalProvider.openIncomingOperationUpdateModel($scope.selected);
         };
 
         $scope.delete = function (operation) {

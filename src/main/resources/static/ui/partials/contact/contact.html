@@ -96,6 +96,10 @@
                                     <span>م</span>
                                 </th>
 
+                                <th st-sort="code" class="text-right">
+                                    <span>رمز المعاملات</span>
+                                </th>
+
                                 <th st-sort="name" class="text-right">
                                     <span>اسم المؤسسة</span>
                                 </th>
@@ -119,6 +123,7 @@
                                 ng-right-click="setSelected(contact)"
                                 ng-class="{'mdl-color--light-blue-100':contact.isSelected}">
                                 <td st-select-row-custom="contact">{{$index+1}}</td>
+                                <td st-select-row-custom="contact">{{contact.code}}</td>
                                 <td st-select-row-custom="contact">{{contact.name}}</td>
                                 <td st-select-row-custom="contact">{{contact.email}}</td>
                                 <td st-select-row-custom="contact">{{contact.mobile}}</td>

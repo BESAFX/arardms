@@ -34,12 +34,6 @@ public class CompanyRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_COMPANY_CREATE')")
     public Company create(@RequestBody Company company, Principal principal) {
-        Integer maxCode = companyService.findMaxCode();
-        if (maxCode == null) {
-            company.setCode(1);
-        } else {
-            company.setCode(maxCode + 1);
-        }
         company = companyService.save(company);
         notificationService.notifyOne(Notification
                 .builder()
@@ -48,13 +42,6 @@ public class CompanyRest {
                 .type("success")
                 .icon("fa-fort-awesome")
                 .build(), principal.getName());
-//        notificationService.notifyAllExceptMe(Notification
-//                .builder()
-//                .title("العمليات على الشركات")
-//                .message("تم اضافة شركة جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                .type("warning")
-//                .icon("fa-fort-awesome")
-//                .build());
         return company;
     }
 
@@ -72,13 +59,6 @@ public class CompanyRest {
                     .type("success")
                     .icon("fa-fort-awesome")
                     .build(), principal.getName());
-//            notificationService.notifyAllExceptMe(Notification
-//                    .builder()
-//                    .title("العمليات على الشركات")
-//                    .message("تم تعديل بيانات الشركة رقم " + company.getCode() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                    .type("warning")
-//                    .icon("fa-fort-awesome")
-//                    .build());
             return company;
         } else {
             return null;

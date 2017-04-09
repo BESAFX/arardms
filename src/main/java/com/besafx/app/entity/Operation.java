@@ -55,6 +55,10 @@ public class Operation implements Serializable {
     @JoinColumn(name = "person")
     private Person person;
 
+    @ManyToOne
+    @JoinColumn(name = "operationType")
+    private OperationType operationType;
+
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String note;
