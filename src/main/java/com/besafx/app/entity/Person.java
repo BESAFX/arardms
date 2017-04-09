@@ -58,7 +58,7 @@ public class Person implements Serializable {
     private Boolean type;
 
     @ManyToOne
-    @JoinColumn(name = "Team")
+    @JoinColumn(name = "team")
     @JsonIgnoreProperties(value = {"persons"}, allowSetters = true)
     private Team team;
 

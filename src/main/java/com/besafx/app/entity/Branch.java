@@ -42,16 +42,17 @@ public class Branch implements Serializable {
     private String logo;
 
     @ManyToOne
-    @JoinColumn(name = "Manager")
+    @JoinColumn(name = "manager")
     @JsonIgnoreProperties(value = {"companies", "regions", "branches", "departments", "employees"}, allowSetters = true)
     private Person manager;
 
     @ManyToOne
-    @JoinColumn(name = "Region")
+    @JoinColumn(name = "region")
     @JsonIgnoreProperties(value = {"branches"}, allowSetters = true)
     private Region region;
 
     @OneToMany(mappedBy = "branch")
+    @JsonIgnoreProperties(value = {"branch"}, allowSetters = true)
     private List<Department> departments = new ArrayList<>();
 
     @JsonCreator

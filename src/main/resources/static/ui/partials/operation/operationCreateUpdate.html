@@ -56,7 +56,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="company.name for company in companies track by company.id">
                             </select>
                         </div>
 
@@ -75,7 +75,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="region.name group by region.company.name for region in regions track by region.id">
                             </select>
                         </div>
 
@@ -94,7 +94,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="branch.name group by branch.region.name for branch in branches track by branch.id">
                             </select>
                         </div>
 
@@ -113,7 +113,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="department.name group by department.branch.name for department in departments track by department.id">
                             </select>
                         </div>
 
@@ -151,7 +151,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="contact.name for contact in contacts track by contact.id">
                             </select>
                         </div>
 
@@ -191,7 +191,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="company.name for company in companies track by company.id">
                             </select>
                         </div>
 
@@ -210,7 +210,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="region.name group by region.company.name for region in regions track by region.id">
                             </select>
                         </div>
 
@@ -229,7 +229,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="branch.name group by branch.region.name for branch in branches track by branch.id">
                             </select>
                         </div>
 
@@ -248,7 +248,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="department.name group by department.branch.name for department in departments track by department.id">
                             </select>
                         </div>
 
@@ -286,7 +286,7 @@
                                     required="required"
                                     disable-validation-message=""
                                     focus-index="2"
-                                    ng-options="person.name for person in persons track by person.id">
+                                    ng-options="contact.name for contact in contacts track by contact.id">
                             </select>
                         </div>
 

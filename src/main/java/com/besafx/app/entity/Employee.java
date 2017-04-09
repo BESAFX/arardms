@@ -22,12 +22,12 @@ public class Employee implements Serializable {
     private Integer code;
 
     @ManyToOne
-    @JoinColumn(name = "Person")
+    @JoinColumn(name = "person")
     @JsonIgnoreProperties(value = {"companies", "regions", "branches", "departments", "employees"}, allowSetters = true)
     private Person person;
 
     @ManyToOne
-    @JoinColumn(name = "Department")
+    @JoinColumn(name = "department")
     @JsonIgnoreProperties(value = {"employees"}, allowSetters = true)
     private Department department;
 

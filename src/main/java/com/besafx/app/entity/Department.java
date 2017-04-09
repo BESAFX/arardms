@@ -26,16 +26,17 @@ public class Department implements Serializable {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "Manager")
+    @JoinColumn(name = "manager")
     @JsonIgnoreProperties(value = {"companies", "regions", "branches", "departments", "employees"}, allowSetters = true)
     private Person manager;
 
     @ManyToOne
-    @JoinColumn(name = "Branch")
+    @JoinColumn(name = "branch")
     @JsonIgnoreProperties(value = {"departments"}, allowSetters = true)
     private Branch branch;
 
     @OneToMany(mappedBy = "department")
+    @JsonIgnoreProperties(value = {"department"}, allowSetters = true)
     private List<Employee> employees = new ArrayList<>();
 
     @JsonCreator

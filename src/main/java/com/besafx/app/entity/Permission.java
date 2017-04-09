@@ -27,7 +27,7 @@ public class Permission implements Serializable {
     private Boolean reportEntity;
 
     @ManyToOne
-    @JoinColumn(name = "Screen")
+    @JoinColumn(name = "screen")
     private Screen screen;
 
     @JsonCreator

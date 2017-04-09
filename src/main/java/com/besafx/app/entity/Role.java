@@ -19,11 +19,11 @@ public class Role implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "Team")
+    @JoinColumn(name = "team")
     private Team team;
 
     @ManyToOne
-    @JoinColumn(name = "Permission")
+    @JoinColumn(name = "permission")
     private Permission permission;
 
     @JsonCreator

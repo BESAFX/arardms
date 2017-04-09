@@ -28,16 +28,17 @@ public class Region implements Serializable {
     private String address;
 
     @ManyToOne
-    @JoinColumn(name = "Manager")
+    @JoinColumn(name = "manager")
     @JsonIgnoreProperties(value = {"companies", "regions", "branches", "departments", "employees"}, allowSetters = true)
     private Person manager;
 
     @ManyToOne
-    @JoinColumn(name = "Company")
+    @JoinColumn(name = "company")
     @JsonIgnoreProperties(value = {"regions"}, allowSetters = true)
     private Company company;
 
     @OneToMany(mappedBy = "region")
+    @JsonIgnoreProperties(value = {"region"}, allowSetters = true)
     private List<Branch> branches = new ArrayList<>();
 
     @JsonCreator

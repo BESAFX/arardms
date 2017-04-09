@@ -42,11 +42,12 @@ public class Company implements Serializable {
     private String logo;
 
     @ManyToOne
-    @JoinColumn(name = "Manager")
+    @JoinColumn(name = "manager")
     @JsonIgnoreProperties(value = {"companies", "regions", "branches", "departments", "employees"}, allowSetters = true)
     private Person manager;
 
     @OneToMany(mappedBy = "company")
+    @JsonIgnoreProperties(value = {"company"}, allowSetters = true)
     private List<Region> regions = new ArrayList<>();
 
     @JsonCreator
