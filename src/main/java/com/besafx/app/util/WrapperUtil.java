@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class WrapperUtil {
 
+    private Object obj0;
+
     private Object obj1;
 
     private Object obj2;

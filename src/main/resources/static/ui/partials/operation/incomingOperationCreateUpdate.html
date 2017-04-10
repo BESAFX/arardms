@@ -335,6 +335,67 @@
                         </div>
 
                         <div class="form-group text-right col-md-12">
+                            <label for="deliveryManFrom" class="control-label">اسم المُسلّم</label>
+                            <input id="deliveryManFrom"
+                                   type="text"
+                                   focus-index="6"
+                                   class="form-control text-right"
+                                   placeholder="ادخل اسم الشخص المسئول عن تسليم الوثائق"
+                                   ng-model="operation.deliveryManFrom">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="deliveryManTo" class="control-label">اسم المُستلِم</label>
+                            <input id="deliveryManTo"
+                                   type="text"
+                                   focus-index="6"
+                                   class="form-control text-right"
+                                   placeholder="ادخل اسم الشخص الذي استلم الوثائق"
+                                   ng-model="operation.deliveryManTo">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="deliveryAddress" class="control-label">عنوان التسليم / الاستلام</label>
+                            <input id="deliveryAddress"
+                                   type="text"
+                                   focus-index="6"
+                                   class="form-control text-right"
+                                   placeholder="ادخل عنوان الذي تم به مبادلة الوثائق"
+                                   ng-model="operation.deliveryAddress">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="deliveryWay" class="control-label">
+                                <span>طريقة الاستلام / التسليم</span>
+                            </label>
+                            <select id="deliveryWay"
+                                    placeholder="اختر الطريقة التى بها استلام / تسليم الوثائق"
+                                    class="form-control text-right"
+                                    ng-model="operation.deliveryWay"
+                                    focus-index="1">
+                                <option value="Hand">يداً بيد</option>
+                                <option value="Email">البريد الإلكتروني</option>
+                                <option value="Fax">الفاكس</option>
+                                <option value="Post">البريد العادي</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="importance" class="control-label">
+                                <span>درجة الأهمية</span>
+                            </label>
+                            <select id="importance"
+                                    placeholder="اختر درجة الأهمية للمساعدة فى التصنيف"
+                                    class="form-control text-right"
+                                    ng-model="operation.importance"
+                                    focus-index="1">
+                                <option value="Regular">عادية</option>
+                                <option value="Important">هامة</option>
+                                <option value="Critical">حرجة</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
                             <label for="note" class="control-label">ملاحظات</label>
                             <textarea id="note"
                                       type="text"

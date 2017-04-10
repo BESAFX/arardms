@@ -97,11 +97,11 @@
                                 </th>
 
                                 <th st-sort="code" class="text-right ">
-                                    <span> رقم العملية</span>
+                                    <span> رقم المعاملة</span>
                                 </th>
 
                                 <th st-sort="name" class="text-right">
-                                    <span> اسم العملية</span>
+                                    <span> اسم المعاملة</span>
                                 </th>
 
                                 <th st-sort="phone" class="text-right">
@@ -120,6 +120,10 @@
                                     <span>الحالة</span>
                                 </th>
 
+                                <th st-sort="manager.name" class="text-right">
+                                    <span>مدخل المعاملة</span>
+                                </th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -136,10 +140,11 @@
                                 <td st-select-row-custom="company">{{company.phone}}</td>
                                 <td st-select-row-custom="company">{{company.mobile}}</td>
                                 <td st-select-row-custom="company">{{company.manager.name}}</td>
+                                <td st-select-row-custom="company">{{company.manager.name}}</td>
                             </tr>
                             <tr class="blank_row" style="height: 10px !important; background-color: #FFFFFF;"
                                 ng-show="!collection || collection.length ==0">
-                                <td colspan="7">لا توجد بيانات</td>
+                                <td colspan="8">لا توجد بيانات</td>
                             </tr>
                             </tbody>
                         </table>

@@ -1,12 +1,14 @@
-app.controller("outgoingOperationCtrl", ['OperationService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
-    function (OperationService, ModalProvider, FileService, $scope, $rootScope, $log, $http, $state, $timeout) {
+app.controller("outgoingOperationCtrl", ['CompanyService', 'BranchService', 'OperationService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
+    function (CompanyService ,BranchService, OperationService, ModalProvider, FileService, $scope, $rootScope, $log, $http, $state, $timeout) {
 
         $scope.selected = {};
+
+        $scope.operations = [];
 
         $scope.setSelected = function (object) {
             if (object) {
                 angular.forEach($scope.operations, function (operation) {
-                    if (object.id == operation.id) {
+                    if (object.obj0 == operation.obj0) {
                         $scope.selected = operation;
                         return operation.isSelected = true;
                     } else {
@@ -14,6 +16,21 @@ app.controller("outgoingOperationCtrl", ['OperationService', 'ModalProvider', 'F
                     }
                 });
             }
+        };
+
+        $scope.filter = function () {
+            $rootScope.showNotify("البريد الصادر", "جاري تحميل البريد الصادر، فضلاً انتظر قليلاً", "warning", "fa-envelope");
+            var search = [];
+
+            search.push('structure=');
+            search.push('Outgoing');
+            search.push('&');
+
+            OperationService.filterEnhanced(search.join("")).then(function (data) {
+                $scope.operations = data;
+                $scope.setSelected(data[0]);
+                $rootScope.showNotify("البريد الصادر", "تم التحميل بنجاح، يمكنك متابعة عملك الآن", "success", "fa-envelope");
+            });
         };
 
         $scope.reload = function () {

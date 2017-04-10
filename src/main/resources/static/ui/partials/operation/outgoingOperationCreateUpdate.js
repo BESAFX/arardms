@@ -1,6 +1,6 @@
 app.controller('outgoingOperationCreateUpdateCtrl',
-    ['OperationTypeService', 'CompanyService', 'RegionService', 'BranchService', 'DepartmentService', 'PersonService', 'OperationService', 'FileUploader', 'FileService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'idType',  'operation',
-        function (OperationTypeService ,CompanyService, RegionService, BranchService, DepartmentService, PersonService, OperationService, FileUploader, FileService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, idType, operation) {
+    ['OperationTypeService', 'CompanyService', 'RegionService', 'BranchService', 'DepartmentService', 'PersonService', 'OperationService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'idType', 'operation',
+        function (OperationTypeService, CompanyService, RegionService, BranchService, DepartmentService, PersonService, OperationService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, idType, operation) {
 
             $timeout(function () {
                 CompanyService.findAll().then(function (data) {
@@ -38,12 +38,12 @@ app.controller('outgoingOperationCreateUpdateCtrl',
 
             $scope.action = action;
 
-            $scope.idType = idType;
+            $scope.operation.fromType = idType;
 
-            switch (idType){
+            switch ($scope.operation.fromType) {
                 case 'Branch':
                     BranchService.fetchTableData().then(function (data) {
-                       $scope.myBranches = data;
+                        $scope.myBranches = data;
                     });
                     break;
             }
@@ -52,10 +52,20 @@ app.controller('outgoingOperationCreateUpdateCtrl',
                 $rootScope.showNotify("المعاملات", "جاري القيام بالعملية، فضلاً انتظر قليلاً", "warning", "fa-exchange");
                 switch ($scope.action) {
                     case 'create' :
+                        $scope.operation.fromId = $scope.operation.fromId.id;
+                        $scope.operation.toId = $scope.operation.toId.id;
+                        $scope.operation.structure = 'Outgoing';
                         OperationService.create($scope.operation).then(function (data) {
-                            $scope.operation = {};
-                            $scope.form.$setPristine();
                             $rootScope.showNotify("المعاملات", "تم القيام بالعملية بنجاح، يمكنك اضافة معاملة آخرى الآن", "success", "fa-exchange");
+                            $scope.operation = {};
+                            $scope.operation.fromType = idType;
+                            $rootScope.showNotify("المعاملات", "جاري رفع الملفات، فضلاً انتظر قليلاً", "warning", "fa-exchange");
+                            angular.forEach($scope.files, function (file) {
+                                OperationService.createOperationAttach(data.id, file).then(function (data) {
+                                    return data ? file.isSuccess = true : file.isError = true;
+                                });
+                            });
+                            $scope.form.$setPristine();
                         });
                         break;
                     case 'update' :
@@ -69,29 +79,6 @@ app.controller('outgoingOperationCreateUpdateCtrl',
 
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
-            };
-
-            var uploader = $scope.uploader = new FileUploader({
-                url: 'uploadFile'
-            });
-
-            uploader.filters.push({
-                name: 'syncFilter',
-                fn: function (item, options) {
-                    return this.queue.length < 10;
-                }
-            });
-
-
-            uploader.filters.push({
-                name: 'asyncFilter',
-                fn: function (item, options, deferred) {
-                    setTimeout(deferred.resolve, 1e3);
-                }
-            });
-
-            uploader.onAfterAddingFile = function (fileItem) {
-                uploader.uploadAll();
             };
 
         }]);

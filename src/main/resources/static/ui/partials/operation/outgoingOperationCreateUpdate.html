@@ -39,7 +39,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group text-right col-md-12" ng-if="idType==='Company'">
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Company'">
                             <label for="fromCompanyId" class="control-label">
                                 <span>صادر من شركة</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الشركة"></span>
@@ -58,7 +58,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group text-right col-md-12" ng-if="idType==='Region'">
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Region'">
                             <label for="fromRegionId" class="control-label">
                                 <span>صادر من منطقة</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير المنطقة"></span>
@@ -77,7 +77,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group text-right col-md-12" ng-if="idType==='Branch'">
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Branch'">
                             <label for="fromBranchId" class="control-label">
                                 <span>صادر من فرع</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="الفروع المتاحة حسب مستواك الوظيفي"></span>
@@ -96,7 +96,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group text-right col-md-12" ng-if="idType==='Department'">
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Department'">
                             <label for="fromDepartmentId" class="control-label">
                                 <span>صادر من قسم</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="كل الأقسام التى تديرها"></span>
@@ -115,7 +115,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group text-right col-md-12" ng-if="idType==='Person'">
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Person'">
                             <label for="fromPersonId" class="control-label">
                                 <span>صادر من موظف</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="كل المناصب التى تشغلها كموظف"></span>
@@ -134,7 +134,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group text-right col-md-12" ng-if="idType==='Client'">
+                        <div class="form-group text-right col-md-12" ng-if="operation.fromType==='Client'">
                             <label for="fromClientId" class="control-label">
                                 <span>صادر من جهة خارجية</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الجهة خارجية"></span>
@@ -176,7 +176,7 @@
 
                         <div class="form-group text-right col-md-12" ng-if="operation.toType==='Company'">
                             <label for="toCompanyId" class="control-label">
-                                <span>وارد إلى شركة</span>
+                                <span>صادر إلى شركة</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الشركة"></span>
                             </label>
                             <select id="toCompanyId"
@@ -195,7 +195,7 @@
 
                         <div class="form-group text-right col-md-12" ng-if="operation.toType==='Region'">
                             <label for="toRegionId" class="control-label">
-                                <span>وارد إلى منطقة</span>
+                                <span>صادر إلى منطقة</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير المنطقة"></span>
                             </label>
                             <select id="toRegionId"
@@ -214,7 +214,7 @@
 
                         <div class="form-group text-right col-md-12" ng-if="operation.toType==='Branch'">
                             <label for="toBranchId" class="control-label">
-                                <span>وارد إلى فرع</span>
+                                <span>صادر إلى فرع</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الفرع"></span>
                             </label>
                             <select id="toBranchId"
@@ -233,7 +233,7 @@
 
                         <div class="form-group text-right col-md-12" ng-if="operation.toType==='Department'">
                             <label for="toDepartmentId" class="control-label">
-                                <span>وارد إلى قسم</span>
+                                <span>صادر إلى قسم</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير القسم"></span>
                             </label>
                             <select id="toDepartmentId"
@@ -252,7 +252,7 @@
 
                         <div class="form-group text-right col-md-12" ng-if="operation.toType==='Person'">
                             <label for="toPersonId" class="control-label">
-                                <span>وارد إلى فرد</span>
+                                <span>صادر إلى فرد</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الفرد"></span>
                             </label>
                             <select id="toPersonId"
@@ -271,7 +271,7 @@
 
                         <div class="form-group text-right col-md-12" ng-if="operation.toType==='Client'">
                             <label for="toClientId" class="control-label">
-                                <span>وارد إلى جهة خارجية</span>
+                                <span>صادر إلى جهة خارجية</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك تغير الجهة خارجية"></span>
                             </label>
                             <select id="toClientId"
@@ -335,20 +335,79 @@
                         </div>
 
                         <div class="form-group text-right col-md-12">
+                            <label for="deliveryManFrom" class="control-label">اسم المُسلّم</label>
+                            <input id="deliveryManFrom"
+                                   type="text"
+                                   focus-index="6"
+                                   class="form-control text-right"
+                                   placeholder="ادخل اسم الشخص المسئول عن تسليم الوثائق"
+                                   ng-model="operation.deliveryManFrom">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="deliveryManTo" class="control-label">اسم المُستلِم</label>
+                            <input id="deliveryManTo"
+                                   type="text"
+                                   focus-index="6"
+                                   class="form-control text-right"
+                                   placeholder="ادخل اسم الشخص الذي استلم الوثائق"
+                                   ng-model="operation.deliveryManTo">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="deliveryAddress" class="control-label">عنوان التسليم / الاستلام</label>
+                            <input id="deliveryAddress"
+                                   type="text"
+                                   focus-index="6"
+                                   class="form-control text-right"
+                                   placeholder="ادخل عنوان الذي تم به مبادلة الوثائق"
+                                   ng-model="operation.deliveryAddress">
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="deliveryWay" class="control-label">
+                                <span>طريقة الاستلام / التسليم</span>
+                            </label>
+                            <select id="deliveryWay"
+                                    placeholder="اختر الطريقة التى بها استلام / تسليم الوثائق"
+                                    class="form-control text-right"
+                                    ng-model="operation.deliveryWay"
+                                    focus-index="1">
+                                <option value="Hand">يداً بيد</option>
+                                <option value="Email">البريد الإلكتروني</option>
+                                <option value="Fax">الفاكس</option>
+                                <option value="Post">البريد العادي</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
+                            <label for="importance" class="control-label">
+                                <span>درجة الأهمية</span>
+                            </label>
+                            <select id="importance"
+                                    placeholder="اختر درجة الأهمية للمساعدة فى التصنيف"
+                                    class="form-control text-right"
+                                    ng-model="operation.importance"
+                                    focus-index="1">
+                                <option value="Regular">عادية</option>
+                                <option value="Important">هامة</option>
+                                <option value="Critical">حرجة</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-md-12">
                             <label for="note" class="control-label">ملاحظات</label>
                             <textarea id="note"
                                       type="text"
                                       focus-index="8"
                                       msd-elastic="\n"
-                                      required="required"
                                       class="form-control text-right"
-                                      disable-validation-message=""
                                       placeholder="ملاحظات"
                                       ng-model="operation.note">
                             </textarea>
                         </div>
 
-                        <div class="form-group text-right col-md-12">
+                        <div hidden="hidden" class="form-group text-right col-md-12">
                             <label for="operationTos" class="control-label">
                                 <span>تحويل إلى الأفراد</span>
                                 <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="يمكنك إنشاء العملية وتحويلها فى ذات الوقت لافراد آخرين حتى يتمكنوا من التعقيب على المعاملة"></span>
@@ -391,7 +450,28 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">الوثائق والمستندات</div>
                     <div class="panel-body">
-                        <input type="file" nv-file-select="" uploader="uploader"/>
+                        <input type="file" files-model="files" multiple/>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="text-right">اسم الملف</th>
+                                    <th class="text-right">الحجم</th>
+                                    <th class="text-right">الحالة</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="item in files">
+                                    <td><strong>{{ item.name }}</strong></td>
+                                    <td>{{ item.size/1024/1024|number:2 }} ميجا</td>
+                                    <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="fa fa-check-square-o"></i></span>
+                                        <span ng-show="item.isError"><i class="fa fa-remove"></i></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

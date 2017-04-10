@@ -1,10 +1,10 @@
 package com.besafx.app;
 
-import com.dropbox.core.DbxException;
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.v2.DbxClientV2;
+import com.besafx.app.entity.Operation;
+import com.besafx.app.service.OperationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -12,20 +12,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class MainTests {
 
-    private static final String ACCESS_TOKEN = "lwXbn73MQTAAAAAAAAAACtvJCtgSD7Rp5hwd7V8jM2V4O9I8c9javetzqM49b1-Y";
+    @Autowired
+    private OperationService operationService;
 
     @Test
     public void contextLoads() throws Exception {
-
-        // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").withUserLocale("en_US").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
-
-        try {
-            client.files().createFolder("/" + "");
-        } catch (DbxException e) {
-            e.printStackTrace();
-        }
+        System.out.println();
     }
 
 }

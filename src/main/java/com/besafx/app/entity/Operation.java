@@ -1,6 +1,7 @@
 package com.besafx.app.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.hibernate.annotations.Type;
@@ -29,6 +30,24 @@ public class Operation implements Serializable {
     @Type(type = "org.hibernate.type.TextType")
     private String content;
 
+    private String deliveryManFrom;
+
+    private String deliveryManTo;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private DeliveryWay deliveryWay;
+
+    private String deliveryAddress;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Importance importance;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Structure structure;
+
     private Boolean locked;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -38,14 +57,14 @@ public class Operation implements Serializable {
     private Date endDate;
 
     @NotNull
-    private Integer fromId;
+    private Long fromId;
 
     @Enumerated(EnumType.STRING)
     @NotNull
     private IdType fromType;
 
     @NotNull
-    private Integer toId;
+    private Long toId;
 
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -53,6 +72,7 @@ public class Operation implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "person")
+    @JsonIgnoreProperties(value = {"companies", "regions", "branches", "departments", "employees"}, allowSetters = true)
     private Person person;
 
     @ManyToOne
@@ -72,5 +92,17 @@ public class Operation implements Serializable {
 
     public enum IdType{
         Company, Region, Branch, Department, Person
+    }
+
+    public enum DeliveryWay{
+        Hand, Email, Fax, Post
+    }
+
+    public enum Importance{
+       Regular, Important, Critical
+    }
+
+    public enum Structure{
+        Incoming, Outgoing
     }
 }
