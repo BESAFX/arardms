@@ -137,7 +137,7 @@
                                     <span class="label label-success">{{operation.obj5 | date:'h:m a'}}</span>
                                 </td>
                                 <td st-select-row-custom="operation">
-                                    <span ng-class="operation.obj6 < today ? 'label label-success' : 'label label-danger'">{{operation.obj6 < today ? 'غير سري' : 'سرية'}}</span>
+                                    <span ng-class="operation.obj6 ? 'label label-danger' : 'label label-success'">{{operation.obj6 ? 'سري' : 'غير سري'}}</span>
                                 </td>
                                 <td st-select-row-custom="operation">{{operation.obj7}}</td>
                             </tr>

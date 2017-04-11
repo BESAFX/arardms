@@ -27,6 +27,8 @@ app.controller("outgoingOperationCtrl", ['CompanyService', 'BranchService', 'Ope
             search.push('structure=');
             search.push('Outgoing');
             search.push('&');
+            search.push('locked=');
+            search.push(false);
 
             OperationService.filterEnhanced(search.join("")).then(function (data) {
                 $scope.operations = data;
@@ -122,6 +124,9 @@ app.controller("outgoingOperationCtrl", ['CompanyService', 'BranchService', 'Ope
 
                 search.push('structure=');
                 search.push('Outgoing');
+                search.push('&');
+                search.push('locked=');
+                search.push(false);
 
                 OperationService.filterEnhanced(search.join("")).then(function (data) {
                     $scope.operations = data;
