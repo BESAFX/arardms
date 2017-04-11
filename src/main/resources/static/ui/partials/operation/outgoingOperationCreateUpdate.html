@@ -34,7 +34,7 @@
                                     ng-model="operation.operationType"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="1"
                                     ng-options="operationType.name for operationType in operationTypes track by operationType.id">
                             </select>
                         </div>
@@ -188,7 +188,7 @@
                                     ng-model="operation.toId"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="4"
                                     ng-options="company.name for company in companies track by company.id">
                             </select>
                         </div>
@@ -207,7 +207,7 @@
                                     ng-model="operation.toId"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="4"
                                     ng-options="region.name group by region.company.name for region in regions track by region.id">
                             </select>
                         </div>
@@ -226,7 +226,7 @@
                                     ng-model="operation.toId"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="4"
                                     ng-options="branch.name group by branch.region.name for branch in branches track by branch.id">
                             </select>
                         </div>
@@ -245,7 +245,7 @@
                                     ng-model="operation.toId"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="4"
                                     ng-options="department.name group by department.branch.name for department in departments track by department.id">
                             </select>
                         </div>
@@ -264,7 +264,7 @@
                                     ng-model="operation.toId"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="4"
                                     ng-options="person.name for person in persons track by person.id">
                             </select>
                         </div>
@@ -283,7 +283,7 @@
                                     ng-model="operation.toId"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="2"
+                                    focus-index="4"
                                     ng-options="contact.name for contact in contacts track by contact.id">
                             </select>
                         </div>
@@ -312,7 +312,7 @@
                             <label for="title" class="control-label">العنوان</label>
                             <input id="title"
                                    type="text"
-                                   focus-index="6"
+                                   focus-index="5"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -324,7 +324,7 @@
                             <label for="content" class="control-label">الموضوع</label>
                             <textarea id="content"
                                       type="text"
-                                      focus-index="7"
+                                      focus-index="6"
                                       msd-elastic="\n"
                                       required="required"
                                       class="form-control text-right"
@@ -338,7 +338,7 @@
                             <label for="deliveryManFrom" class="control-label">اسم المُسلّم</label>
                             <input id="deliveryManFrom"
                                    type="text"
-                                   focus-index="6"
+                                   focus-index="7"
                                    class="form-control text-right"
                                    placeholder="ادخل اسم الشخص المسئول عن تسليم الوثائق"
                                    ng-model="operation.deliveryManFrom">
@@ -348,7 +348,7 @@
                             <label for="deliveryManTo" class="control-label">اسم المُستلِم</label>
                             <input id="deliveryManTo"
                                    type="text"
-                                   focus-index="6"
+                                   focus-index="8"
                                    class="form-control text-right"
                                    placeholder="ادخل اسم الشخص الذي استلم الوثائق"
                                    ng-model="operation.deliveryManTo">
@@ -358,7 +358,7 @@
                             <label for="deliveryAddress" class="control-label">عنوان التسليم / الاستلام</label>
                             <input id="deliveryAddress"
                                    type="text"
-                                   focus-index="6"
+                                   focus-index="9"
                                    class="form-control text-right"
                                    placeholder="ادخل عنوان الذي تم به مبادلة الوثائق"
                                    ng-model="operation.deliveryAddress">
@@ -372,7 +372,7 @@
                                     placeholder="اختر الطريقة التى بها استلام / تسليم الوثائق"
                                     class="form-control text-right"
                                     ng-model="operation.deliveryWay"
-                                    focus-index="1">
+                                    focus-index="10">
                                 <option value="Hand">يداً بيد</option>
                                 <option value="Email">البريد الإلكتروني</option>
                                 <option value="Fax">الفاكس</option>
@@ -388,7 +388,7 @@
                                     placeholder="اختر درجة الأهمية للمساعدة فى التصنيف"
                                     class="form-control text-right"
                                     ng-model="operation.importance"
-                                    focus-index="1">
+                                    focus-index="11">
                                 <option value="Regular">عادية</option>
                                 <option value="Important">هامة</option>
                                 <option value="Critical">حرجة</option>
@@ -399,7 +399,7 @@
                             <label for="note" class="control-label">ملاحظات</label>
                             <textarea id="note"
                                       type="text"
-                                      focus-index="8"
+                                      focus-index="12"
                                       msd-elastic="\n"
                                       class="form-control text-right"
                                       placeholder="ملاحظات"
@@ -420,7 +420,7 @@
                                     chosen=""
                                     multiple
                                     ng-model="operationTos"
-                                    focus-index="9"
+                                    focus-index="13"
                                     ng-options="person.name for person in persons track by person.id">
                             </select>
                         </div>
@@ -436,7 +436,7 @@
                                     ng-model="operation.locked"
                                     required="required"
                                     disable-validation-message=""
-                                    focus-index="10">
+                                    focus-index="14">
                                 <option value="true">سرية</option>
                                 <option value="false">غير سرية</option>
                             </select>
@@ -484,28 +484,28 @@
 
         <div class="form-group col-md-12" role="group">
             <button type="button"
-                    focus-index="5"
+                    focus-index="18"
                     ng-click="cancel()"
                     class="btn btn-danger pull-left">
                 <span>خروج</span>
                 <i class="fa fa-power-off  fa-lg"></i>
             </button>
             <button type="reset"
-                    focus-index="4"
+                    focus-index="17"
                     class="btn btn-info pull-left">
                 <span>مسح الحقول</span>
                 <i class="fa fa-recycle  fa-lg"></i>
             </button>
             <button ng-show="action=='update'"
                     type="submit"
-                    focus-index="3"
+                    focus-index="16"
                     class="btn btn-warning pull-right">
                 <span>تعديل</span>
                 <i class="fa fa-edit fa-lg"></i>
             </button>
             <button ng-show="action=='create'"
                     type="submit"
-                    focus-index="2"
+                    focus-index="15"
                     class="btn btn-success pull-right">
                 <span>اضافة</span>
                 <i class="fa fa-plus-square fa-lg"></i>
