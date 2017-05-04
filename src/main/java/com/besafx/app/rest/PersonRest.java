@@ -1,11 +1,10 @@
 package com.besafx.app.rest;
-
 import com.besafx.app.config.CustomException;
-import com.besafx.app.entity.Person;
-import com.besafx.app.service.PersonService;
-import com.besafx.app.service.TeamService;
+import com.besafx.app.entity.*;
+import com.besafx.app.service.*;
 import com.besafx.app.ws.Notification;
 import com.besafx.app.ws.NotificationService;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +21,21 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/api/person/")
 public class PersonRest {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private BranchService branchService;
+
+    @Autowired
+    private RegionService regionService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @Autowired
     private PersonService personService;
@@ -152,6 +166,49 @@ public class PersonRest {
     @ResponseBody
     public Person findActivePerson(Principal principal) {
         return personService.findByEmail(principal.getName());
+    }
+
+    @RequestMapping("findActivePersonSummery")
+    @ResponseBody
+    @JsonView(Views.Summery.class)
+    public Person findActivePersonSummery(Principal principal) {
+        return personService.findByEmail(principal.getName());
+    }
+
+    @RequestMapping("findActivePersonManager")
+    @ResponseBody
+    public Person findActivePersonManager(Principal principal) {
+        Person person = personService.findByEmail(principal.getName());
+        return getPersonManager(person);
+    }
+
+    @RequestMapping("findActivePersonManagerSummery")
+    @ResponseBody
+    @JsonView(Views.Summery.class)
+    public Person findActivePersonManagerSummery(Principal principal) {
+        Person person = personService.findByEmail(principal.getName());
+        return getPersonManager(person);
+    }
+
+    public Person getPersonManager(Person person) {
+        List<Employee> employees = employeeService.findByPerson(person);
+        List<Department> departments = departmentService.findByManager(person);
+        List<Branch> branches = branchService.findByManager(person);
+        List<Region> regions = regionService.findByManager(person);
+        List<Company> companies = companyService.findByManager(person);
+        if (!employees.isEmpty()) {
+            return employees.get(0).getDepartment().getBranch().getRegion().getCompany().getManager();
+        } else if (!departments.isEmpty()) {
+            return departments.get(0).getBranch().getRegion().getCompany().getManager();
+        } else if (!branches.isEmpty()) {
+            return branches.get(0).getRegion().getCompany().getManager();
+        } else if (!regions.isEmpty()) {
+            return regions.get(0).getCompany().getManager();
+        } else if (companies.isEmpty()) {
+            return companies.get(0).getManager();
+        } else {
+            return person;
+        }
     }
 
     @RequestMapping("findAuthorities")
