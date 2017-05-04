@@ -9,13 +9,6 @@ app.controller("branchCtrl", ['BranchService', 'PersonService', 'ModalProvider',
                 $scope.branches = data;
                 $scope.setSelected(data[0]);
                 $rootScope.showNotify("الفروع", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-cubes");
-                angular.forEach(data, function (branch) {
-                    if (branch.logo) {
-                        FileService.getSharedLink(branch.logo).then(function (data) {
-                            return branch.branchLogo = data;
-                        });
-                    }
-                })
             });
         };
 

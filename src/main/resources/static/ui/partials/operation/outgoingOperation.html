@@ -52,11 +52,6 @@
                             ng-if="contains(authorities, ['ROLE_OPERATION_CREATE'])">
                             <span>انشاء صادر من فرع</span>
                         </li>
-                        <li class="mdl-menu__item" ng-click="openUpdateModel()"
-                            ng-if="contains(authorities, ['ROLE_OPERATION_UPDATE'])"
-                            ng-hide="!operations || operations.length==0">
-                            <span>تعديل</span>
-                        </li>
                         <li class="mdl-menu__item" ng-click="remove()"
                             ng-if="contains(authorities, ['ROLE_OPERATION_DELETE'])"
                             ng-hide="!operations || operations.length==0">
@@ -125,7 +120,7 @@
                                 context-menu="rowMenu"
                                 ng-click="setSelected(operation)"
                                 ng-right-click="setSelected(operation)"
-                                ng-class="{'mdl-color--light-blue-100':operation.isSelected}">
+                                ng-class="{'mdl-color--brown-100':operation.isSelected}">
                                 <td st-select-row-custom="operation">{{$index+1}}</td>
                                 <td st-select-row-custom="operation">{{operation.obj1}}</td>
                                 <td st-select-row-custom="operation">{{operation.obj8}}</td>

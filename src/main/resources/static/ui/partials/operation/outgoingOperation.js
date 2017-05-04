@@ -20,23 +20,6 @@ app.controller("outgoingOperationCtrl", ['CompanyService', 'BranchService', 'Ope
             }
         };
 
-        $scope.filter = function () {
-            $rootScope.showNotify("البريد الصادر", "جاري تحميل البريد الصادر، فضلاً انتظر قليلاً", "warning", "fa-envelope");
-            var search = [];
-
-            search.push('structure=');
-            search.push('Outgoing');
-            search.push('&');
-            search.push('locked=');
-            search.push(false);
-
-            OperationService.filterEnhanced(search.join("")).then(function (data) {
-                $scope.operations = data;
-                $scope.setSelected(data[0]);
-                $rootScope.showNotify("البريد الصادر", "تم التحميل بنجاح، يمكنك متابعة عملك الآن", "success", "fa-envelope");
-            });
-        };
-
         $scope.openFetchByBranch = function () {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -146,14 +129,6 @@ app.controller("outgoingOperationCtrl", ['CompanyService', 'BranchService', 'Ope
             ModalProvider.openOutgoingOperationFromBranchCreateModel();
         };
 
-        $scope.openUpdateModel = function (operation) {
-            if (operation) {
-                ModalProvider.openOutgoingOperationUpdateModel(operation);
-                return;
-            }
-            ModalProvider.openOutgoingOperationUpdateModel($scope.selected);
-        };
-
         $scope.delete = function (operation) {
             if (operation) {
                 OperationService.remove(operation);
@@ -170,15 +145,6 @@ app.controller("outgoingOperationCtrl", ['CompanyService', 'BranchService', 'Ope
                 },
                 click: function ($itemScope, $event, value) {
                     $scope.openCreateModel();
-                }
-            },
-            {
-                html: '<div style="cursor: pointer;padding: 10px"><span class="fa fa-edit fa-lg"></span> تعديل</div>',
-                enabled: function () {
-                    return true
-                },
-                click: function ($itemScope, $event, value) {
-                    $scope.openUpdateModel($itemScope.operation);
                 }
             },
             {

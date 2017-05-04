@@ -425,8 +425,8 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/operation/incomingOperationCreateUpdate.html',
-            controller: 'incomingOperationCreateUpdateCtrl',
+            templateUrl: '/ui/partials/operation/incomingOperationCreate.html',
+            controller: 'incomingOperationCreateCtrl',
             backdrop: 'static',
             keyboard: false,
             windowClass: 'xlg',
@@ -434,38 +434,8 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 title: function () {
                     return 'اضافة وارد إلى فروع';
                 },
-                action: function () {
-                    return 'create';
-                },
                 idType: function () {
                     return 'Branch';
-                },
-                operation: function () {
-                    return undefined;
-                }
-            }
-        });
-    };
-
-    this.openIncomingOperationUpdateModel = function (operation) {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/operation/incomingOperationCreateUpdate.html',
-            controller: 'incomingOperationCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            windowClass: 'xlg',
-            resolve: {
-                title: function () {
-                    return 'تعديل بيانات معاملة وارد';
-                },
-                action: function () {
-                    return 'update';
-                },
-                operation: function () {
-                    return operation;
                 }
             }
         });
@@ -481,8 +451,8 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             animation: true,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/operation/outgoingOperationCreateUpdate.html',
-            controller: 'outgoingOperationCreateUpdateCtrl',
+            templateUrl: '/ui/partials/operation/outgoingOperationCreate.html',
+            controller: 'outgoingOperationCreateCtrl',
             backdrop: 'static',
             keyboard: false,
             windowClass: 'xlg',
@@ -490,38 +460,8 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 title: function () {
                     return 'اضافة صادر من فروع';
                 },
-                action: function () {
-                    return 'create';
-                },
                 idType: function () {
                   return 'Branch';
-                },
-                operation: function () {
-                    return undefined;
-                }
-            }
-        });
-    };
-
-    this.openOutgoingOperationUpdateModel = function (operation) {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/operation/outgoingOperationCreateUpdate.html',
-            controller: 'outgoingOperationCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            windowClass: 'xlg',
-            resolve: {
-                title: function () {
-                    return 'تعديل بيانات معاملة صادر';
-                },
-                action: function () {
-                    return 'update';
-                },
-                operation: function () {
-                    return operation;
                 }
             }
         });

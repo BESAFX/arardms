@@ -86,8 +86,7 @@
             <div class="col-md-12" ng-show="toggleList===1">
                 <div class="panel panel-body">
                     <div class="table-responsive">
-                        <table st-table="collection" st-default-value="1" st-safe-src="departments"
-                               class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                        <table st-table="collection"  st-safe-src="departments" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 
                             <thead>
                             <tr>
@@ -124,14 +123,13 @@
                                 context-menu="rowMenu"
                                 ng-click="setSelected(department)"
                                 ng-right-click="setSelected(department)"
-                                ng-class="{'mdl-color--light-blue-100':department.isSelected}">
+                                ng-class="{'mdl-color--brown-100':department.isSelected}">
                                 <td st-select-row-custom="department">{{$index+1}}</td>
                                 <td st-select-row-custom="department">{{department.code}}</td>
                                 <td st-select-row-custom="department">{{department.name}}</td>
                                 <td st-select-row-custom="department">{{department.branch.name}}</td>
                                 <td st-select-row-custom="department">{{department.branch.region.name}}</td>
                                 <td st-select-row-custom="department">{{department.manager.name}}</td>
-
                             </tr>
                             <tr class="blank_row"
                                 style="height: 10px !important; background-color: #FFFFFF;"
@@ -145,30 +143,7 @@
             </div>
 
             <div class="col-md-12" ng-show="toggleList===2">
-                <div st-table="collection" st-default-value="1" st-safe-src="departments">
-                    <div class="form-group col-md-3" ng-repeat="department in collection">
-                        <div class="card-square mdl-card mdl-shadow--2dp">
-                            <div class="mdl-card__title mdl-card--expand title-card">
-                                <h2 class="mdl-card__title-text">{{department.name}}</h2>
-                            </div>
-                            <div class="mdl-card__supporting-text">
-                                <strong>المدير / {{department.manager.name}}</strong>
-                            </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <button ng-click="openUpdateModel(department)"
-                                        ng-if="contains(authorities, ['ROLE_DEPARTMENT_UPDATE'])"
-                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                                    <span>تعديل</span>
-                                </button>
-                                <button ng-click="delete(department)"
-                                        ng-if="contains(authorities, ['ROLE_DEPARTMENT_DELETE'])"
-                                        class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                                    <span>حذف</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
         </div>

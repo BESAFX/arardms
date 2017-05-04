@@ -101,12 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 String ipAddr = ((ServletRequestAttributes) RequestContextHolder
                         .currentRequestAttributes())
                         .getRequest().getRemoteAddr();
-                notificationService.notifyAllExceptMe(Notification
-                        .builder()
-                        .title("الدخول إلى الموقع")
-                        .message("جلسة تسجيل دخول جديدة من العنوان: " + ipAddr)
-                        .type("information")
-                        .build());
                 super.sessionCreated(event);
             }
 
@@ -118,12 +112,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     Person person = personService.findByEmail(userDetails.getUsername());
                     person.setActive(false);
                     personService.save(person);
-                    notificationService.notifyAllExceptMe(Notification
-                            .builder()
-                            .title("تسجيل الخروج")
-                            .message("المستخدم / " + person.getName() + " غادر النظام")
-                            .type("error")
-                            .build());
                 }
                 super.sessionDestroyed(event);
             }
@@ -144,13 +132,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         if (person == null) {
                             throw new UsernameNotFoundException(email);
                         }
-
-                        notificationService.notifyAllExceptMe(Notification
-                                .builder()
-                                .title("تسجيل الدخول")
-                                .message("المستخدم / " + person.getName() + " متاح حالياً")
-                                .type("success")
-                                .build());
 
                         person.setLastUpdate(new Date());
 

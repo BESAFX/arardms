@@ -18,8 +18,8 @@
 }
 
 [ui-view].ng-leave {
-    /*-webkit-animation: 0.5s bounceOutLeft ease-in-out;*/
-    /*animation: 0.5s bounceOutLeft ease-in-out;*/
+    /*-webkit-animation: 0.5s zoomOut ease-in-out;*/
+    /*animation: 0.5s zoomOut ease-in-out;*/
 }
 
 /**************************************************************
