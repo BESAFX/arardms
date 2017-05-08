@@ -51,8 +51,8 @@ public class Initializer implements CommandLineRunner {
         person.setPhoto("---");
         person.setQualification("Senior Java Developer");
         person.setTeam(team);
-        person.setEmail("islamhaker@email.com");
-        person.setPassword(passwordEncoder.encode("besa2009"));
+        person.setEmail("islamhaker@gmail.com");
+        person.setPassword(passwordEncoder.encode("123456"));
         person.setEnabled(true);
         person.setTokenExpired(false);
         person.setActive(false);

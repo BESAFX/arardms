@@ -3,7 +3,10 @@ import com.besafx.app.config.DropboxManager;
 import com.besafx.app.entity.Person;
 import com.besafx.app.service.PersonService;
 import net.sf.jasperreports.engine.JRException;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,8 @@ import java.util.concurrent.Future;
 
 @RestController
 public class FileUploadController {
+
+    private final static Logger log = LoggerFactory.getLogger(FileUploadController.class);
 
     @Autowired
     private PersonService personService;

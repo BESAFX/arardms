@@ -41,13 +41,12 @@ app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'Branc
         };
 
         var uploader = $scope.uploader = new FileUploader({
-            url: 'uploadUserPhoto'
+            url: 'uploadUserPhoto',
         });
 
         uploader.filters.push({
             name: 'syncFilter',
             fn: function (item, options) {
-                console.log('syncFilter');
                 return this.queue.length < 10;
             }
         });
@@ -55,7 +54,6 @@ app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'Branc
         uploader.filters.push({
             name: 'asyncFilter',
             fn: function (item, options, deferred) {
-                console.log('asyncFilter');
                 setTimeout(deferred.resolve, 1e3);
             }
         });
