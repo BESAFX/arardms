@@ -1,5 +1,5 @@
-app.controller('contactCreateUpdateCtrl', ['PersonService', 'FileUploader', 'NotificationProvider', 'FileService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'contact',
-    function (PersonService, FileUploader, NotificationProvider, FileService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, contact) {
+app.controller('contactCreateUpdateCtrl', ['ContactService', 'FileUploader', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'contact',
+    function (ContactService, FileUploader, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, contact) {
 
         if (contact) {
             $scope.contact = contact;
@@ -12,20 +12,16 @@ app.controller('contactCreateUpdateCtrl', ['PersonService', 'FileUploader', 'Not
         $scope.action = action;
 
         $scope.submit = function () {
-            $rootScope.showNotify("جهات الاتصال", "جاري القيام بالعملية، فضلاً انتظر قليلاً", "warning", "fa-user");
             switch ($scope.action) {
                 case 'create' :
-                    console.info($scope.contact);
-                    PersonService.createContact($scope.contact).then(function (data) {
+                    ContactService.create($scope.contact).then(function (data) {
                         $scope.contact = {};
                         $scope.from.$setPristine();
-                        $rootScope.showNotify("جهات الاتصال", "تم القيام بالعملية بنجاح، يمكنك اضافة حساب مستخدم آخر الآن", "success", "fa-user");
                     });
                     break;
                 case 'update' :
-                    PersonService.updateContact($scope.contact).then(function (data) {
+                    ContactService.update($scope.contact).then(function (data) {
                         $scope.contact = data;
-                        $rootScope.showNotify("جهات الاتصال", "تم القيام بالعملية بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
                     });
                     break;
             }

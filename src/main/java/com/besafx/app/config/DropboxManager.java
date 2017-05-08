@@ -45,8 +45,8 @@ public class DropboxManager {
     public Future<Boolean> uploadFile(MultipartFile file, String path) {
         try {
             log.info("Trying to upload file: " + file.getName());
-            log.info("Sleeping for 5 seconds...");
-            Thread.sleep(5000);
+            log.info("Sleeping for 1 seconds...");
+            Thread.sleep(1000);
             client.files().uploadBuilder(path).uploadAndFinish(file.getInputStream());
             return new AsyncResult<>(true);
         } catch (Exception ex) {
@@ -59,8 +59,8 @@ public class DropboxManager {
     public Future<Boolean> uploadFile(File file, String path) {
         try {
             log.info("Trying to upload file: " + file.getName());
-            log.info("Sleeping for 5 seconds...");
-            Thread.sleep(5000);
+            log.info("Sleeping for 1 seconds...");
+            Thread.sleep(1000);
             client.files().uploadBuilder(path).uploadAndFinish(new FileInputStream(file));
             return new AsyncResult<>(true);
         } catch (Exception ex) {
@@ -73,8 +73,8 @@ public class DropboxManager {
     public Future<Boolean> deleteFile(String path) {
         try {
             log.info("Trying to delete file from path: " + path);
-            log.info("Sleeping for 5 seconds...");
-            Thread.sleep(5000);
+            log.info("Sleeping for 1 seconds...");
+            Thread.sleep(1000);
             client.files().delete(path);
             return new AsyncResult<>(true);
         } catch (Exception ex) {
@@ -89,8 +89,8 @@ public class DropboxManager {
         String link = null;
         try {
             log.info("Trying to share file from path: " + path);
-            log.info("Sleeping for 5 seconds...");
-            Thread.sleep(5000);
+            log.info("Sleeping for 1 seconds...");
+            Thread.sleep(1000);
             metadata = client.sharing().createSharedLinkWithSettings(path);
             link = metadata.getUrl().replaceAll("dl=0", "raw=1");
         } catch (Exception ex) {

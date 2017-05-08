@@ -24,24 +24,9 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                     $rootScope.MDLIcon = 'account_balance';
                     break;
                 }
-                case 'region': {
-                    $rootScope.pageTitle = 'المناطق';
-                    $rootScope.MDLIcon = 'place';
-                    break;
-                }
                 case 'branch': {
                     $rootScope.pageTitle = 'الفروع';
                     $rootScope.MDLIcon = 'layers';
-                    break;
-                }
-                case 'department': {
-                    $rootScope.pageTitle = 'الأقسام';
-                    $rootScope.MDLIcon = 'store';
-                    break;
-                }
-                case 'employee': {
-                    $rootScope.pageTitle = 'الموظفون';
-                    $rootScope.MDLIcon = 'people_online';
                     break;
                 }
                 case 'team': {
@@ -57,16 +42,6 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                 case 'contact': {
                     $rootScope.pageTitle = 'جهات الاتصال الخارجية';
                     $rootScope.MDLIcon = 'contact_mail';
-                    break;
-                }
-                case 'incomingOperation': {
-                    $rootScope.pageTitle = 'البريد الوارد';
-                    $rootScope.MDLIcon = 'inbox';
-                    break;
-                }
-                case 'outgoingOperation': {
-                    $rootScope.pageTitle = 'البريد الصادر';
-                    $rootScope.MDLIcon = 'send';
                     break;
                 }
                 case 'operationType': {
@@ -100,14 +75,9 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
 
         PersonService.findAuthorities().then(function (data) {
             $rootScope.authorities = data;
-
             $rootScope.me = {};
-
             PersonService.findActivePerson().then(function (data) {
                 $rootScope.me = data;
-                PersonService.findActivePersonManagerSummery().then(function (data) {
-                    $rootScope.me.manager = data;
-                });
             });
 
         });
@@ -257,17 +227,8 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
         $rootScope.goToCompany = function () {
             $state.go('company');
         };
-        $rootScope.goToRegion = function () {
-            $state.go('region');
-        };
         $rootScope.goToBranch = function () {
             $state.go('branch');
-        };
-        $rootScope.goToDepartment = function () {
-            $state.go('department');
-        };
-        $rootScope.goToEmployee = function () {
-            $state.go('employee');
         };
         $rootScope.goToTeam = function () {
             $state.go('team');
@@ -277,12 +238,6 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
         };
         $rootScope.goToContact = function () {
             $state.go('contact');
-        };
-        $rootScope.goToIncomingOperation = function () {
-            $state.go('incomingOperation');
-        };
-        $rootScope.goToOutgoingOperation = function () {
-            $state.go('outgoingOperation');
         };
         $rootScope.goToOperationType = function () {
             $state.go('operationType');

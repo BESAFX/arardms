@@ -1,12 +1,16 @@
 package com.besafx.app.rest;
-
+import com.besafx.app.config.CustomException;
 import com.besafx.app.entity.Branch;
 import com.besafx.app.entity.Person;
+import com.besafx.app.entity.Views;
 import com.besafx.app.service.BranchService;
 import com.besafx.app.service.PersonService;
 import com.besafx.app.ws.Notification;
 import com.besafx.app.ws.NotificationService;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +25,8 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/branch/")
 public class BranchRest {
 
+    private final static Logger log  = LoggerFactory.getLogger(BranchRest.class);
+
     @Autowired
     private PersonService personService;
 
@@ -34,13 +40,16 @@ public class BranchRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_BRANCH_CREATE')")
     public Branch create(@RequestBody Branch branch, Principal principal) {
+        if(branchService.findByCode(branch.getCode()) != null){
+            throw new CustomException("هذا الكود مستخدم سابقاً، فضلاً قم بتغير الكود.");
+        }
         branch = branchService.save(branch);
         notificationService.notifyOne(Notification
                 .builder()
                 .title("العمليات على الفروع")
                 .message("تم اضافة فرع جديد بنجاح")
                 .type("success")
-                .icon("fa-cubes")
+                .icon("fa-plus-circle")
                 .build(), principal.getName());
         return branch;
     }
@@ -49,6 +58,9 @@ public class BranchRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_BRANCH_UPDATE')")
     public Branch update(@RequestBody Branch branch, Principal principal) {
+        if(branchService.findByCodeAndIdIsNot(branch.getCode(), branch.getId()) != null){
+            throw new CustomException("هذا الكود مستخدم سابقاً، فضلاً قم بتغير الكود.");
+        }
         Branch object = branchService.findOne(branch.getId());
         if (object != null) {
             branch = branchService.save(branch);
@@ -57,7 +69,7 @@ public class BranchRest {
                     .title("العمليات على الفروع")
                     .message("تم تعديل بيانات الفرع بنجاح")
                     .type("success")
-                    .icon("fa-cubes")
+                    .icon("fa-edit")
                     .build(), principal.getName());
             return branch;
         } else {
@@ -93,29 +105,25 @@ public class BranchRest {
         return branchService.count();
     }
 
-    @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Branch findByName(@PathVariable(value = "name") String name) {
-        return branchService.findByName(name);
-    }
-
-    @RequestMapping(value = "findByCode/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Branch findByCode(@PathVariable(value = "code") Integer code) {
-        return branchService.findByCode(code);
-    }
-
     @RequestMapping(value = "fetchTableData", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Branch> fetchTableData(Principal principal) {
-        List<Branch> list = new ArrayList<>();
         Person person = personService.findByEmail(principal.getName());
-        person.getCompanies().stream().forEach(company -> company.getRegions().stream().forEach(region -> list.addAll(region.getBranches())));
-        person.getRegions().stream().forEach(region -> list.addAll(region.getBranches()));
-        person.getDepartments().stream().forEach(department -> list.add(department.getBranch()));
-        person.getEmployees().stream().forEach(employee -> list.add(employee.getDepartment().getBranch()));
+        if(person.getBranch() == null){
+            log.info("قراءة كل الفروع للدعم الفني");
+            return findAll();
+        }
+        List<Branch> list = new ArrayList<>();
+        person.getCompanies().stream().forEach(company -> list.addAll(company.getBranches()));
         list.addAll(person.getBranches());
         return list.stream().distinct().collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "fetchTableDataSummery", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @JsonView(Views.Summery.class)
+    public List<Branch> fetchTableDataSummery(Principal principal) {
+        return fetchTableData(principal);
     }
 
 }

@@ -105,17 +105,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
 
         /**************************************************************
          *                                                            *
-         * Region State                                               *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("region", {
-            url: "/region",
-            templateUrl: "/ui/partials/region/region.html",
-            controller: "regionCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
          * Branch State                                               *
          *                                                            *
          *************************************************************/
@@ -123,28 +112,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
             url: "/branch",
             templateUrl: "/ui/partials/branch/branch.html",
             controller: "branchCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
-         * Department State                                           *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("department", {
-            url: "/department",
-            templateUrl: "/ui/partials/department/department.html",
-            controller: "departmentCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
-         * Employee State                                             *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("employee", {
-            url: "/employee",
-            templateUrl: "/ui/partials/employee/employee.html",
-            controller: "employeeCtrl"
         });
 
         /**************************************************************
@@ -167,28 +134,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
             url: "/contact",
             templateUrl: "/ui/partials/contact/contact.html",
             controller: "contactCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
-         * IncomingOperation State                                    *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("incomingOperation", {
-            url: "/incomingOperation",
-            templateUrl: "/ui/partials/operation/incomingOperation.html",
-            controller: "incomingOperationCtrl"
-        });
-
-        /**************************************************************
-         *                                                            *
-         * OutgoingOperation State                                    *
-         *                                                            *
-         *************************************************************/
-        $stateProvider.state("outgoingOperation", {
-            url: "/outgoingOperation",
-            templateUrl: "/ui/partials/operation/outgoingOperation.html",
-            controller: "outgoingOperationCtrl"
         });
 
         /**************************************************************

@@ -29,13 +29,13 @@ app.factory("BranchService",
                     return response.data;
                 });
             },
-            findByName: function (name) {
-                return $http.get("/api/branch/findByName/" + name).then(function (response) {
+            fetchTableData: function () {
+                return $http.get("/api/branch/fetchTableData").then(function (response) {
                     return response.data;
                 });
             },
-            fetchTableData: function () {
-                return $http.get("/api/branch/fetchTableData").then(function (response) {
+            fetchTableDataSummery: function () {
+                return $http.get("/api/branch/fetchTableDataSummery").then(function (response) {
                     return response.data;
                 });
             }

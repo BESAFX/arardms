@@ -1,5 +1,4 @@
 package com.besafx.app.entity;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,9 +24,6 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @JsonView(Views.Summery.class)
     private Long id;
-
-    @JsonView(Views.Summery.class)
-    private String code;
 
     @JsonView(Views.Summery.class)
     private String name;
@@ -58,14 +54,7 @@ public class Person implements Serializable {
 
     private Boolean tokenExpired;
 
-    private String optionThemeName;
-
     private Boolean active;
-
-    //True  -> Person
-    //False -> Consignee
-    @JsonView(Views.Summery.class)
-    private Boolean type;
 
     @JsonIgnore
     private String hiddenPassword;
@@ -79,6 +68,11 @@ public class Person implements Serializable {
     private String hostName;
 
     @ManyToOne
+    @JoinColumn(name = "branch")
+    @JsonIgnoreProperties(value = {"manager"})
+    private Branch branch;
+
+    @ManyToOne
     @JoinColumn(name = "Team")
     @JsonIgnoreProperties(value = {"persons"}, allowSetters = true)
     private Team team;
@@ -87,16 +81,7 @@ public class Person implements Serializable {
     private List<Company> companies = new ArrayList<>();
 
     @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
-    private List<Region> regions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Branch> branches = new ArrayList<>();
-
-    @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
-    private List<Department> departments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
-    private List<Employee> employees = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;

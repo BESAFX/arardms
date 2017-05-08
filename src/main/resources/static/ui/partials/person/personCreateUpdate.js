@@ -1,25 +1,17 @@
-app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'FileUploader', 'NotificationProvider', 'FileService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'person',
-    function (TeamService, PersonService, FileUploader, NotificationProvider, FileService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, person) {
-
-        $scope.fetchTeamData = function () {
-            TeamService.findAll().then(function (data) {
-                $scope.teams = data;
-                $rootScope.showNotify("حسابات المستخدمين", "تم تحميل بيانات المجموعات بنجاح", "success", "fa-user");
-            });
-        };
+app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'BranchService', 'FileUploader', 'NotificationProvider', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'person',
+    function (TeamService, PersonService, BranchService, FileUploader, NotificationProvider, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, person) {
 
         $timeout(function () {
-            $rootScope.showNotify("حسابات المستخدمين", "جاري تحميل بيانات المجموعات، فضلاَ انتظر قليلاً", "warning", "fa-user");
-            $scope.fetchTeamData();
+            TeamService.findAllSummery().then(function (data) {
+                $scope.teams = data;
+            });
+            BranchService.fetchTableDataSummery().then(function (data) {
+                $scope.branches = data;
+            });
         }, 2000);
 
         if (person) {
             $scope.person = person;
-            if (person.photo) {
-                FileService.getSharedLink(person.photo).then(function (data) {
-                    $scope.logoLink = data;
-                });
-            }
         } else {
             $scope.person = {};
         }
@@ -29,19 +21,16 @@ app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'FileU
         $scope.action = action;
 
         $scope.submit = function () {
-            $rootScope.showNotify("حسابات المستخدمين", "جاري القيام بالعملية، فضلاً انتظر قليلاً", "warning", "fa-user");
             switch ($scope.action) {
                 case 'create' :
                     PersonService.create($scope.person).then(function (data) {
                         $scope.person = {};
                         $scope.from.$setPristine();
-                        $rootScope.showNotify("حسابات المستخدمين", "تم القيام بالعملية بنجاح، يمكنك اضافة حساب مستخدم آخر الآن", "success", "fa-user");
                     });
                     break;
                 case 'update' :
                     PersonService.update($scope.person).then(function (data) {
                         $scope.person = data;
-                        $rootScope.showNotify("حسابات المستخدمين", "تم القيام بالعملية بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
                     });
                     break;
             }
@@ -52,7 +41,7 @@ app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'FileU
         };
 
         var uploader = $scope.uploader = new FileUploader({
-            url: 'uploadFile'
+            url: 'uploadUserPhoto'
         });
 
         uploader.filters.push({
@@ -76,9 +65,6 @@ app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'FileU
         };
         uploader.onSuccessItem = function (fileItem, response, status, headers) {
             $scope.person.photo = response;
-            FileService.getSharedLink(response).then(function (data) {
-                $scope.logoLink = data;
-            });
         };
 
     }]);

@@ -1,14 +1,12 @@
-app.controller("operationTypeCtrl", ['OperationTypeService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
-    function (OperationTypeService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
+app.controller("operationTypeCtrl", ['OperationTypeService', 'ModalProvider', '$scope', '$rootScope', '$state', '$timeout',
+    function (OperationTypeService, ModalProvider, $scope, $rootScope, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("أنواع المعاملات", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل أنواع المعاملات", "warning", "fa-user");
             OperationTypeService.findAll().then(function (data) {
                 $scope.operationTypes = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("أنواع المعاملات", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
             });
         };
 
@@ -75,15 +73,6 @@ app.controller("operationTypeCtrl", ['OperationTypeService', 'ModalProvider', 'F
                 },
                 click: function ($itemScope, $event, value) {
                     $scope.delete($itemScope.operationType);
-                }
-            },
-            {
-                html: '<div style="cursor: pointer;padding: 10px"><span class="fa fa-print fa-lg"></span> طباعة تقرير مختصر </div>',
-                enabled: function () {
-                    return true
-                },
-                click: function ($itemScope, $event, value) {
-                    $scope.openReportOperationTypesModel();
                 }
             }
         ];

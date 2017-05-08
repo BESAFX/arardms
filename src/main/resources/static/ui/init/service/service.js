@@ -13,7 +13,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'companyCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'اضافة شركة جديدة';
@@ -37,7 +37,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'companyCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'تعديل بيانات شركة';
@@ -47,57 +47,6 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 },
                 company: function () {
                     return company;
-                }
-            }
-        });
-    };
-
-    /**************************************************************
-     *                                                            *
-     * Region Model                                               *
-     *                                                            *
-     *************************************************************/
-    this.openRegionCreateModel = function () {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/region/regionCreateUpdate.html',
-            controller: 'regionCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-                title: function () {
-                    return 'اضافة منطقة جديدة';
-                },
-                action: function () {
-                    return 'create';
-                },
-                region: function () {
-                    return undefined;
-                }
-            }
-        });
-    };
-
-    this.openRegionUpdateModel = function (region) {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/region/regionCreateUpdate.html',
-            controller: 'regionCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-                title: function () {
-                    return 'تعديل بيانات منطقة';
-                },
-                action: function () {
-                    return 'update';
-                },
-                region: function () {
-                    return region;
                 }
             }
         });
@@ -117,7 +66,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'branchCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'اضافة فرع جديد';
@@ -141,7 +90,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'branchCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'تعديل بيانات فرع';
@@ -151,108 +100,6 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 },
                 branch: function () {
                     return branch;
-                }
-            }
-        });
-    };
-
-    /**************************************************************
-     *                                                            *
-     * Department Model                                           *
-     *                                                            *
-     *************************************************************/
-    this.openDepartmentCreateModel = function () {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/department/departmentCreateUpdate.html',
-            controller: 'departmentCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-                title: function () {
-                    return 'اضافة قسم جديد';
-                },
-                action: function () {
-                    return 'create';
-                },
-                department: function () {
-                    return undefined;
-                }
-            }
-        });
-    };
-
-    this.openDepartmentUpdateModel = function (department) {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/department/departmentCreateUpdate.html',
-            controller: 'departmentCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-                title: function () {
-                    return 'تعديل بيانات قسم';
-                },
-                action: function () {
-                    return 'update';
-                },
-                department: function () {
-                    return department;
-                }
-            }
-        });
-    };
-
-    /**************************************************************
-     *                                                            *
-     * Employee Model                                             *
-     *                                                            *
-     *************************************************************/
-    this.openEmployeeCreateModel = function () {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/employee/employeeCreateUpdate.html',
-            controller: 'employeeCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-                title: function () {
-                    return 'اضافة موظف جديد';
-                },
-                action: function () {
-                    return 'create';
-                },
-                employee: function () {
-                    return undefined;
-                }
-            }
-        });
-    };
-
-    this.openEmployeeUpdateModel = function (employee) {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/employee/employeeCreateUpdate.html',
-            controller: 'employeeCreateUpdateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            resolve: {
-                title: function () {
-                    return 'تعديل بيانات موظف';
-                },
-                action: function () {
-                    return 'update';
-                },
-                employee: function () {
-                    return employee;
                 }
             }
         });
@@ -323,7 +170,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'personCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'اضافة مستخدم جديد';
@@ -347,7 +194,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'personCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'تعديل بيانات مستخدم';
@@ -376,7 +223,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'contactCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'اضافة جهة اتصال جديدة';
@@ -400,7 +247,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'contactCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'تعديل بيانات جهة اتصال';
@@ -410,58 +257,6 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 },
                 contact: function () {
                     return contact;
-                }
-            }
-        });
-    };
-
-    /**************************************************************
-     *                                                            *
-     * IncomingOperation Model                                    *
-     *                                                            *
-     *************************************************************/
-    this.openIncomingOperationToBranchCreateModel = function () {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/operation/incomingOperationCreate.html',
-            controller: 'incomingOperationCreateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            windowClass: 'xlg',
-            resolve: {
-                title: function () {
-                    return 'اضافة وارد إلى فروع';
-                },
-                idType: function () {
-                    return 'Branch';
-                }
-            }
-        });
-    };
-
-    /**************************************************************
-     *                                                            *
-     * OutgoingOperation Model                                    *
-     *                                                            *
-     *************************************************************/
-    this.openOutgoingOperationFromBranchCreateModel = function () {
-        $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/ui/partials/operation/outgoingOperationCreate.html',
-            controller: 'outgoingOperationCreateCtrl',
-            backdrop: 'static',
-            keyboard: false,
-            windowClass: 'xlg',
-            resolve: {
-                title: function () {
-                    return 'اضافة صادر من فروع';
-                },
-                idType: function () {
-                  return 'Branch';
                 }
             }
         });
@@ -481,7 +276,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'teamCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'اضافة مجموعة جديدة';
@@ -505,7 +300,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'teamCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
-            windowClass: 'xlg',
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'تعديل بيانات مجموعة';

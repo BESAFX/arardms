@@ -1,7 +1,8 @@
 package com.besafx.app.rest;
 import com.besafx.app.config.CustomException;
-import com.besafx.app.entity.*;
-import com.besafx.app.service.*;
+import com.besafx.app.entity.Person;
+import com.besafx.app.entity.Views;
+import com.besafx.app.service.PersonService;
 import com.besafx.app.ws.Notification;
 import com.besafx.app.ws.NotificationService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -14,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,25 +23,7 @@ import java.util.stream.Collectors;
 public class PersonRest {
 
     @Autowired
-    private EmployeeService employeeService;
-
-    @Autowired
-    private DepartmentService departmentService;
-
-    @Autowired
-    private BranchService branchService;
-
-    @Autowired
-    private RegionService regionService;
-
-    @Autowired
-    private CompanyService companyService;
-
-    @Autowired
     private PersonService personService;
-
-    @Autowired
-    private TeamService teamService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -51,54 +33,37 @@ public class PersonRest {
 
     @RequestMapping(value = "create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_PERSON_CREATE') or hasRole('ROLE_CONTACT_CREATE')")
+    @PreAuthorize("hasRole('ROLE_PERSON_CREATE')")
     public Person create(@RequestBody Person person, Principal principal) {
         if (personService.findByEmail(person.getEmail()) != null) {
             throw new CustomException("هذا البريد الإلكتروني غير متاح ، فضلاً ادخل بريد آخر غير مستخدم");
         }
-        person.setType(true);
+        person.setHiddenPassword(person.getPassword());
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setEnabled(true);
         person.setTokenExpired(false);
-        person.setOptionThemeName("black");
         person = personService.save(person);
         notificationService.notifyOne(Notification
                 .builder()
                 .title("العمليات على حسابات المستخدمين")
                 .message("تم اضافة مستخدم جديد بنجاح")
                 .type("success")
-                .icon("fa-user")
-                .build(), principal.getName());
-        return person;
-    }
-
-    @RequestMapping(value = "createContact", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @PreAuthorize("hasRole('ROLE_CONTACT_CREATE')")
-    public Person createContact(@RequestBody Person person, Principal principal) {
-        if (personService.findByEmail(person.getEmail()) != null) {
-            throw new CustomException("هذا البريد الإلكتروني غير متاح ، فضلاً ادخل بريد آخر غير مستخدم");
-        }
-        person.setType(false);
-        person = personService.save(person);
-        notificationService.notifyOne(Notification
-                .builder()
-                .title("العمليات على جهات الاتصال")
-                .message("تم اضافة جهة اتصال جديدة بنجاح")
-                .type("success")
-                .icon("fa-user")
+                .icon("fa-plus-circle")
                 .build(), principal.getName());
         return person;
     }
 
     @RequestMapping(value = "update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_PERSON_UPDATE') or hasRole('ROLE_PROFILE_UPDATE') or hasRole('ROLE_CONTACT_UPDATE')")
+    @PreAuthorize("hasRole('ROLE_PERSON_UPDATE') or hasRole('ROLE_PROFILE_UPDATE')")
     public Person update(@RequestBody Person person, Principal principal) {
         Person object = personService.findOne(person.getId());
         if (object != null) {
             if (!object.getPassword().equals(person.getPassword())) {
+                person.setHiddenPassword(person.getPassword());
                 person.setPassword(passwordEncoder.encode(person.getPassword()));
+            } else {
+                person.setHiddenPassword(object.getHiddenPassword());
             }
             person = personService.save(person);
             notificationService.notifyOne(Notification
@@ -106,27 +71,7 @@ public class PersonRest {
                     .title("العمليات على حسابات المستخدمين")
                     .message("تم تعديل بيانات الحساب بنجاح")
                     .type("success")
-                    .icon("fa-user")
-                    .build(), principal.getName());
-            return person;
-        } else {
-            return null;
-        }
-    }
-
-    @RequestMapping(value = "updateContact", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    @PreAuthorize("hasRole('ROLE_CONTACT_UPDATE')")
-    public Person updateContact(@RequestBody Person person, Principal principal) {
-        Person object = personService.findOne(person.getId());
-        if (object != null) {
-            person = personService.save(person);
-            notificationService.notifyOne(Notification
-                    .builder()
-                    .title("العمليات على جهات الاتصال")
-                    .message("تم تعديل بيانات جهة الاتصال بنجاح")
-                    .type("success")
-                    .icon("fa-user")
+                    .icon("fa-edit")
                     .build(), principal.getName());
             return person;
         } else {
@@ -147,6 +92,13 @@ public class PersonRest {
     @RequestMapping(value = "findAll", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Person> findAll() {
+        return Lists.newArrayList(personService.findAll());
+    }
+
+    @RequestMapping(value = "findAllSummery", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @JsonView(Views.Summery.class)
+    public List<Person> findAllSummery() {
         return Lists.newArrayList(personService.findAll());
     }
 
@@ -175,107 +127,10 @@ public class PersonRest {
         return personService.findByEmail(principal.getName());
     }
 
-    @RequestMapping("findActivePersonManager")
-    @ResponseBody
-    public Person findActivePersonManager(Principal principal) {
-        Person person = personService.findByEmail(principal.getName());
-        return getPersonManager(person);
-    }
-
-    @RequestMapping("findActivePersonManagerSummery")
-    @ResponseBody
-    @JsonView(Views.Summery.class)
-    public Person findActivePersonManagerSummery(Principal principal) {
-        Person person = personService.findByEmail(principal.getName());
-        return getPersonManager(person);
-    }
-
-    public Person getPersonManager(Person person) {
-        List<Employee> employees = employeeService.findByPerson(person);
-        List<Department> departments = departmentService.findByManager(person);
-        List<Branch> branches = branchService.findByManager(person);
-        List<Region> regions = regionService.findByManager(person);
-        List<Company> companies = companyService.findByManager(person);
-        if (!employees.isEmpty()) {
-            return employees.get(0).getDepartment().getBranch().getRegion().getCompany().getManager();
-        } else if (!departments.isEmpty()) {
-            return departments.get(0).getBranch().getRegion().getCompany().getManager();
-        } else if (!branches.isEmpty()) {
-            return branches.get(0).getRegion().getCompany().getManager();
-        } else if (!regions.isEmpty()) {
-            return regions.get(0).getCompany().getManager();
-        } else if (companies.isEmpty()) {
-            return companies.get(0).getManager();
-        } else {
-            return person;
-        }
-    }
-
     @RequestMapping("findAuthorities")
     @ResponseBody
     public List<String> findAuthorities(Authentication authentication) {
         return authentication.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
-    }
-
-    @RequestMapping(value = "countPersonsByTeam/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer countPersonsByTeam(@PathVariable(value = "id") Long id) {
-        return personService.countByTeam(teamService.findOne(id));
-    }
-
-    @RequestMapping(value = "findPersons", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<Person> findPersons() {
-        return personService.findByType(true);
-    }
-
-    @RequestMapping(value = "findContacts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<Person> findContacts() {
-        return personService.findByType(false);
-    }
-
-    @RequestMapping(value = "findPersonUnderMe", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<Person> findPersonUnderMe(Principal principal) {
-        Person me = personService.findByEmail(principal.getName());
-        List<Person> list = new ArrayList<>();
-        me.getCompanies().stream().forEach(company -> {
-            list.add(company.getManager());
-            company.getRegions().stream().forEach(region -> {
-                list.add(region.getManager());
-                region.getBranches().stream().forEach(branch -> {
-                    list.add(branch.getManager());
-                    branch.getDepartments().stream().forEach(department -> {
-                        list.add(department.getManager());
-                        department.getEmployees().stream().forEach(employee -> list.add(employee.getPerson()));
-                    });
-                });
-            });
-        });
-        me.getRegions().stream().forEach(region -> {
-            list.add(region.getManager());
-            region.getBranches().stream().forEach(branch -> {
-                list.add(branch.getManager());
-                branch.getDepartments().stream().forEach(department -> {
-                    list.add(department.getManager());
-                    department.getEmployees().stream().forEach(employee -> list.add(employee.getPerson()));
-                });
-            });
-        });
-        me.getBranches().stream().forEach(branch -> {
-            list.add(branch.getManager());
-            branch.getDepartments().stream().forEach(department -> {
-                list.add(department.getManager());
-                department.getEmployees().stream().forEach(employee -> list.add(employee.getPerson()));
-            });
-        });
-        me.getDepartments().stream().forEach(department -> {
-            list.add(department.getManager());
-            department.getEmployees().stream().forEach(employee -> list.add(employee.getPerson()));
-        });
-        me.getEmployees().stream().forEach(employee -> list.add(employee.getPerson()));
-        return list.stream().distinct().collect(Collectors.toList());
     }
 
 }

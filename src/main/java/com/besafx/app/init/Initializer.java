@@ -44,15 +44,18 @@ public class Initializer implements CommandLineRunner {
         teamService.save(team);
 
         Person person = new Person();
-        person.setName("الدعم الفني");
-        person.setPhoto("/no-image.jpg");
-        person.setQualification("مدير النظام");
+        person.setNickname("مدير النظام");
+        person.setName("بسام المهدي");
+        person.setAddress("عرعر - المملكة العربية السعودية");
+        person.setIdentityNumber("---");
+        person.setPhoto("---");
+        person.setQualification("Senior Java Developer");
         person.setTeam(team);
-        person.setEmail("admin@email.com");
-        person.setPassword(passwordEncoder.encode("admin"));
+        person.setEmail("islamhaker@email.com");
+        person.setPassword(passwordEncoder.encode("besa2009"));
         person.setEnabled(true);
         person.setTokenExpired(false);
-        person.setOptionThemeName("black");
+        person.setActive(false);
         personService.save(person);
 
         Screen screen = new Screen();
@@ -61,18 +64,8 @@ public class Initializer implements CommandLineRunner {
         screenService.save(screen);
 
         screen = new Screen();
-        screen.setCode("REGION");
-        screen.setName("المناطق");
-        screenService.save(screen);
-
-        screen = new Screen();
         screen.setCode("BRANCH");
         screen.setName("الفروع");
-        screenService.save(screen);
-
-        screen = new Screen();
-        screen.setCode("DEPARTMENT");
-        screen.setName("الأقسام");
         screenService.save(screen);
 
         screen = new Screen();
@@ -93,11 +86,6 @@ public class Initializer implements CommandLineRunner {
         screen = new Screen();
         screen.setCode("CONTACT");
         screen.setName("جهات الاتصال الخارجية");
-        screenService.save(screen);
-
-        screen = new Screen();
-        screen.setCode("OPERATION");
-        screen.setName("المعاملات");
         screenService.save(screen);
 
         screen = new Screen();

@@ -1,14 +1,12 @@
-app.controller("companyCtrl", ['CompanyService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
-    function (CompanyService, ModalProvider, FileService, $scope, $rootScope, $log, $http, $state, $timeout) {
+app.controller("companyCtrl", ['CompanyService', 'ModalProvider', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
+    function (CompanyService, ModalProvider, $scope, $rootScope, $log, $http, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("الشركات", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل البيانات", "warning", "fa-bank");
-            CompanyService.fetchTableData().then(function (data) {
+            CompanyService.fetchTableDataSummery().then(function (data) {
                 $scope.companies = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("الشركات", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-bank");
             })
         };
 

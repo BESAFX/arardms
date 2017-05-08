@@ -1,14 +1,12 @@
-app.controller("personCtrl", ['PersonService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
-    function (PersonService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
+app.controller("personCtrl", ['PersonService', 'BranchService', 'ModalProvider', '$scope', '$rootScope', '$state', '$timeout',
+    function (PersonService, BranchService, ModalProvider, $scope, $rootScope, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("حسابات المستخدمين", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل حسابات المستخدمين", "warning", "fa-user");
-            PersonService.findPersons().then(function (data) {
+            PersonService.findAll().then(function (data) {
                 $scope.persons = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("حسابات المستخدمين", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
             });
         };
 

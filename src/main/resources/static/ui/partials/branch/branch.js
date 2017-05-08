@@ -1,14 +1,12 @@
-app.controller("branchCtrl", ['BranchService', 'PersonService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
-    function (BranchService, PersonService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
+app.controller("branchCtrl", ['BranchService', 'PersonService', 'ModalProvider', '$scope', '$rootScope', '$state', '$timeout',
+    function (BranchService, PersonService, ModalProvider, $scope, $rootScope, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("الفروع", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل الفروع", "warning", "fa-cubes");
-            BranchService.fetchTableData().then(function (data) {
+            BranchService.fetchTableDataSummery().then(function (data) {
                 $scope.branches = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("الفروع", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-cubes");
             });
         };
 

@@ -1,11 +1,11 @@
 package com.besafx.app.rest;
-
 import com.besafx.app.entity.Team;
-import com.besafx.app.service.PersonService;
+import com.besafx.app.entity.Views;
 import com.besafx.app.service.RoleService;
 import com.besafx.app.service.TeamService;
 import com.besafx.app.ws.Notification;
 import com.besafx.app.ws.NotificationService;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,9 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/team/")
 public class TeamRest {
-
-    @Autowired
-    private PersonService personService;
 
     @Autowired
     private TeamService teamService;
@@ -41,15 +38,8 @@ public class TeamRest {
                 .title("العمليات على المجموعات")
                 .message("تم اضافة مجموعة صلاحيات جديدة بنجاح")
                 .type("success")
-                .icon("fa-shield")
+                .icon("fa-plus-circle")
                 .build(), principal.getName());
-//        notificationService.notifyAllExceptMe(Notification
-//                .builder()
-//                .title("العمليات على المجموعات")
-//                .message("تم اضافة مجموعة صلاحيات جديدة بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                .type("warning")
-//                .icon("fa-shield")
-//                .build());
         return team;
     }
 
@@ -65,15 +55,8 @@ public class TeamRest {
                     .title("العمليات على مجموعات المستخدمين")
                     .message("تم تعديل بيانات المجموعة بنجاح")
                     .type("success")
-                    .icon("fa-shield")
+                    .icon("fa-edit")
                     .build(), principal.getName());
-//            notificationService.notifyAllExceptMe(Notification
-//                    .builder()
-//                    .title("العمليات على مجموعات المستخدمين")
-//                    .message("تم تعديل بيانات المجموعة " + team.getName() + " بواسطة " + personService.findByEmail(principal.getName()).getName())
-//                    .type("warning")
-//                    .icon("fa-shield")
-//                    .build());
             return team;
         } else {
             return null;
@@ -95,6 +78,13 @@ public class TeamRest {
     @ResponseBody
     public List<Team> findAll() {
         return Lists.newArrayList(teamService.findAll());
+    }
+
+    @RequestMapping(value = "findAllSummery", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @JsonView(Views.Summery.class)
+    public List<Team> findAllSummery() {
+        return findAll();
     }
 
     @RequestMapping(value = "findOne/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

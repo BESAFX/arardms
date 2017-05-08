@@ -11,8 +11,7 @@
             <button id="menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
                 <i class="material-icons">more_vert</i>
             </button>
-            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp"
-                for="menu-lower-left">
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp" for="menu-lower-left">
                 <li class="mdl-list__item mdl-list__item--two-line mdl-menu__item--full-bleed-divider">
                     <span class="mdl-list__item-primary-content">
                         <span class="material-icons mdl-list__item-avatar"
@@ -45,51 +44,59 @@
         </div>
         <div class="mdl-layout__header-row" style="height: auto!important;padding: 0px !important;">
             <div class="panel panel-body" style="width: 100%; margin-bottom: 0px !important;">
-                <div class="col-md-2 full-width-menu pull-right">
-                    <button id="company-menu-lower-right" style="width: 100%;"
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
-                        <span>العمليات</span>
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                        for="company-menu-lower-right">
-                        <li class="mdl-menu__item" ng-click="reload()">
-                            <span>تحديث</span>
-                        </li>
-                        <li class="mdl-menu__item" ng-click="fetchTableData()">
-                            <span>عرض</span>
-                        </li>
-                        <li class="mdl-menu__item" ng-click="openCreateModel()"
-                            ng-if="contains(authorities, ['ROLE_COMPANY_CREATE'])">
-                            <span>اضافة</span>
-                        </li>
-                        <li class="mdl-menu__item" ng-click="openUpdateModel()"
-                            ng-if="contains(authorities, ['ROLE_COMPANY_UPDATE']) && toggleList===1"
-                            ng-hide="!companies || companies.length==0">
-                            <span>تعديل</span>
-                        </li>
-                        <li class="mdl-menu__item" ng-click="remove()"
-                            ng-if="contains(authorities, ['ROLE_COMPANY_DELETE']) && toggleList===1"
-                            ng-hide="!companies || companies.length==0">
-                            <span>حذف</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pull-left" ng-init="toggleList=1">
-                    <div class="btn-toolbar">
-                        <div class="btn-group" data-toggle="buttons">
-                            <button class="btn btn-default mdl-button mdl-js-button mdl-js-ripple-effect"
-                                    type="button" ng-click="toggleList=1"
-                                    ng-class="{'active':toggleList===1}">
-                                <input type="radio" name="options"/>
-                                <i class="material-icons">reorder</i>
-                            </button>
-                            <button class="btn btn-default mdl-button mdl-js-button mdl-js-ripple-effect"
-                                    type="button" ng-click="toggleList=2"
-                                    ng-class="{'active':toggleList===2}">
-                                <input type="radio" name="options"/>
-                                <i class="material-icons">view_column</i>
-                            </button>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-2 col-md-2 col-lg-2 pull-right">
+                        <button style="width: 100%" id="company-menu-lower-right" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
+                            <span>العمليات</span>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="company-menu-lower-right">
+                            <li class="mdl-menu__item mdl-list__item mdl-menu__item--full-bleed-divider" ng-click="fetchTableData()">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">visibility</i>
+                                <span>عرض الشركات</span>
+                            </span>
+                            </li>
+                            <li class="mdl-menu__item mdl-list__item" ng-click="openCreateModel()"
+                                ng-if="contains(authorities, ['ROLE_COMPANY_CREATE'])">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">add</i>
+                                <span>انشاء شركة جديدة</span>
+                            </span>
+                            </li>
+                            <li class="mdl-menu__item mdl-list__item" ng-click="openUpdateModel()"
+                                ng-if="contains(authorities, ['ROLE_COMPANY_UPDATE']) && toggleList===1"
+                                ng-hide="!companies || companies.length==0">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">edit</i>
+                                <span>تعديل بيانات الشركة</span>
+                            </span>
+                            </li>
+                            <li class="mdl-menu__item mdl-list__item" ng-click="remove()"
+                                ng-if="contains(authorities, ['ROLE_COMPANY_DELETE']) && toggleList===1"
+                                ng-hide="!companies || companies.length==0">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">delete</i>
+                                <span>حذف الشركة</span>
+                            </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pull-left" ng-init="toggleList=1">
+                        <div class="btn-toolbar">
+                            <div class="btn-group" data-toggle="buttons">
+                                <button class="btn btn-default mdl-button mdl-js-button mdl-js-ripple-effect"
+                                        type="button" ng-click="toggleList=1"
+                                        ng-class="{'active':toggleList===1}">
+                                    <input type="radio" name="options"/>
+                                    <i class="material-icons">reorder</i>
+                                </button>
+                                <button class="btn btn-default mdl-button mdl-js-button mdl-js-ripple-effect"
+                                        type="button" ng-click="toggleList=2"
+                                        ng-class="{'active':toggleList===2}">
+                                    <input type="radio" name="options"/>
+                                    <i class="material-icons">view_column</i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -99,9 +106,9 @@
 
     <main class="mdl-layout__content">
 
-        <div dir="rtl" style="margin-top: 10px">
+        <div dir="rtl" class="row" style="margin-top: 10px">
 
-            <div class="col-md-12" ng-show="toggleList===1">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="toggleList===1">
                 <div class="panel panel-body">
                     <div class="table-responsive">
                         <table st-table="collection"  st-safe-src="companies" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -147,7 +154,7 @@
                                 <td st-select-row-custom="company">{{company.name}}</td>
                                 <td st-select-row-custom="company">{{company.phone}}</td>
                                 <td st-select-row-custom="company">{{company.mobile}}</td>
-                                <td st-select-row-custom="company">{{company.manager.name}}</td>
+                                <td st-select-row-custom="company">{{company.manager.nickname}} / {{company.manager.name}}</td>
                             </tr>
                             <tr class="blank_row" style="height: 10px !important; background-color: #FFFFFF;"
                                 ng-show="!collection || collection.length ==0">
@@ -159,7 +166,7 @@
                 </div>
             </div>
 
-            <div class="col-md-12" ng-show="toggleList===2">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="toggleList===2">
 
             </div>
 

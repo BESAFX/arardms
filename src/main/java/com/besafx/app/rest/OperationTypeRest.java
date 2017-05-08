@@ -33,7 +33,7 @@ public class OperationTypeRest {
                 .title("العمليات على أنواع المعاملات")
                 .message("تم اضافة نوع معاملة جديدة بنجاح")
                 .type("success")
-                .icon("fa-exchange")
+                .icon("fa-plus-circle")
                 .build(), principal.getName());
         return operationType;
     }
@@ -50,7 +50,7 @@ public class OperationTypeRest {
                     .title("العمليات على أنواع المعاملات")
                     .message("تم تعديل بيانات نوع المعاملة بنجاح")
                     .type("success")
-                    .icon("fa-exchange")
+                    .icon("fa-edit")
                     .build(), principal.getName());
             return operationType;
         } else {

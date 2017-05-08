@@ -1,14 +1,12 @@
-app.controller("contactCtrl", ['PersonService', 'ModalProvider', 'FileService', '$scope', '$rootScope', '$state', '$timeout',
-    function (PersonService, ModalProvider, FileService, $scope, $rootScope, $state, $timeout) {
+app.controller("contactCtrl", ['ContactService', 'ModalProvider', '$scope', '$rootScope', '$state', '$timeout',
+    function (ContactService, ModalProvider, $scope, $rootScope, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            $rootScope.showNotify("جهات الاتصال", "فضلاً انتظر قليلاً حتى الانتهاء من تحميل جهات الاتصال", "warning", "fa-user");
-            PersonService.findContacts().then(function (data) {
+            ContactService.findAll().then(function (data) {
                 $scope.contacts = data;
                 $scope.setSelected(data[0]);
-                $rootScope.showNotify("جهات الاتصال", "تم الانتهاء من تحميل البيانات المطلوبة بنجاح، يمكنك متابعة عملك الآن", "success", "fa-user");
             });
         };
 
@@ -41,16 +39,12 @@ app.controller("contactCtrl", ['PersonService', 'ModalProvider', 'FileService', 
             ModalProvider.openContactUpdateModel($scope.selected);
         };
 
-        $scope.openReportContactsModel = function () {
-            ModalProvider.openContactsReportModel($scope.contacts);
-        };
-
         $scope.delete = function (contact) {
             if (contact) {
-                PersonService.remove(contact);
+                ContactService.remove(contact);
                 return;
             }
-            PersonService.remove($scope.selected);
+            ContactService.remove($scope.selected);
         };
 
         $scope.rowMenu = [
@@ -79,15 +73,6 @@ app.controller("contactCtrl", ['PersonService', 'ModalProvider', 'FileService', 
                 },
                 click: function ($itemScope, $event, value) {
                     $scope.delete($itemScope.contact);
-                }
-            },
-            {
-                html: '<div style="cursor: pointer;padding: 10px"><span class="fa fa-print fa-lg"></span> طباعة تقرير مختصر </div>',
-                enabled: function () {
-                    return true
-                },
-                click: function ($itemScope, $event, value) {
-                    $scope.openReportContactsModel();
                 }
             }
         ];

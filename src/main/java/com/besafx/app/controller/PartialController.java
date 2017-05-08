@@ -35,7 +35,6 @@ public class PartialController {
         return "login";
     }
 
-
     @RequestMapping(value = "/getAllLoggedUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<String> getLoggedUsers() {
@@ -50,15 +49,10 @@ public class PartialController {
             "/home",
             "/menu",
             "/company",
-            "/region",
             "/branch",
-            "/department",
-            "/employee",
             "/team",
             "/person",
             "/contact",
-            "/incomingOperation",
-            "/outgoingOperation",
             "/operationType",
             "/help",
             "/profile"
