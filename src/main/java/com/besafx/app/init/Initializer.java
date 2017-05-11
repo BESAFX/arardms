@@ -46,13 +46,9 @@ public class Initializer implements CommandLineRunner {
         Person person = new Person();
         person.setNickname("مدير النظام");
         person.setName("بسام المهدي");
-        person.setAddress("عرعر - المملكة العربية السعودية");
-        person.setIdentityNumber("---");
-        person.setPhoto("---");
-        person.setQualification("Senior Java Developer");
         person.setTeam(team);
-        person.setEmail("islamhaker@gmail.com");
-        person.setPassword(passwordEncoder.encode("123456"));
+        person.setEmail("admin@admin.com");
+        person.setPassword(passwordEncoder.encode("admin"));
         person.setEnabled(true);
         person.setTokenExpired(false);
         person.setActive(false);
@@ -69,13 +65,23 @@ public class Initializer implements CommandLineRunner {
         screenService.save(screen);
 
         screen = new Screen();
-        screen.setCode("EMPLOYEE");
-        screen.setName("الموظفون");
+        screen.setCode("CONTACT");
+        screen.setName("جهات الاتصال الخارجية");
         screenService.save(screen);
 
         screen = new Screen();
-        screen.setCode("TEAM");
-        screen.setName("مجموعات الصلاحيات");
+        screen.setCode("OPERATION_TYPE");
+        screen.setName("أنواع المعاملات");
+        screenService.save(screen);
+
+        screen = new Screen();
+        screen.setCode("INSIDE_OPERATION");
+        screen.setName("المعاملات الداخلية");
+        screenService.save(screen);
+
+        screen = new Screen();
+        screen.setCode("OUTSIDE_OPERATION");
+        screen.setName("المعاملات الخارجية");
         screenService.save(screen);
 
         screen = new Screen();
@@ -84,13 +90,8 @@ public class Initializer implements CommandLineRunner {
         screenService.save(screen);
 
         screen = new Screen();
-        screen.setCode("CONTACT");
-        screen.setName("جهات الاتصال الخارجية");
-        screenService.save(screen);
-
-        screen = new Screen();
-        screen.setCode("OPERATION_TYPE");
-        screen.setName("أنواع المعاملات");
+        screen.setCode("TEAM");
+        screen.setName("الصلاحيات");
         screenService.save(screen);
 
         Iterator<Screen> iterator = screenService.findAll().iterator();

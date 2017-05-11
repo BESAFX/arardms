@@ -62,6 +62,12 @@
                                 <span>انشاء مستخدم جديد</span>
                             </span>
                         </li>
+                        <li class="mdl-menu__item mdl-list__item" ng-click="openHeavyWorkModel()" ng-if="contains(authorities, ['ROLE_PERSON_CREATE'])">
+                            <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-icon">build</i>
+                                <span>انشاء دفعة من المستخدمين</span>
+                            </span>
+                        </li>
                         <li class="mdl-menu__item mdl-list__item" ng-click="openUpdateModel()" ng-if="contains(authorities, ['ROLE_PERSON_UPDATE']) && toggleList===1" ng-hide="!persons || persons.length==0">
                             <span class="mdl-list__item-primary-content">
                                 <i class="material-icons mdl-list__item-icon">edit</i>

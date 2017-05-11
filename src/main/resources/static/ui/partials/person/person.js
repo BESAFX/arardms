@@ -31,6 +31,10 @@ app.controller("personCtrl", ['PersonService', 'BranchService', 'ModalProvider',
             ModalProvider.openPersonCreateModel();
         };
 
+        $scope.openHeavyWorkModel = function () {
+            ModalProvider.openPersonHeavyWorkModel();
+        };
+
         $scope.openUpdateModel = function (person) {
             if (person) {
                 ModalProvider.openPersonUpdateModel(person);

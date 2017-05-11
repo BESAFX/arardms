@@ -1,5 +1,5 @@
-app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'BranchService', 'FileUploader', 'NotificationProvider', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'person',
-    function (TeamService, PersonService, BranchService, FileUploader, NotificationProvider, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, person) {
+app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'BranchService', '$scope', '$rootScope', '$timeout', '$log', '$uibModalInstance', 'title', 'action', 'person',
+    function (TeamService, PersonService, BranchService, $scope, $rootScope, $timeout, $log, $uibModalInstance, title, action, person) {
 
         $timeout(function () {
             TeamService.findAllSummery().then(function (data) {
@@ -38,31 +38,6 @@ app.controller('personCreateUpdateCtrl', ['TeamService', 'PersonService', 'Branc
 
         $scope.cancel = function () {
             $uibModalInstance.dismiss('cancel');
-        };
-
-        var uploader = $scope.uploader = new FileUploader({
-            url: 'uploadUserPhoto',
-        });
-
-        uploader.filters.push({
-            name: 'syncFilter',
-            fn: function (item, options) {
-                return this.queue.length < 10;
-            }
-        });
-
-        uploader.filters.push({
-            name: 'asyncFilter',
-            fn: function (item, options, deferred) {
-                setTimeout(deferred.resolve, 1e3);
-            }
-        });
-
-        uploader.onAfterAddingFile = function (fileItem) {
-            uploader.uploadAll();
-        };
-        uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            $scope.person.photo = response;
         };
 
     }]);

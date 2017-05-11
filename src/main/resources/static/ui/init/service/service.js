@@ -170,6 +170,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'personCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'اضافة مستخدم جديد';
@@ -193,6 +194,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
             controller: 'personCreateUpdateCtrl',
             backdrop: 'static',
             keyboard: false,
+            size: 'lg',
             resolve: {
                 title: function () {
                     return 'تعديل بيانات مستخدم';
@@ -202,6 +204,23 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 },
                 person: function () {
                     return person;
+                }
+            }
+        });
+    };
+
+    this.openPersonHeavyWorkModel = function (person) {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/person/personHeavyWork.html',
+            controller: 'personHeavyWorkCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+                title: function () {
+                    return 'انشاء دفعة من المستخدمين';
                 }
             }
         });

@@ -9,5 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface BranchService extends PagingAndSortingRepository<Branch, Long>, JpaSpecificationExecutor<Branch> {
     Branch findByCode(String code);
+    Branch findByName(String code);
     Branch findByCodeAndIdIsNot(String code, Long id);
 }
