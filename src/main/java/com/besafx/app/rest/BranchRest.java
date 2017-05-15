@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/branch/")
 public class BranchRest {
 
-    private final static Logger log  = LoggerFactory.getLogger(BranchRest.class);
+    private final static Logger log = LoggerFactory.getLogger(BranchRest.class);
 
     @Autowired
     private PersonService personService;
@@ -40,7 +40,7 @@ public class BranchRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_BRANCH_CREATE')")
     public Branch create(@RequestBody Branch branch, Principal principal) {
-        if(branchService.findByCode(branch.getCode()) != null){
+        if (branchService.findByCode(branch.getCode()) != null) {
             throw new CustomException("هذا الكود مستخدم سابقاً، فضلاً قم بتغير الكود.");
         }
         branch = branchService.save(branch);
@@ -58,7 +58,7 @@ public class BranchRest {
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_BRANCH_UPDATE')")
     public Branch update(@RequestBody Branch branch, Principal principal) {
-        if(branchService.findByCodeAndIdIsNot(branch.getCode(), branch.getId()) != null){
+        if (branchService.findByCodeAndIdIsNot(branch.getCode(), branch.getId()) != null) {
             throw new CustomException("هذا الكود مستخدم سابقاً، فضلاً قم بتغير الكود.");
         }
         Branch object = branchService.findOne(branch.getId());
@@ -93,6 +93,13 @@ public class BranchRest {
         return Lists.newArrayList(branchService.findAll());
     }
 
+    @RequestMapping(value = "findAllSummery", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @JsonView(Views.Summery.class)
+    public List<Branch> findAllSummery() {
+        return Lists.newArrayList(branchService.findAll());
+    }
+
     @RequestMapping(value = "findOne/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Branch findOne(@PathVariable Long id) {
@@ -109,8 +116,7 @@ public class BranchRest {
     @ResponseBody
     public List<Branch> fetchTableData(Principal principal) {
         Person person = personService.findByEmail(principal.getName());
-        if(person.getBranch() == null){
-            log.info("قراءة كل الفروع للدعم الفني");
+        if(person.getTechnicalSupport()){
             return findAll();
         }
         List<Branch> list = new ArrayList<>();

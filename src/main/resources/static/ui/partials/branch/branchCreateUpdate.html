@@ -32,7 +32,7 @@
                             <label for="code" class="control-label">رمز المعاملات</label>
                             <input id="code"
                                    type="text"
-                                   focus-index="1"
+                                   focus-autofocus="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -44,7 +44,6 @@
                             <label for="name" class="control-label">اسم الفرع</label>
                             <input id="name"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -56,7 +55,6 @@
                             <label for="address" class="control-label">العنوان</label>
                             <input id="address"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -68,7 +66,6 @@
                             <label for="phone" class="control-label">الهاتف</label>
                             <input id="phone"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -80,7 +77,6 @@
                             <label for="mobile" class="control-label">الجوال</label>
                             <input id="mobile"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -92,7 +88,6 @@
                             <label for="fax" class="control-label">الفاكس</label>
                             <input id="fax"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -104,7 +99,6 @@
                             <label for="email" class="control-label">البريد الإلكتروني</label>
                             <input id="email"
                                    type="email"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -116,7 +110,6 @@
                             <label for="website" class="control-label">الموقع الرسمي</label>
                             <input id="website"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -128,7 +121,6 @@
                             <label for="commericalRegisteration" class="control-label">السجل التجاري</label>
                             <input id="commericalRegisteration"
                                    type="text"
-                                   focus-index="1"
                                    required="required"
                                    disable-validation-message=""
                                    class="form-control text-right"
@@ -145,7 +137,6 @@
                                     class="form-control text-right"
                                     chosen=""
                                     ng-model="branch.company"
-                                    focus-index="1"
                                     required="required"
                                     disable-validation-message=""
                                     ng-options="company.name for company in companies track by company.id">
@@ -195,7 +186,6 @@
             <button ng-if="action=='create'"
                     uib-tooltip="اضافة"
                     tooltip-append-to-body="true"
-                    focus-index="8"
                     type="submit"
                     class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
                 <i class="material-icons">add</i>
@@ -203,7 +193,6 @@
             <button ng-if="action=='update'"
                     uib-tooltip="تعديل"
                     tooltip-append-to-body="true"
-                    focus-index="9"
                     type="submit"
                     class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
                 <i class="material-icons">edit</i>
@@ -217,7 +206,6 @@
             </button>
             <button uib-tooltip="خروج"
                     tooltip-append-to-body="true"
-                    focus-index="11"
                     type="button"
                     ng-click="cancel()"
                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">

@@ -1,8 +1,6 @@
-package com.besafx.app.controller;
-import com.besafx.app.entity.Branch;
+package com.besafx.app.excel;
 import com.besafx.app.entity.Person;
 import com.besafx.app.entity.Team;
-import com.besafx.app.service.BranchService;
 import com.besafx.app.service.PersonService;
 import com.besafx.app.service.TeamService;
 import com.besafx.app.ws.Notification;
@@ -39,17 +37,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class WritingExcelFileController {
+public class ExcelPersonController {
 
-    private final static Logger log = LoggerFactory.getLogger(WritingExcelFileController.class);
+    private final static Logger log = LoggerFactory.getLogger(ExcelPersonController.class);
 
     private SecureRandom random;
 
     @Autowired
     private TeamService teamService;
-
-    @Autowired
-    private BranchService branchService;
 
     @Autowired
     private PersonService personService;
@@ -59,6 +54,9 @@ public class WritingExcelFileController {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private ExcelCellHelper excelCellHelper;
 
     @PostConstruct
     public void init() {
@@ -146,34 +144,28 @@ public class WritingExcelFileController {
         sheet.setColumnWidth(6, 20 * 256);
         //
         cell = row.createCell(7);
-        cell.setCellValue("رقم الفرع");
+        cell.setCellValue("رقم مجموعة الصلاحيات");
         cell.setCellType(CellType.STRING);
         cell.setCellStyle(styleColumnHeader);
         sheet.setColumnWidth(7, 20 * 256);
         //
         cell = row.createCell(8);
-        cell.setCellValue("رقم مجموعة الصلاحيات");
+        cell.setCellValue("البريد الإلكتروني");
         cell.setCellType(CellType.STRING);
         cell.setCellStyle(styleColumnHeader);
         sheet.setColumnWidth(8, 20 * 256);
         //
         cell = row.createCell(9);
-        cell.setCellValue("البريد الإلكتروني");
-        cell.setCellType(CellType.STRING);
-        cell.setCellStyle(styleColumnHeader);
-        sheet.setColumnWidth(9, 20 * 256);
-        //
-        cell = row.createCell(10);
         cell.setCellValue("كلمة المرور");
         cell.setCellType(CellType.STRING);
         cell.setCellStyle(styleColumnHeader);
-        sheet.setColumnWidth(10, 20 * 256);
+        sheet.setColumnWidth(9, 20 * 256);
         //
         for (int i = 1; i <= 10; i++) {
             row = sheet.createRow(i);
             row.setHeightInPoints((short) 25);
             //
-            for (int j = 0; j <= 10; j++) {
+            for (int j = 0; j <= 9; j++) {
                 cell = row.createCell(j);
                 cell.setCellValue("---");
                 cell.setCellType(CellType.STRING);
@@ -183,19 +175,11 @@ public class WritingExcelFileController {
         //
         XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper(sheet);
         XSSFDataValidationConstraint dvConstraint = (XSSFDataValidationConstraint) dvHelper.createExplicitListConstraint(Lists.newArrayList(teamService.findAll()).stream().map(team -> team.getName()).collect(Collectors.toList()).stream().toArray(String[]::new));
-        CellRangeAddressList addressList = new CellRangeAddressList(1, 10, 8, 8);
+        CellRangeAddressList addressList = new CellRangeAddressList(1, 10, 7, 7);
         XSSFDataValidation validation = (XSSFDataValidation) dvHelper.createValidation(dvConstraint, addressList);
         validation.setShowErrorBox(true);
         validation.setErrorStyle(DataValidation.ErrorStyle.STOP);
         validation.createErrorBox("المدير الذكي", "فضلاً اختر مجموعة الصلاحيات من القائمة.");
-        sheet.addValidationData(validation);
-        //
-        dvConstraint = (XSSFDataValidationConstraint) dvHelper.createExplicitListConstraint(Lists.newArrayList(branchService.findAll()).stream().map(branch -> branch.getName()).collect(Collectors.toList()).stream().toArray(String[]::new));
-        addressList = new CellRangeAddressList(1, 10, 7, 7);
-        validation = (XSSFDataValidation) dvHelper.createValidation(dvConstraint, addressList);
-        validation.setShowErrorBox(true);
-        validation.setErrorStyle(DataValidation.ErrorStyle.STOP);
-        validation.createErrorBox("المدير الذكي", "فضلاً اختر الفرع من القائمة.");
         sheet.addValidationData(validation);
         //
         try {
@@ -236,86 +220,82 @@ public class WritingExcelFileController {
                     int columnIndex = nextCell.getColumnIndex();
                     switch (columnIndex) {
                         case 0:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setNickname((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setNickname((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 1:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setName((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setName((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 2:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setNationality((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setNationality((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 3:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setIdentityNumber((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setIdentityNumber((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 4:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setMobile((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setMobile((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 5:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setQualification((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setQualification((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 6:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setAddress((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setAddress((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                         case 7:
-                            person.setBranch(branchService.findByName((String) getCellValue(nextCell)));
-                            log.info((String) getCellValue(nextCell));
-                            break;
-                        case 8:
-                            if (getCellValue(nextCell) == null) {
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            Team team = teamService.findByName((String) getCellValue(nextCell));
+                            Team team = teamService.findByName((String) excelCellHelper.getCellValue(nextCell));
                             if (team == null) {
                                 accept = false;
                             }
                             person.setTeam(team);
-                            log.info((String) getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
-                        case 9:
-                            if (getCellValue(nextCell) == null) {
+                        case 8:
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
                             if (personService.findByEmail(person.getEmail()) != null) {
                                 accept = false;
                             }
-                            person.setEmail((String) getCellValue(nextCell));
-                            log.info((String) getCellValue(nextCell));
+                            person.setEmail((String) excelCellHelper.getCellValue(nextCell));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
-                        case 10:
-                            if (getCellValue(nextCell) == null) {
+                        case 9:
+                            if (excelCellHelper.getCellValue(nextCell) == null) {
                                 accept = false;
                             }
-                            person.setHiddenPassword((String) getCellValue(nextCell));
-                            person.setPassword(passwordEncoder.encode((String) getCellValue(nextCell)));
-                            log.info((String) getCellValue(nextCell));
+                            person.setHiddenPassword((String) excelCellHelper.getCellValue(nextCell));
+                            person.setPassword(passwordEncoder.encode((String) excelCellHelper.getCellValue(nextCell)));
+                            log.info((String) excelCellHelper.getCellValue(nextCell));
                             break;
                     }
 
@@ -323,6 +303,7 @@ public class WritingExcelFileController {
                 if (accept) {
                     person.setEnabled(true);
                     person.setTokenExpired(false);
+                    person.setActive(false);
                     personList.add(person);
                 }
             }
@@ -338,27 +319,6 @@ public class WritingExcelFileController {
             fileInputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private Object getCellValue(Cell cell) {
-        switch (cell.getCellTypeEnum()) {
-            case STRING:
-                return cell.getRichStringCellValue().getString();
-            case NUMERIC:
-                if (DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getDateCellValue();
-                } else {
-                    return cell.getNumericCellValue();
-                }
-            case BOOLEAN:
-                return cell.getBooleanCellValue();
-            case FORMULA:
-                return cell.getCellFormula();
-            case BLANK:
-                return null;
-            default:
-                return null;
         }
     }
 

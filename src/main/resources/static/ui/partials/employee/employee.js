@@ -1,23 +1,23 @@
-app.controller("companyCtrl", ['CompanyService', 'ModalProvider', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
-    function (CompanyService, ModalProvider, $scope, $rootScope, $log, $http, $state, $timeout) {
+app.controller("employeeCtrl", ['EmployeeService', 'ModalProvider', '$scope', '$rootScope', '$log', '$http', '$state', '$timeout',
+    function (EmployeeService, ModalProvider, $scope, $rootScope, $log, $http, $state, $timeout) {
 
         $scope.selected = {};
 
         $scope.fetchTableData = function () {
-            CompanyService.fetchTableDataSummery().then(function (data) {
-                $scope.companies = data;
+            EmployeeService.fetchTableData().then(function (data) {
+                $scope.employees = data;
                 $scope.setSelected(data[0]);
             })
         };
 
         $scope.setSelected = function (object) {
             if (object) {
-                angular.forEach($scope.companies, function (company) {
-                    if (object.id == company.id) {
-                        $scope.selected = company;
-                        return company.isSelected = true;
+                angular.forEach($scope.employees, function (employee) {
+                    if (object.id == employee.id) {
+                        $scope.selected = employee;
+                        return employee.isSelected = true;
                     } else {
-                        return company.isSelected = false;
+                        return employee.isSelected = false;
                     }
                 });
             }
@@ -28,27 +28,23 @@ app.controller("companyCtrl", ['CompanyService', 'ModalProvider', '$scope', '$ro
         };
 
         $scope.openCreateModel = function () {
-            ModalProvider.openCompanyCreateModel();
+            ModalProvider.openEmployeeCreateModel();
         };
 
-        $scope.openUpdateModel = function (company) {
-            if (company) {
-                ModalProvider.openCompanyUpdateModel(company);
+        $scope.openUpdateModel = function (employee) {
+            if (employee) {
+                ModalProvider.openEmployeeUpdateModel(employee);
                 return;
             }
-            ModalProvider.openCompanyUpdateModel($scope.selected);
+            ModalProvider.openEmployeeUpdateModel($scope.selected);
         };
 
-        $scope.openHeavyWorkModel = function () {
-            ModalProvider.openCompanyHeavyWorkModel();
-        };
-
-        $scope.delete = function (company) {
-            if (company) {
-                CompanyService.remove(company);
+        $scope.delete = function (employee) {
+            if (employee) {
+                EmployeeService.remove(employee);
                 return;
             }
-            CompanyService.remove($scope.selected);
+            EmployeeService.remove($scope.selected);
         };
 
         $scope.rowMenu = [
@@ -67,7 +63,7 @@ app.controller("companyCtrl", ['CompanyService', 'ModalProvider', '$scope', '$ro
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.openUpdateModel($itemScope.company);
+                    $scope.openUpdateModel($itemScope.employee);
                 }
             },
             {
@@ -76,7 +72,7 @@ app.controller("companyCtrl", ['CompanyService', 'ModalProvider', '$scope', '$ro
                     return true
                 },
                 click: function ($itemScope, $event, value) {
-                    $scope.delete($itemScope.company);
+                    $scope.delete($itemScope.employee);
                 }
             }
         ];

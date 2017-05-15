@@ -39,6 +39,10 @@ app.controller("branchCtrl", ['BranchService', 'PersonService', 'ModalProvider',
             ModalProvider.openBranchUpdateModel($scope.selected);
         };
 
+        $scope.openHeavyWorkModel = function () {
+            ModalProvider.openBranchHeavyWorkModel();
+        };
+
         $scope.delete = function (branch) {
             if (branch) {
                 BranchService.remove(branch);

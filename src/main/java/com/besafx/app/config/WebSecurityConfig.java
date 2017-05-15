@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/company").access("hasRole('ROLE_COMPANY_CREATE') or hasRole('ROLE_COMPANY_UPDATE') or hasRole('ROLE_COMPANY_DELETE') or hasRole('ROLE_COMPANY_REPORT')")
                 .antMatchers("/branch").access("hasRole('ROLE_BRANCH_CREATE') or hasRole('ROLE_BRANCH_UPDATE') or hasRole('ROLE_BRANCH_DELETE') or hasRole('ROLE_BRANCH_REPORT')")
                 .antMatchers("/person").access("hasRole('ROLE_PERSON_CREATE') or hasRole('ROLE_PERSON_UPDATE') or hasRole('ROLE_PERSON_DELETE') or hasRole('ROLE_PERSON_REPORT')")
+                .antMatchers("/employee").access("hasRole('ROLE_EMPLOYEE_CREATE') or hasRole('ROLE_EMPLOYEE_UPDATE') or hasRole('ROLE_EMPLOYEE_DELETE') or hasRole('ROLE_EMPLOYEE_REPORT')")
                 .antMatchers("/contact").access("hasRole('ROLE_CONTACT_CREATE') or hasRole('ROLE_CONTACT_UPDATE') or hasRole('ROLE_CONTACT_DELETE') or hasRole('ROLE_CONTACT_REPORT')")
                 .antMatchers("/operationType").access("hasRole('ROLE_OPERATION_TYPE_CREATE') or hasRole('ROLE_OPERATION_TYPE_UPDATE') or hasRole('ROLE_OPERATION_TYPE_DELETE') or hasRole('ROLE_OPERATION_TYPE_REPORT')")
                 .antMatchers("/team").access("hasRole('ROLE_TEAM_CREATE') or hasRole('ROLE_TEAM_UPDATE') or hasRole('ROLE_TEAM_DELETE') or hasRole('ROLE_TEAM_REPORT')")

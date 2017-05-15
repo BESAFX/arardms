@@ -1,4 +1,4 @@
-<form dir="rtl" name="from" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-stack=""
+<form dir="rtl" name="form" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-stack=""
       focus-group-head="loop" focus-group-tail="loop">
 
     <div class="modal-header">
@@ -17,49 +17,49 @@
 
         <div class="row">
 
-            <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="form.$invalid && form.$submitted">
+            <div class="text-right col-xs-12 col-sm-6 col-md-12 col-lg-12"
+                 ng-show="form.$invalid && form.$submitted">
                 <div class="alert alert-danger" role="alert">
                     <strong>فضلاً اكمل الحقول المطلوبة</strong>
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">البيانات الأساسية</div>
                     <div class="panel-body">
-                        <div class="row">
 
-                            <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <label for="name" class="control-label">الاسم </label>
-                                <input id="name"
-                                       type="text"
-                                       required="required"
-                                       disable-validation-message=""
-                                       class="form-control text-right"
-                                       focus-autofocus="1"
-                                       ng-model="operationType.name">
-                            </div>
-
-                            <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <label for="address" class="control-label">الوصف </label>
-                                <input id="address"
-                                       type="text"
-                                       class="form-control text-right"
-                                       ng-model="operationType.description">
-                            </div>
-
-                            <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <label for="note" class="control-label">ملاحظات</label>
-                                <textarea id="note"
-                                          type="text"
-                                          msd-elastic="\n"
-                                          class="form-control text-right"
-                                          placeholder="ملاحظات"
-                                          ng-model="operationType.note">
-                                 </textarea>
-                            </div>
-
+                        <div class="form-group text-right col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                            <label for="branch" class="control-label">[رقم الفرع] اسم الفرع</label>
+                            <select id="branch"
+                                    data-placeholder="ابحث عن الفرع من خلال اسمه"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرع'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="employee.branch"
+                                    focus-autofocus="1"
+                                    required="required"
+                                    disable-validation-message=""
+                                    ng-options="(' [ ' + branch.code + ' ] ' + branch.name) group by branch.branch.name for branch in branches | orderBy:'code' track by branch.id">
+                            </select>
                         </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                            <label for="person" class="control-label">حساب المستخدم</label>
+                            <select id="person"
+                                    data-placeholder="ابحث عن حساب المستخدم من خلال الاسم"
+                                    no-results-text="'لا توجد بيانات'"
+                                    placeholder-text-single="'اختر حساب المستخدم'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="employee.person"
+                                    required="required"
+                                    disable-validation-message=""
+                                    ng-options="person.nickname + ' / ' + person.name for person in persons | orderBy:'name' track by person.id">
+                            </select>
+                        </div>
+
                     </div>
                 </div>
             </div>

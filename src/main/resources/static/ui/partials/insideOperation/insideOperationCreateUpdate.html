@@ -1,0 +1,265 @@
+<form dir="rtl" name="form" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-stack=""
+      focus-group-head="loop" focus-group-tail="loop">
+
+    <div class="modal-header">
+        <a class="pull-left" href="" ng-click="cancel()">
+            <span class="fa fa-close fa-2x"></span>
+        </a>
+        <h3 class="panel-title mdl-list__item pull-right">
+            <span class="mdl-list__item-primary-content">
+                <i class="material-icons mdl-list__item-icon">{{action==='create' ? 'add' : 'edit'}}</i>
+                <strong>{{title}}</strong>
+            </span>
+        </h3>
+    </div>
+
+    <div class="modal-body" id="modal-body">
+
+        <div class="row">
+
+            <div class="text-right col-xs-12 col-sm-6 col-md-12 col-lg-12" ng-show="form.$invalid && form.$submitted">
+                <div class="alert alert-danger" role="alert">
+                    <strong>فضلاً اكمل الحقول المطلوبة</strong>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">البيانات الأساسية</div>
+                    <div class="panel-body">
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="direction==='Outgoing'">
+                            <div class="alert alert-info" role="alert">
+                                <strong>انشاء معاملة صادرة داخلية تكون بين الفروع، <u>والمرسل</u> في هذة الحالة هو الفرع التابع له أو اي من الفروع التى تشغل بها مناصب وظيفية (مدير - موظف - دعم فني)، <u>والمرسل إليه</u> سيكون باقي الفروع المسجلة فى النظام</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="direction==='Incoming'">
+                            <div class="alert alert-warning" role="alert">
+                                <strong>انشاء معاملة واردة داخلية تكون بين الفروع، والمرسل فى هذة الحالة سيتم اختياره من كل الفروع المسجلة لدى النظام، اما المرسل إليه سيكون الفرع التابع له او أي من الفروع التى تشغل بها مناصب وظيفية (مدير - موظف - دعم فني)</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="operationType" class="control-label">
+                                <span>نوع المعاملة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="انواع المعاملات حسب ما تم ادخاله"></span>
+                            </label>
+                            <select id="operationType"
+                                    data-placeholder="ابحث عن اسم النوع"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر النوع'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="insideOperation.operationType"
+                                    required="required"
+                                    disable-validation-message=""
+                                    focus-autofocus="1"
+                                    ng-options="operationType.name for operationType in operationTypes track by operationType.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="startDate" class="control-label">تاريخ المعاملة</label>
+                            <div dir="ltr" class="input-group">
+                                <input dir="rtl"
+                                       id="startDate"
+                                       type="text"
+                                       class="form-control text-right is-calendarPicker"
+                                       ng-model="insideOperation.startDate"
+                                       required="required"
+                                       calendarType="ummalqura"
+                                       language="en"
+                                       dateFormat="yyyy/mm/dd"
+                                       showOnFocus="false"
+                                       readonly="readonly"
+                                       kdatepicker
+                                       disable-validation-message="">
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="branchFrom" class="control-label">
+                                <span>المرسل ([رقم الفرع] اسم الفرع)</span>
+                            </label>
+                            <select id="branchFrom"
+                                    data-placeholder="ابحث عن اسم الفرع"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرع'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="insideOperation.branchFrom"
+                                    required="required"
+                                    disable-validation-message=""
+                                    ng-options="branch.name group by branch.region.name for branch in branchesFrom track by branch.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="branchTo" class="control-label">
+                                <span>المرسل إليه ([رقم الفرع] اسم الفرع)</span>
+                            </label>
+                            <select id="branchTo"
+                                    data-placeholder="ابحث عن اسم الفرع"
+                                    no-results-text="'لا توجد بيانات توافق بحثك'"
+                                    placeholder-text-single="'اختر الفرع'"
+                                    class="form-control text-right"
+                                    chosen=""
+                                    ng-model="insideOperation.branchTo"
+                                    required="required"
+                                    disable-validation-message=""
+                                    ng-options="branch.name group by branch.region.name for branch in branchesTo track by branch.id">
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label for="title" class="control-label">العنوان</label>
+                            <input id="title"
+                                   type="text"
+                                   required="required"
+                                   disable-validation-message=""
+                                   class="form-control text-right"
+                                   placeholder="عنوان المعاملة"
+                                   ng-model="insideOperation.title">
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label for="content" class="control-label">الموضوع</label>
+                            <textarea id="content"
+                                      type="text"
+                                      msd-elastic="\n"
+                                      required="required"
+                                      class="form-control text-right"
+                                      disable-validation-message=""
+                                      placeholder="اذكر باختصار تفاصيل عن ماهية المعاملة"
+                                      ng-model="insideOperation.content">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="deliveryManFrom" class="control-label">اسم المُسلّم</label>
+                            <input id="deliveryManFrom"
+                                   type="text"
+                                   class="form-control text-right"
+                                   placeholder="ادخل اسم الشخص المسئول عن تسليم الوثائق"
+                                   ng-model="insideOperation.deliveryManFrom">
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="deliveryManTo" class="control-label">اسم المُستلِم</label>
+                            <input id="deliveryManTo"
+                                   type="text"
+                                   class="form-control text-right"
+                                   placeholder="ادخل اسم الشخص الذي استلم الوثائق"
+                                   ng-model="insideOperation.deliveryManTo">
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label for="deliveryAddress" class="control-label">عنوان التسليم / الاستلام</label>
+                            <input id="deliveryAddress"
+                                   type="text"
+                                   class="form-control text-right"
+                                   placeholder="ادخل العنوان الذي تم به مبادلة الوثائق"
+                                   ng-model="insideOperation.deliveryAddress">
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <label for="deliveryWay" class="control-label">
+                                <span>طريقة الاستلام / التسليم</span>
+                            </label>
+                            <select id="deliveryWay"
+                                    placeholder="اختر الطريقة التى بها استلام / تسليم الوثائق"
+                                    class="form-control text-right"
+                                    ng-model="insideOperation.deliveryWay">
+                                <option value="Hand">يداً بيد</option>
+                                <option value="Email">البريد الإلكتروني</option>
+                                <option value="Fax">الفاكس</option>
+                                <option value="Post">البريد العادي</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <label for="importance" class="control-label">
+                                <span>درجة الأهمية</span>
+                            </label>
+                            <select id="importance"
+                                    placeholder="اختر درجة الأهمية للمساعدة فى التصنيف"
+                                    class="form-control text-right"
+                                    ng-model="insideOperation.importance">
+                                <option value="Regular">عادية</option>
+                                <option value="Important">هامة</option>
+                                <option value="Critical">حرجة</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <label for="locked" class="control-label">
+                                <span>الحالة</span>
+                                <span class="fa fa-info-circle" tooltip-append-to-body="true" uib-tooltip="فى حال اختيارك لسرية الوثائق فلن تكون متاحة إلا لمدخل المعاملة ومسئول الفرع والمدير التنفيذي والافراد المحولة لهم فقط"></span>
+                            </label>
+                            <select id="locked"
+                                    placeholder="اختر حالة الوثائق"
+                                    class="form-control text-right"
+                                    ng-model="insideOperation.locked"
+                                    required="required"
+                                    disable-validation-message="">
+                                <option value="true">سرية</option>
+                                <option value="false">غير سرية</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label for="note" class="control-label">ملاحظات</label>
+                            <textarea id="note"
+                                      type="text"
+                                      msd-elastic="\n"
+                                      class="form-control text-right"
+                                      placeholder="ملاحظات"
+                                      ng-model="insideOperation.note">
+                            </textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+        <div class="row">
+            <button ng-if="action=='create'"
+                    uib-tooltip="اضافة"
+                    tooltip-append-to-body="true"
+                    type="submit"
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
+                <i class="material-icons">add</i>
+            </button>
+            <button ng-if="action=='update'"
+                    uib-tooltip="تعديل"
+                    tooltip-append-to-body="true"
+                    type="submit"
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
+                <i class="material-icons">edit</i>
+            </button>
+            <button uib-tooltip="مسح الحقول"
+                    tooltip-append-to-body="true"
+                    type="reset"
+                    ng-click="form.$setPristine()"
+                    class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
+                <i class="material-icons">delete</i>
+            </button>
+            <button uib-tooltip="خروج"
+                    tooltip-append-to-body="true"
+                    type="button"
+                    ng-click="cancel()"
+                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
+                <i class="material-icons">power_settings_new</i>
+            </button>
+        </div>
+
+    </div>
+
+</form>

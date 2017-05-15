@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.Parameter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -72,9 +74,12 @@ public class Branch implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "manager")
-    @JsonIgnoreProperties(value = {"branch", "companies", "branches"}, allowSetters = true)
+    @JsonIgnoreProperties(value = {"companies", "branches"}, allowSetters = true)
     @JsonView(Views.Summery.class)
     private Person manager;
+
+    @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY)
+    private List<Employee> employees = new ArrayList<>();
 
     @JsonCreator
     public static Branch Create(String jsonString) throws IOException {

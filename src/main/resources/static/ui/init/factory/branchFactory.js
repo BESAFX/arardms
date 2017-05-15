@@ -6,6 +6,11 @@ app.factory("BranchService",
                     return response.data;
                 })
             },
+            findAllSummery: function () {
+                return $http.get("/api/branch/findAllSummery").then(function (response) {
+                    return response.data;
+                })
+            },
             findOne: function (id) {
                 return $http.get("/api/branch/findOne/" + id).then(function (response) {
                     return response.data;

@@ -163,11 +163,7 @@
                                 ng-right-click="setSelected(person)"
                                 ng-class="{'mdl-color--brown-100':person.isSelected}">
                                 <td st-select-row-custom="person">{{$index+1}}</td>
-                                <td st-select-row-custom="person">
-                                    {{person.name}}
-                                    <span class="label label-default" ng-if="person.branch != null">فرع / {{person.branch.name}}</span>
-                                    <span class="label label-danger" ng-if="person.branch == null">دعم فني</span>
-                                </td>
+                                <td st-select-row-custom="person">{{person.name}}</td>
                                 <td st-select-row-custom="person">{{person.email}}</td>
                                 <td st-select-row-custom="person">{{person.mobile}}</td>
                                 <td st-select-row-custom="person">{{person.qualification}}</td>

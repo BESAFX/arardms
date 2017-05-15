@@ -1,5 +1,5 @@
-<form dir="rtl" name="from" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-group-head="stop"
-      focus-group-tail="loop">
+<form dir="rtl" name="from" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-stack=""
+      focus-group-head="loop" focus-group-tail="loop">
 
     <div class="modal-header">
         <a class="pull-left" href="" ng-click="cancel()">
@@ -101,35 +101,6 @@
                                        type="text"
                                        class="form-control text-right"
                                        ng-model="person.address">
-                            </div>
-
-                            <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                                 ng-init="person.branch == null ? buffer.accountIsPerson=false : buffer.accountIsPerson=true">
-                                <label for="team" class="control-label">نوع الحساب</label>
-                                <div dir="ltr">
-                                    <toggle-switch
-                                            style="width: 100%"
-                                            ng-model="buffer.accountIsPerson"
-                                            class="switch-success"
-                                            on-label="مستخدم"
-                                            off-label="دعم فني">
-                                    </toggle-switch>
-                                </div>
-                            </div>
-
-                            <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12"
-                                 ng-if="buffer.accountIsPerson">
-                                <label for="branch" class="control-label">[كود المعاملات] اسم الفرع</label>
-                                <select id="branch" data-placeholder="ابحث عن الفرع"
-                                        no-results-text="'لا توجد بيانات توافق بحثك'"
-                                        placeholder-text-single="'اختر الفرع'"
-                                        class="form-control text-right"
-                                        chosen=""
-                                        ng-model="person.branch"
-                                        ng-required="buffer.accountIsPerson"
-                                        disable-validation-message=""
-                                        ng-options="(' [ ' + branch.code + ' ] ' + branch.name) group by branch.company.name for branch in branches | orderBy:'code' track by branch.id">
-                                </select>
                             </div>
 
                             <div class="form-group text-right col-xs-12 col-sm-12 col-md-12 col-lg-12">

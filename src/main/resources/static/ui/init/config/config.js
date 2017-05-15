@@ -116,6 +116,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
 
         /**************************************************************
          *                                                            *
+         * Employee State                                             *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("employee", {
+            url: "/employee",
+            templateUrl: "/ui/partials/employee/employee.html",
+            controller: "employeeCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
          * Person State                                               *
          *                                                            *
          *************************************************************/
@@ -145,6 +156,28 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$cssPr
             url: "/operationType",
             templateUrl: "/ui/partials/operationType/operationType.html",
             controller: "operationTypeCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
+         * InsideOperation State                                      *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("insideOperation", {
+            url: "/insideOperation",
+            templateUrl: "/ui/partials/insideOperation/insideOperation.html",
+            controller: "insideOperationCtrl"
+        });
+
+        /**************************************************************
+         *                                                            *
+         * OutsideOperation State                                     *
+         *                                                            *
+         *************************************************************/
+        $stateProvider.state("outsideOperation", {
+            url: "/outsideOperation",
+            templateUrl: "/ui/partials/outsideOperation/outsideOperation.html",
+            controller: "outsideOperationCtrl"
         });
 
         /**************************************************************

@@ -52,6 +52,23 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
         });
     };
 
+    this.openCompanyHeavyWorkModel = function () {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/company/companyHeavyWork.html',
+            controller: 'companyHeavyWorkCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+                title: function () {
+                    return 'انشاء دفعة من الشركات';
+                }
+            }
+        });
+    };
+
     /**************************************************************
      *                                                            *
      * Branch Model                                               *
@@ -100,6 +117,74 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
                 },
                 branch: function () {
                     return branch;
+                }
+            }
+        });
+    };
+
+    this.openBranchHeavyWorkModel = function () {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/branch/branchHeavyWork.html',
+            controller: 'branchHeavyWorkCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+                title: function () {
+                    return 'انشاء دفعة من الفروع';
+                }
+            }
+        });
+    };
+
+    /**************************************************************
+     *                                                            *
+     * Employee Model                                             *
+     *                                                            *
+     *************************************************************/
+    this.openEmployeeCreateModel = function () {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/employee/employeeCreateUpdate.html',
+            controller: 'employeeCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+                title: function () {
+                    return 'اضافة موظف جديد';
+                },
+                action: function () {
+                    return 'create';
+                },
+                employee: function () {
+                    return undefined;
+                }
+            }
+        });
+    };
+
+    this.openEmployeeUpdateModel = function (employee) {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/employee/employeeCreateUpdate.html',
+            controller: 'employeeCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            resolve: {
+                title: function () {
+                    return 'تعديل بيانات موظف';
+                },
+                action: function () {
+                    return 'update';
+                },
+                employee: function () {
+                    return employee;
                 }
             }
         });
@@ -158,6 +243,70 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
 
     /**************************************************************
      *                                                            *
+     * InsideOperation Model                                      *
+     *                                                            *
+     *************************************************************/
+    this.openInsideOperationCreateModel = function (direction) {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/insideOperation/insideOperationCreateUpdate.html',
+            controller: 'insideOperationCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            size: 'lg',
+            resolve: {
+                title: function () {
+                   if(direction === 'Outgoing'){
+                       return 'انشاء معاملة صادرة جديدة';
+                   }else{
+                       return 'انشاء معاملة واردة جديدة';
+                   }
+                },
+                action: function () {
+                    return 'create';
+                },
+                direction: function () {
+                    return direction;
+                },
+                insideOperation: function () {
+                    return undefined;
+                }
+            }
+        });
+    };
+
+    this.openInsideOperationUpdateModel = function (insideOperation) {
+        $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: '/ui/partials/insideOperation/insideOperationCreateUpdate.html',
+            controller: 'insideOperationCreateUpdateCtrl',
+            backdrop: 'static',
+            keyboard: false,
+            size : 'lg',
+            resolve: {
+                title: function () {
+                    if(insideOperation.direction === 'Outgoing'){
+                        return 'تعديل بيانات المعاملة الصادرة';
+                    }else{
+                        return 'تعديل بيانات المعاملة الواردة';
+                    }
+                },
+                action: function () {
+                    return 'update';
+                },
+                insideOperation: function () {
+                    return insideOperation;
+                }
+            }
+        });
+    };
+
+    /**************************************************************
+     *                                                            *
      * Person Model                                               *
      *                                                            *
      *************************************************************/
@@ -209,7 +358,7 @@ app.service('ModalProvider', ['$uibModal', '$log', function ($uibModal, $log) {
         });
     };
 
-    this.openPersonHeavyWorkModel = function (person) {
+    this.openPersonHeavyWorkModel = function () {
         $uibModal.open({
             animation: true,
             ariaLabelledBy: 'modal-title',

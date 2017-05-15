@@ -85,6 +85,11 @@ public class Initializer implements CommandLineRunner {
         screenService.save(screen);
 
         screen = new Screen();
+        screen.setCode("EMPLOYEE");
+        screen.setName("الموظفون");
+        screenService.save(screen);
+
+        screen = new Screen();
         screen.setCode("PERSON");
         screen.setName("المستخدمون");
         screenService.save(screen);

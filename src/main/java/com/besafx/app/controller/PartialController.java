@@ -50,10 +50,13 @@ public class PartialController {
             "/menu",
             "/company",
             "/branch",
+            "/employee",
             "/team",
             "/person",
             "/contact",
             "/operationType",
+            "/insideOperation",
+            "/outsideOperation",
             "/help",
             "/profile"
     })

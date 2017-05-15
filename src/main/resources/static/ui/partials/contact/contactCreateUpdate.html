@@ -1,4 +1,5 @@
-<form dir="rtl" name="from" ng-submit="submit()" novalidate="novalidate" focus-group="">
+<form dir="rtl" name="from" ng-submit="submit()" novalidate="novalidate" focus-group="" focus-stack=""
+      focus-group-head="loop" focus-group-tail="loop">
 
     <div class="modal-header">
         <a class="pull-left" href="" ng-click="cancel()">
@@ -35,7 +36,7 @@
                                        required="required"
                                        disable-validation-message=""
                                        class="form-control text-right"
-                                       focus-index="1"
+                                       focus-autofocus="1"
                                        ng-model="contact.code">
                             </div>
 
@@ -46,7 +47,6 @@
                                        required="required"
                                        disable-validation-message=""
                                        class="form-control text-right"
-                                       focus-index="2"
                                        ng-model="contact.name">
                             </div>
 
@@ -55,7 +55,6 @@
                                 <input id="address"
                                        type="text"
                                        class="form-control text-right"
-                                       focus-index="3"
                                        ng-model="contact.address">
                             </div>
 
@@ -63,7 +62,6 @@
                                 <label for="phone" class="control-label">الهاتف</label>
                                 <input id="phone"
                                        type="text"
-                                       focus-index="4"
                                        required="required"
                                        disable-validation-message=""
                                        class="form-control text-right"
@@ -75,7 +73,6 @@
                                 <label for="mobile" class="control-label">الجوال</label>
                                 <input id="mobile"
                                        type="text"
-                                       focus-index="5"
                                        required="required"
                                        disable-validation-message=""
                                        class="form-control text-right"
@@ -87,7 +84,6 @@
                                 <label for="fax" class="control-label">الفاكس</label>
                                 <input id="fax"
                                        type="text"
-                                       focus-index="6"
                                        required="required"
                                        disable-validation-message=""
                                        class="form-control text-right"
@@ -100,7 +96,6 @@
                                 <input id="email"
                                        dir="ltr"
                                        type="text"
-                                       focus-index="7"
                                        required="required"
                                        disable-validation-message=""
                                        class="form-control text-left"
@@ -138,7 +133,6 @@
             <button ng-if="action=='create'"
                     uib-tooltip="اضافة"
                     tooltip-append-to-body="true"
-                    focus-index="8"
                     type="submit"
                     class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
                 <i class="material-icons">add</i>
@@ -146,7 +140,6 @@
             <button ng-if="action=='update'"
                     uib-tooltip="تعديل"
                     tooltip-append-to-body="true"
-                    focus-index="9"
                     type="submit"
                     class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
                 <i class="material-icons">edit</i>
@@ -154,14 +147,12 @@
             <button uib-tooltip="مسح الحقول"
                     tooltip-append-to-body="true"
                     type="reset"
-                    focus-index="10"
                     ng-click="form.$setPristine()"
                     class="mdl-button mdl-js-button mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">
                 <i class="material-icons">delete</i>
             </button>
             <button uib-tooltip="خروج"
                     tooltip-append-to-body="true"
-                    focus-index="11"
                     type="button"
                     ng-click="cancel()"
                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect col-xs-4 col-sm-4 col-md-4">

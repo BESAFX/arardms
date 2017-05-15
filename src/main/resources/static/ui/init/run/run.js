@@ -29,6 +29,11 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                     $rootScope.MDLIcon = 'layers';
                     break;
                 }
+                case 'employee': {
+                    $rootScope.pageTitle = 'الموظفون';
+                    $rootScope.MDLIcon = 'people_online';
+                    break;
+                }
                 case 'team': {
                     $rootScope.pageTitle = 'مجموعة الصلاحيات';
                     $rootScope.MDLIcon = 'settings_input_composite';
@@ -47,6 +52,16 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
                 case 'operationType': {
                     $rootScope.pageTitle = 'أنواع المعاملات';
                     $rootScope.MDLIcon = 'forum';
+                    break;
+                }
+                case 'insideOperation': {
+                    $rootScope.pageTitle = 'المعاملات الداخلية';
+                    $rootScope.MDLIcon = 'compare_arrows';
+                    break;
+                }
+                case 'outsideOperation': {
+                    $rootScope.pageTitle = 'المعاملات الخارجية';
+                    $rootScope.MDLIcon = 'swap_horiz';
                     break;
                 }
                 case 'profile': {
@@ -230,6 +245,9 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
         $rootScope.goToBranch = function () {
             $state.go('branch');
         };
+        $rootScope.goToEmployee = function () {
+            $state.go('employee');
+        };
         $rootScope.goToTeam = function () {
             $state.go('team');
         };
@@ -241,6 +259,12 @@ app.run(['$http', '$location', '$state', '$window', 'PersonService', '$rootScope
         };
         $rootScope.goToOperationType = function () {
             $state.go('operationType');
+        };
+        $rootScope.goToInsideOperation = function () {
+            $state.go('insideOperation');
+        };
+        $rootScope.goToOutsideOperation = function () {
+            $state.go('outsideOperation');
         };
         $rootScope.goToHome = function () {
             $state.go('home');

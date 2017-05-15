@@ -61,10 +61,16 @@ public class Person implements Serializable {
 
     private String password;
 
+    @Column(columnDefinition = "boolean default false", nullable = false)
+    private Boolean technicalSupport;
+
+    @Column(columnDefinition = "boolean default true", nullable = false)
     private Boolean enabled;
 
+    @Column(columnDefinition = "boolean default false", nullable = false)
     private Boolean tokenExpired;
 
+    @Column(columnDefinition = "boolean default false", nullable = false)
     private Boolean active;
 
     @JsonIgnore
@@ -79,11 +85,6 @@ public class Person implements Serializable {
     private String hostName;
 
     @ManyToOne
-    @JoinColumn(name = "branch")
-    @JsonIgnoreProperties(value = {"manager"})
-    private Branch branch;
-
-    @ManyToOne
     @JoinColumn(name = "Team")
     @JsonIgnoreProperties(value = {"persons"}, allowSetters = true)
     private Team team;
@@ -93,6 +94,9 @@ public class Person implements Serializable {
 
     @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY)
     private List<Branch> branches = new ArrayList<>();
+
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
+    private List<Employee> employees = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
